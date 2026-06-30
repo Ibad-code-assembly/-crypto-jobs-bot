@@ -1,0 +1,11 @@
+httpx
+sqlalchemy
+python-dotenv
+pytz
+playwright
+pydantic
+lxml
+requests-robots
+rapidfuzz
+apscheduler
+python-telegram-bot[all]>=20.0
