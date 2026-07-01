@@ -14,6 +14,7 @@ from bot.handlers import (
     coin_handler,
     new_handler,
     expiring_handler,
+    jobs_handler,
     subscribe_handler,
     unsubscribe_handler,
     mysubs_handler,
@@ -42,7 +43,7 @@ class IntegratedBot:
         self.app = None
         self.notification_manager = None
 
-    async def start(self):
+    def start(self):
         """Start bot and scheduler."""
         logger.info("="*70)
         logger.info("CRYPTO JOBS BOT - INTEGRATED (Bot + Scheduler + Notifications)")
@@ -65,6 +66,7 @@ class IntegratedBot:
         self.app.add_handler(CommandHandler("coin", coin_handler))
         self.app.add_handler(CommandHandler("new", new_handler))
         self.app.add_handler(CommandHandler("expiring", expiring_handler))
+        self.app.add_handler(CommandHandler("jobs", jobs_handler))
         self.app.add_handler(CommandHandler("subscribe", subscribe_handler))
         self.app.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
         self.app.add_handler(CommandHandler("mysubs", mysubs_handler))
@@ -88,21 +90,25 @@ class IntegratedBot:
         self.scheduler = JobScheduler()
         logger.info("[OK] Scheduler created")
 
-        # Start scheduler in background (runs every 60 minutes)
-        logger.info("\n[SCHEDULER] Starting scheduler in background (every 60 minutes)...")
-        # Use create_task to run scheduler setup in background without blocking
-        asyncio.create_task(self._start_scheduler_with_notifications())
+        # Start scheduler in background thread (runs every 60 minutes)
+        logger.info("\n[SCHEDULER] Starting scheduler in background thread (every 60 minutes)...")
+        import threading
+        scheduler_thread = threading.Thread(
+            target=lambda: asyncio.run(self._start_scheduler_with_notifications()),
+            daemon=True
+        )
+        scheduler_thread.start()
+        logger.info("[OK] Scheduler thread started")
 
         # Start bot - this will run immediately, not blocked by scheduler
         logger.info("\n[POLLING] Starting bot polling...")
         logger.info("Bot is running. Press Ctrl+C to stop.\n")
 
         try:
-            # allowed_updates=None means receive all updates
-            await self.app.run_polling(allowed_updates=None)
+            # Use synchronous polling (not await)
+            self.app.run_polling(allowed_updates=None)
         except KeyboardInterrupt:
             logger.info("\n[SHUTDOWN] Keyboard interrupt received")
-            await self.stop()
 
     async def _start_scheduler_with_notifications(self):
         """Start scheduler with integrated notifications."""
@@ -181,11 +187,11 @@ class IntegratedBot:
         logger.info("[OK] All services stopped")
 
 
-async def main():
+def main():
     """Main entry point."""
     try:
         bot = IntegratedBot()
-        await bot.start()
+        bot.start()  # Synchronous call
     except KeyboardInterrupt:
         logger.info("Interrupted by user")
     except Exception as e:
@@ -194,4 +200,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
