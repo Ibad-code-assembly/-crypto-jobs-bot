@@ -12,6 +12,12 @@ from scraper.crypto_jobs import CryptoJobsScraper
 from scraper.cryptojobs import CryptoJobsScraper as CryptoJobsComScraper
 from scraper.remote3 import Remote3Scraper
 from scraper.coinmarketcap_jobs import CoinMarketCapJobsScraper
+from scraper.gitcoin import GitcoinScraper
+from scraper.wellfound import WellfoundScraper
+from scraper.blockchainjobs import BlockchainjobsScraper
+from scraper.cryptocurrencyjobs_io import CryptocurrencyjobsioScraper
+from scraper.we_work_remotely import WeWorkRemotelyScraper
+from scraper.startup_jobs import StartupJobsScraper
 from db.database import SessionLocal
 from db.queries import insert_or_update_jobs, mark_expired_jobs, map_jobs_to_coins
 from scraper.diff_tracker import save_diff
@@ -26,6 +32,7 @@ class JobScheduler:
         """Initialize scheduler with all scraper instances."""
         self.scheduler = AsyncIOScheduler()
         self.scrapers = [
+            # Original 7 boards
             Web3CareerScraper(),
             CryptoJobsListScraper(),
             CryptocurrencyJobsScraper(),
@@ -33,6 +40,13 @@ class JobScheduler:
             CryptoJobsComScraper(),
             Remote3Scraper(),
             CoinMarketCapJobsScraper(),
+            # New 6 boards
+            GitcoinScraper(),
+            WellfoundScraper(),
+            BlockchainjobsScraper(),
+            CryptocurrencyjobsioScraper(),
+            WeWorkRemotelyScraper(),
+            StartupJobsScraper(),
         ]
         logger.info(f"Initialized JobScheduler with {len(self.scrapers)} scrapers")
 
