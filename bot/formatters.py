@@ -158,6 +158,73 @@ def format_new_jobs(jobs: List[Job], max_per_coin: int = 5) -> List[str]:
 
 
 # ---------------------------------------------------------------------------
+# /upcoming  — jobs listed in the last 7 days, grouped by day
+# ---------------------------------------------------------------------------
+
+def format_upcoming_jobs(jobs: List[Job], max_per_day: int = 10) -> List[str]:
+    """
+    /upcoming  — recent listings grouped by day (Today, Yesterday, X days ago).
+    Capped at max_per_day per group to keep messages short.
+    Returns List[str] split to stay under Telegram limit.
+    """
+    if not jobs:
+        return [
+            "<b>Recent Job Listings (Last 7 Days)</b>\n\n"
+            "No new jobs found in the last 7 days.\n\n"
+            "<i>Scrapers run every 6 hours. Check back soon.</i>"
+        ]
+
+    today = datetime.utcnow().date()
+
+    # Group by day offset (0=today, 1=yesterday, …)
+    groups: Dict[int, List[Job]] = {}
+    for job in jobs:
+        offset = (today - job.listed_date.date()).days if job.listed_date else 0
+        if 0 <= offset <= 6:
+            groups.setdefault(offset, []).append(job)
+
+    total = sum(len(v) for v in groups.values())
+    pages: List[str] = []
+    buf: List[str] = [f"<b>Recent Job Listings (Last 7 Days)</b>  -  {total} jobs\n"]
+
+    for offset in sorted(groups.keys()):
+        day_jobs = groups[offset]
+        shown = day_jobs[:max_per_day]
+        extra = len(day_jobs) - max_per_day
+
+        if offset == 0:
+            day_label = "Today"
+        elif offset == 1:
+            day_label = "Yesterday"
+        else:
+            day_label = f"{offset} days ago"
+
+        header = f"\n<b>{day_label}</b>  -  {len(day_jobs)} job{'s' if len(day_jobs) != 1 else ''}"
+        if len("\n".join(buf)) + len(header) + 1 > _LIMIT:
+            _flush(pages, buf)
+        buf.append(header)
+
+        for i, job in enumerate(shown, 1):
+            title_text = job.title if len(job.title) <= 60 else job.title[:57] + "..."
+            coin_tag = f" [{job.coin_ticker}]" if job.coin_ticker else ""
+            apply_tag = f' | <a href="{job.url}">Apply</a>' if job.url else ""
+            entry = (
+                f"{i}. <b>{title_text}</b>{coin_tag}\n"
+                f"   {job.company}"
+                + apply_tag
+            )
+            if len("\n".join(buf)) + len(entry) + 2 > _LIMIT:
+                _flush(pages, buf)
+            buf.append(entry)
+
+        if extra > 0:
+            buf.append(f"   <i>+{extra} more — use /new to see all</i>")
+
+    _flush(pages, buf)
+    return pages
+
+
+# ---------------------------------------------------------------------------
 # /expiring  — jobs with deadline or old listings
 # ---------------------------------------------------------------------------
 
@@ -281,6 +348,7 @@ def format_start_message() -> str:
         "/jobs  -  List all coins with job counts\n"
         "/coin BTC  -  All Bitcoin jobs (title, company, date, apply link)\n"
         "/new  -  Jobs listed in the last 30 days, grouped by coin\n"
+        "/upcoming  -  Jobs posted in the last 7 days, grouped by day\n"
         "/expiring  -  Jobs expiring in the next 30 days\n"
         "/subscribe ETH  -  Get notified when new ETH jobs appear\n"
         "/unsubscribe ETH  -  Stop ETH notifications\n"

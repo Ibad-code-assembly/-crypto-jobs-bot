@@ -13,6 +13,7 @@ from bot.handlers import (
     start_handler,
     coin_handler,
     new_handler,
+    upcoming_handler,
     expiring_handler,
     jobs_handler,
     subscribe_handler,
@@ -26,7 +27,11 @@ from bot.notifications import NotificationManager
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("bot_logs.txt", encoding="utf-8"),
+        logging.StreamHandler(),
+    ],
 )
 logger = logging.getLogger(__name__)
 
@@ -66,6 +71,7 @@ class IntegratedBot:
         self.app.add_handler(CommandHandler("start", start_handler))
         self.app.add_handler(CommandHandler("coin", coin_handler))
         self.app.add_handler(CommandHandler("new", new_handler))
+        self.app.add_handler(CommandHandler("upcoming", upcoming_handler))
         self.app.add_handler(CommandHandler("expiring", expiring_handler))
         self.app.add_handler(CommandHandler("jobs", jobs_handler))
         self.app.add_handler(CommandHandler("subscribe", subscribe_handler))

@@ -58,3 +58,1743 @@ INFO:scraper.scheduler:
 Scraping greenhouse.io...
 INFO:scraper.base_scraper:Starting scraper: greenhouse.io
 INFO:scraper.greenhouse:Starting scraper: greenhouse.io
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/coinbase/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] coinbase: 129 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/ripple/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] ripple: 165 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/gemini/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] gemini: 23 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/bitgo/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] bitgo: 42 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/fireblocks/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] fireblocks: 60 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/consensys/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] consensys: 8 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/paradigm/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] paradigm: 2 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/kraken/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/anchorage/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/alchemy/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/chainalysis/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/opensea/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/moonpay/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/blockdaemon/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/dfinity/jobs "HTTP/1.1 200 OK"
+INFO:scraper.greenhouse:[greenhouse.io] dfinity: 0 jobs
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/starkware/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/aztec-labs/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/celestia/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/celo/jobs "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/hedera/jobs "HTTP/1.1 404 Not Found"
+INFO:scraper.greenhouse:[OK] greenhouse.io: Scraped 429 jobs total
+INFO:scraper.base_scraper:[OK] greenhouse.io: Scraped 429 jobs
+INFO:scraper.scheduler:[OK] greenhouse.io: Found 429 jobs
+INFO:scraper.scheduler:
+Scraping weworkremotely.com...
+INFO:scraper.base_scraper:Starting scraper: weworkremotely.com
+INFO:scraper.we_work_remotely:Starting scraper: weworkremotely.com
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:scraper.base_scraper:[OK] Fetched (browser) https://weworkremotely.com/categories/remote-blockchain-crypto-jobs
+INFO:scraper.we_work_remotely:[weworkremotely.com] Found 248 listings
+INFO:scraper.we_work_remotely:[OK] weworkremotely.com: Scraped 246 jobs
+INFO:scraper.base_scraper:[OK] weworkremotely.com: Scraped 246 jobs
+INFO:scraper.scheduler:[OK] weworkremotely.com: Found 246 jobs
+INFO:scraper.scheduler:
+Scraping github.com...
+INFO:scraper.base_scraper:Starting scraper: github.com
+INFO:scraper.github_jobs:Starting scraper: github.com
+INFO:httpx:HTTP Request: GET https://api.github.com/rate_limit "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/issues?q=%22we%20are%20hiring%22%20blockchain%20web3%20is:issue%20is:open&sort=created&order=desc&per_page=20 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/issues?q=%22hiring%22%20%22blockchain%22%20%22engineer%22%20is:issue%20is:open&sort=created&order=desc&per_page=20 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/issues?q=%22job%20opening%22%20crypto%20web3%20is:issue%20is:open&sort=created&order=desc&per_page=20 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/issues?q=%22open%20position%22%20defi%20ethereum%20is:issue%20is:open&sort=created&order=desc&per_page=20 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/issues?q=label:hiring%20blockchain%20is:issue%20is:open&sort=created&order=desc&per_page=20 "HTTP/1.1 200 OK"
+INFO:scraper.github_jobs:[GITHUB] Issues: found 50 job postings
+INFO:httpx:HTTP Request: GET https://api.github.com/search/repositories?q=crypto%20jobs%20blockchain%20topic:jobs&sort=updated&order=desc&per_page=15 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/repositories?q=web3%20hiring%20awesome%20blockchain%20topic:blockchain&sort=updated&order=desc&per_page=15 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://api.github.com/search/repositories?q=defi%20jobs%20remote%20topic:web3&sort=updated&order=desc&per_page=15 "HTTP/1.1 200 OK"
+INFO:scraper.github_jobs:[GITHUB] Repos: found 2 job listings
+INFO:scraper.github_jobs:[OK] github.com: Scraped 52 jobs
+INFO:scraper.base_scraper:[OK] github.com: Scraped 52 jobs
+INFO:scraper.scheduler:[OK] github.com: Found 52 jobs
+INFO:scraper.scheduler:
+Scraping blockace.io...
+INFO:scraper.base_scraper:Starting scraper: blockace.io
+INFO:scraper.blockace:Starting scraper: blockace.io
+INFO:httpx:HTTP Request: GET https://blockace.io "HTTP/1.1 200 OK"
+INFO:scraper.base_scraper:[OK] Fetched https://blockace.io
+INFO:scraper.blockace:[blockace.io] Found 70 job cards
+INFO:scraper.blockace:[OK] blockace.io: Scraped 70 jobs
+INFO:scraper.base_scraper:[OK] blockace.io: Scraped 70 jobs
+INFO:scraper.scheduler:[OK] blockace.io: Found 70 jobs
+INFO:scraper.scheduler:
+Scraping cryptojobslist.com...
+INFO:scraper.base_scraper:Starting scraper: cryptojobslist.com
+INFO:scraper.cryptojobslist:Starting scraper: cryptojobslist.com
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:scraper.base_scraper:[OK] Fetched (browser) https://cryptojobslist.com
+INFO:scraper.cryptojobslist:[cryptojobslist.com] Found 25 job rows
+INFO:scraper.cryptojobslist:[OK] cryptojobslist.com: Scraped 25 jobs
+INFO:scraper.base_scraper:[OK] cryptojobslist.com: Scraped 25 jobs
+INFO:scraper.scheduler:[OK] cryptojobslist.com: Found 25 jobs
+INFO:scraper.scheduler:
+Scraping remote3.co...
+INFO:scraper.base_scraper:Starting scraper: remote3.co
+INFO:scraper.remote3:Starting scraper: remote3.co
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:scraper.base_scraper:[OK] Fetched (browser) https://remote3.co
+INFO:scraper.remote3:[remote3.co] Found 20 job cards
+INFO:scraper.remote3:[OK] remote3.co: Scraped 20 jobs
+INFO:scraper.base_scraper:[OK] remote3.co: Scraped 20 jobs
+INFO:scraper.scheduler:[OK] remote3.co: Found 20 jobs
+INFO:scraper.scheduler:
+Scraping cryptojobs.com...
+INFO:scraper.base_scraper:Starting scraper: cryptojobs.com
+INFO:scraper.cryptojobs:Starting scraper: cryptojobs.com
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:scraper.cryptojobs:[cryptojobs.com] Found 15 job cards
+INFO:scraper.cryptojobs:[OK] cryptojobs.com: Scraped 15 jobs
+INFO:scraper.base_scraper:[OK] cryptojobs.com: Scraped 15 jobs
+INFO:scraper.scheduler:[OK] cryptojobs.com: Found 15 jobs
+INFO:scraper.scheduler:
+[AGGREGATION] Total jobs from all scrapers: 1622
+INFO:db.queries:Jobs: 499 inserted, 1123 updated
+INFO:scraper.scheduler:
+[MAPPING] Mapping 1454 unmapped jobs...
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Some Random Company (best: ADA=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Nethermind (best: ETH=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Nexus International (best: USDE=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] TheSoul Group (best: XAUT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] RedStone (best: RENDER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] PlayToEarn (best: ASTER=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] PlayToEarn (best: ASTER=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Toobit (best: BTC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] BitPay (best: BTC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] dev.fun (best: PUMP=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] AFX (best: AVAX=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Luxor Technology (best: LEO=48.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Hamieverse (best: M=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] The Hamieverse (best: FIGR_HELOC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] JPMorgan Chase & Co (best: ADA=38.46153846153846)
+WARNING:utils.coin_mapper:[UNMATCHED] JPMorgan Chase & Co (best: ADA=38.46153846153846)
+WARNING:utils.coin_mapper:[UNMATCHED] Goldman Sachs (best: PAXG=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] JPMorgan Chase & Co (best: ADA=38.46153846153846)
+WARNING:utils.coin_mapper:[UNMATCHED] JPMorgan Chase & Co (best: ADA=38.46153846153846)
+WARNING:utils.coin_mapper:[UNMATCHED] JPMorgan Chase & Co (best: ADA=38.46153846153846)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] eToro (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Miren Partners (best: RENDER=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Mercuryo (best: XMR=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Frachtis VC (best: RAIN=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] YEET (best: VELVET=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitMart (best: HBAR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] VDEX (best: DEXE=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Elwood Technologies (best: XAUT=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] AtlasOra (best: ALGO=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Institute of Free Technology (best: FIGR_HELOC=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Institute of Free Technology (best: FIGR_HELOC=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] cryptohero.ca (best: FIGR_HELOC=43.47826086956522)
+WARNING:utils.coin_mapper:[UNMATCHED] Heliax (best: HBAR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Hut 8 (best: HTX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Improbable (best: MNT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Immunefi (best: UNI=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Immutable (best: STABLE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Hang (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Groma (best: GRAM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Halborn (best: ALGO=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Grayscale (best: STABLE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Goldsky (best: SKY=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Gnosis (best: CRO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Forta (best: TAO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Flow (best: LEO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Fuse Energy (best: USDE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Fun.xyz (best: UNI=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fold (best: SOL=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Figment (best: MNT=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Finyard (best: NEAR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Espresso (best: EURSAFO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Ellipsis Labs (best: XLM=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Eigen Labs (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] dYdX (best: BDX=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Dune (best: UNI=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Eclipse (best: PEPE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] DWF Labs (best: LAB=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] DRW (best: HBAR=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] deBridge (best: DOGE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Dakota (best: DOT=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Ctrl Alt (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Cryptopay (best: CRO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Cryptio (best: CRO=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Copper (best: PEPE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Covalent (best: CC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Crusoe (best: CRO=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] CoW DAO (best: HTX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Change (best: LINK=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Centrifuge (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] CertiK (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Category Labs (best: ALGO=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] BVNK (best: BNB=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Caladan (best: ADA=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Celestia (best: VELVET=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Braiins (best: RAIN=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Bullish (best: BUIDL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bluesky (best: SKY=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Brave (best: AAVE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Brale (best: MNT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockchain.com (best: BCAP=68.75)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] Block (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Blackbird (best: LAB=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockdaemon (best: LEO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitPanda (best: ADA=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] BitMex (best: TAO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitdeer (best: TAO=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] BitMart (best: HBAR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Artemis (best: ATOM=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Arbitrum Foundation (best: BTC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Arrington Capital (best: BCAP=62.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Arkham (best: GRAM=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] WOO (best: ONDO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Reown (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Uphold (best: POL=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] AMINA Bank (best: LINK=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitwise (best: BTC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Copper (best: PEPE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] QCP Capital (best: BCAP=77.77777777777777)
+WARNING:utils.coin_mapper:[UNMATCHED] Transak (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Improbable (best: MNT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] TaxBit (best: U=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Centrifuge (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Sei Labs (best: LAB=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Conduit (best: ONDO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Ledger (best: HBAR=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Luno (best: LEO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Tempo (best: MORPHO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Ctrl Alt (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] CoinShares (best: BCH=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Elliptic (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Safello (best: XLM=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Phantom (best: ATOM=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] OP Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Zero Hash (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Paxos (best: PAXG=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Robinhood (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] MetaMask (best: ENA=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Immutable (best: STABLE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockdaemon (best: LEO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] MoonPay (best: SOL=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Grayscale (best: STABLE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] QCP Capital (best: BCAP=77.77777777777777)
+WARNING:utils.coin_mapper:[UNMATCHED] Kalshi (best: KAS=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Paxos (best: PAXG=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Ledger (best: HBAR=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] BCB Group (best: CRO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sei Foundation (best: USDF=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Gnosis Pay (best: PAXG=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Notabene (best: STABLE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] OpenSea (best: ENA=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Animoca Brands (best: ALGO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitpanda (best: ADA=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Hex Trust (best: USDE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitPay (best: BTC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Privy (best: PI=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Mysten Labs (best: LEO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Jito Labs (best: BCH=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitpanda (best: ADA=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Securitize (best: U=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Finoa (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Chainalysis (best: LINK=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Monad Foundation (best: USDF=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] OP Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightspark (best: LINK=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] ether.fi (best: USDT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] M0 Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Trezor (best: TRX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] MetaMask (best: ENA=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Paxos (best: PAXG=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Elliptic (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Turnkey (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Offchain Labs (best: LINK=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Mesh (best: ETH=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Parity Technologies (best: LTC=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Uphold (best: POL=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Phantom (best: ATOM=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitfinex (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Robinhood (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] LI.FI (best: WLFI=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Sorare (best: FLR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Uphold (best: POL=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] GSR (best: GRAM=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Talos (best: TAO=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Airtm (best: ATOM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Keyrock (best: XMR=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Mesh (best: ETH=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto Finance (best: ICP=51.61290322580645)
+WARNING:utils.coin_mapper:[UNMATCHED] Wynd Labs (best: U=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] TaxBit (best: U=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] QCP Capital (best: BCAP=77.77777777777777)
+WARNING:utils.coin_mapper:[UNMATCHED] MoonPay (best: SOL=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Gnosis (best: CRO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Ava Labs (best: AVAX=58.8235294117647)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Asymmetric Research (best: ETC=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] Tempo (best: MORPHO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Ledger (best: HBAR=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] DRW (best: HBAR=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Phantom (best: ATOM=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] FalconX (best: USDF=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Aptos (best: ATOM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinflow (best: CRO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] eToro (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] BCB Group (best: CRO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitwise (best: BTC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Blackbird Labs (best: BCH=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitwave (best: AAVE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Copper (best: PEPE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] OP Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] AlphaPoint (best: LTC=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Tempo (best: MORPHO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] ether.fi (best: USDT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Cryptio (best: CRO=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Talos (best: TAO=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Uphold (best: POL=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Notabene (best: STABLE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Animoca Brands (best: ALGO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] UR (best: U=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Offchain Labs (best: LINK=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Chainalysis (best: LINK=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Wirex (best: TRX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sentient (best: ENA=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Digital Currency Group (best: BUIDL=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Shakepay (best: SKY=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] LayerZero Labs (best: ETC=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] BingX (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jump Capital (best: BCAP=73.6842105263158)
+WARNING:utils.coin_mapper:[UNMATCHED] Ctrl Alt (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Improbable (best: MNT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] FalconX (best: USDF=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Sorare (best: FLR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Merkle Science (best: VVV=53.84615384615385)
+WARNING:utils.coin_mapper:[UNMATCHED] Ledger (best: HBAR=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bastion (best: CC=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] Sentient (best: ENA=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Ellipsis Labs (best: XLM=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Tempo (best: MORPHO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Improbable (best: MNT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] FalconX (best: USDF=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] RootstockLabs (best: NEAR=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Bullish (best: BUIDL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightspark (best: LINK=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Chainalysis (best: LINK=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Nomic Foundation (best: VVV=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Robinhood (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Hex Trust (best: USDE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Finoa (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitwise (best: BTC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Offchain Labs (best: LINK=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Zero Hash (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Jito Labs (best: BCH=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Caladan (best: ADA=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Babylon (best: ALGO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Talos (best: TAO=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] UR (best: U=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinflow (best: CRO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Alliance (best: AVAX=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Chainalysis (best: LINK=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Squads (best: USDS=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Tempo (best: MORPHO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Allium (best: XLM=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Ellipsis Labs (best: XLM=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] LayerZero Labs (best: ETC=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Immunefi (best: UNI=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] 0G Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] BitMEX (best: TAO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Grayscale (best: STABLE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Paxos (best: PAXG=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Nexus (best: NEXO=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Monad Foundation (best: USDF=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Socket (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Animoca Brands (best: ALGO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Digital Asset (best: BUIDL=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bullish (best: BUIDL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Elliptic (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Chainalysis (best: LINK=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Privy (best: PI=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Mysten Labs (best: LEO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Robinhood (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] LI.FI (best: WLFI=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bridge (best: DOGE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Bullish (best: BUIDL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightspark (best: LINK=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Parity Technologies (best: LTC=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Notabene (best: STABLE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] ether.fi (best: USDT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Keyrock (best: XMR=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Utila (best: BUIDL=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Kronos Research (best: CRO=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Zero Hash (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Stronghold (best: TRX=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightspark (best: LINK=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Talos (best: TAO=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Keyrock (best: XMR=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Monad Foundation (best: USDF=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Bridge (best: DOGE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] River (best: RENDER=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] QCP Capital (best: BCAP=77.77777777777777)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] Offchain Labs (best: LINK=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Transak (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Brave (best: AAVE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Phantom (best: ATOM=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Elliptic (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] CoinsPaid (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Immutable (best: STABLE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinflow (best: CRO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Bakkt (best: BEAT=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Fold (best: SOL=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Chainalysis (best: LINK=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Talos (best: TAO=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Flow Traders (best: ALGO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Taurus (best: RLUSD=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Bridge (best: DOGE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitMEX (best: TAO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockaid (best: BCAP=53.84615384615385)
+WARNING:utils.coin_mapper:[UNMATCHED] Brave (best: AAVE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] M0 Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] FalconX (best: USDF=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Centrifuge (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Sentient (best: ENA=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Alliance (best: AVAX=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Plume (best: PUMP=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] RockawayX (best: AVAX=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Artemis (best: ATOM=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Monad Foundation (best: USDF=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Cryptio (best: CRO=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Elliptic (best: LTC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Sorare (best: FLR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] FalconX (best: USDF=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Babylon (best: ALGO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] OP Labs (best: LAB=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Offchain Labs (best: LINK=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] OpenEden (best: RENDER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Blackbird Labs (best: BCH=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Mysten Labs (best: LEO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Flow (best: LEO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] Utila (best: BUIDL=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Citrea (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Aptos (best: ATOM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Superstate (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Digital Asset (best: BUIDL=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Vana (best: SOL=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bybit (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] OpenSea (best: ENA=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Fluence Labs (best: USDF=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Archax (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] D3 (best: ADA=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Treehouse (best: USDT=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] N1 (best: BNB=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] LayerZero Labs (best: ETC=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Wynd Labs (best: U=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] SwissBorg (best: SHIB=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Bluesky (best: SKY=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Agora (best: ALGO=76.92307692307692)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Flow Traders (best: ALGO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Hang (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Securitize (best: U=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Digital Asset (best: BUIDL=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Bybit (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Squads (best: USDS=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] BitMEX (best: TAO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Kalshi (best: KAS=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockaid (best: BCAP=53.84615384615385)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] goTenna (best: ENA=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightning Labs (best: BTC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightning Labs (best: BTC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Ellipsis Labs (best: XLM=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Sahara AI (best: SHIB=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightspark (best: LINK=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] CoinGecko (best: DOGE=58.8235294117647)
+WARNING:utils.coin_mapper:[UNMATCHED] Transak (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Superstate (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sahara AI (best: SHIB=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Paxos (best: PAXG=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] B2C2 (best: BTC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Brave (best: AAVE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] a16z Crypto (best: CRO=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Espresso Systems (best: LEO=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fordefi (best: WLD=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Etherscan (best: USDT=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] ether.fi (best: USDT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Loopscale (best: STABLE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] SynFutures (best: PYUSD=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fuse Energy (best: USDE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Wynd Labs (best: U=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Allium (best: XLM=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Jump Capital (best: BCAP=73.6842105263158)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Horizon (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Kalshi (best: KAS=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightning Labs (best: BTC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Merit Circle (best: USYC=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockstream (best: BCAP=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] Sweatcoin (best: BTC=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Plume (best: PUMP=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Talos (best: TAO=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Coins.ph (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] RWA.xyz (best: TRX=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sei Labs (best: LAB=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Allium (best: XLM=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] WOO (best: ONDO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Safello (best: XLM=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] LayerZero Labs (best: ETC=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Digital Asset (best: BUIDL=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Hex Trust (best: USDE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Caladan (best: ADA=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Transak (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Trezor (best: TRX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Waterfall (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Espresso Systems (best: LEO=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockdaemon (best: LEO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Horizon (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] N1 (best: BNB=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Xapo Bank (best: BCAP=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] GK8 (best: GT=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] B2C2 (best: BTC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bybit (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Bluesky (best: SKY=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitfinex (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] DRW (best: HBAR=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Braiins (best: RAIN=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightning Labs (best: BTC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Zora (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Glider.fi (best: XAUT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Alchemy (best: AVAX=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitwave (best: AAVE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] N1 (best: BNB=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Transak (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Zero Hash (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Espresso Systems (best: LEO=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Transak (best: TRX=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Cryptio (best: CRO=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Arrington Capital (best: BCAP=62.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] LayerZero Labs (best: ETC=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Kalshi (best: KAS=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Galaxy (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Superstate (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sphere (best: PEPE=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] DRW (best: HBAR=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Celestia (best: VELVET=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Halborn (best: ALGO=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Waterfall (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Kalshi (best: KAS=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Trezor (best: TRX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Notabene (best: STABLE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Axiom (best: ATOM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Hut 8 (best: HTX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bybit (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Crypto.com (best: NEAR=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Stronghold (best: TRX=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Keyrock (best: XMR=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitso (best: TAO=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Predicate (best: RENDER=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Bluesky (best: SKY=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Avail (best: AVAX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Custodia Bank (best: USDF=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] 1kx (best: XRP=33.33333333333333)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] TRM (best: TRX=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bakkt (best: BEAT=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Brale (best: MNT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Amber Group (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Everstake (best: HBAR=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Bluesky (best: SKY=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] LayerZero Labs (best: ETC=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] SynFutures (best: PYUSD=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Brave (best: AAVE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixport (best: MORPHO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] BitGo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] N1 (best: BNB=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] UR (best: U=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Kronos Research (best: CRO=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] B2C2 (best: BTC=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Superstate (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitdeer (best: TAO=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitwave (best: AAVE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Pantera Capital (best: BCAP=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Sygnum (best: SUI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Visa (best: UNI=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Solv Protocol (best: NEAR=76.19047619047619)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Anchorage Digital (best: BUIDL=58.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Waterfall (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] ether.fi (best: USDT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Fuse Energy (best: USDE=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] OKX (best: OKB=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Sahara AI (best: SHIB=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Improbable (best: MNT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Lightning Labs (best: BTC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Spiral (best: KAS=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] ether.fi (best: USDT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Digital Asset (best: BUIDL=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Superstate (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] CertiK (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] CoinDesk (best: CRO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymarket (best: DOT=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] CertiK (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Unknown (best: CC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Pelican Investments (best: BGB=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] UseBlocky (best: SKY=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Velixus Labs (best: BDX=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] ADME (CY) LTD (best: U=37.03703703703704)
+WARNING:utils.coin_mapper:[UNMATCHED] Fox Global Assets Ltd (best: USDG=63.1578947368421)
+WARNING:utils.coin_mapper:[UNMATCHED] Lunacom (best: ATOM=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] 10arx (best: TRX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] 10arx (best: TRX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] 10arx (best: TRX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Krupisen (best: KCS=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Unlimit.pro (best: UNI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitrefill (best: BTC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Kernel DAO (best: HTX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Ton Foundation (best: CC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Dyor (best: DOT=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] 7 Figure Leap (best: FIGR_HELOC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Impact Clients (best: WBT=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Credit Joy (best: USYC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] SuperPlane (best: PEPE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Credit Wellness LLC (best: USYC=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Creative Force (best: ETH=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Your Resource Group LLC (best: XAUT=41.1764705882353)
+WARNING:utils.coin_mapper:[UNMATCHED] Binance (best: \u5e01\u5b89\u4eba\u751f=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Buffer (best: BEAT=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] DesignFiles (best: FIL=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Lead Ember (best: M=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] GNO Partners (best: XAUT=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Golf Carts of ATX (best: USDG=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] North Spore LLC (best: USDY=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] North Spore LLC (best: USDY=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] reddit (best: RENDER=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Ed Prather Real Estate (best: XAUT=48.484848484848484)
+WARNING:utils.coin_mapper:[UNMATCHED] HugeInc (best: DOGE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] 10x Team (best: ENA=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Sterry (best: ASTER=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Guest Services (best: FIGR_HELOC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] ALM Corp (best: MORPHO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Claimsorted (best: ASTER=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Lula Commerce (best: USYC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Hello There Collective (best: ETC=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] Kraken (best: RAIN=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Elite Software Automation (best: ICP=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Supportyourapp (best: JUP=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Impact Clients (best: WBT=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Hybrid85 (best: HYPE=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] Snap Finance (best: SHIB=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Collaborative Solutions (best: USDG=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Harris Global Business Services (best: USDG=63.1578947368421)
+WARNING:utils.coin_mapper:[UNMATCHED] FIS Capital Markets (best: BCAP=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] EY Studio+ Nederland (best: JTRSY=46.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] New Law Business Model (best: BGB=41.1764705882353)
+WARNING:utils.coin_mapper:[UNMATCHED] goop (best: GHO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] R-Cubed Consulting (best: ICP=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] Wesley Finance Group (best: WLFI=51.16279069767442)
+WARNING:utils.coin_mapper:[UNMATCHED] NFP (best: UNI=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] MailerLite (best: MNT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Contact Government Services (best: USTB=54.054054054054056)
+WARNING:utils.coin_mapper:[UNMATCHED] Mission Loans (best: LEO=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Conexwest (best: WBT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Giga Energy (best: PI=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Fortrea (best: FLR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Thrivent (best: ENA=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Circle Internet Financial (best: USYC=70.58823529411765)
+WARNING:utils.coin_mapper:[UNMATCHED] Brighthouse Financial (best: WLFI=63.63636363636363)
+WARNING:utils.coin_mapper:[UNMATCHED] Velera Solutions (best: VVV=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Qventus (best: QNT=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Homera Health (best: USDT=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] Accuweather Careers (best: ETC=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] Fortis Games (best: BCH=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Toggl (best: SOL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Rimini Street (best: ICP=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Origami Risk (best: LINK=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Rimini Street (best: ICP=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] TourCC (best: CC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Intapp (best: UNI=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Mercury Insurance Services (best: WLFI=44.89795918367347)
+WARNING:utils.coin_mapper:[UNMATCHED] blended.io (best: U=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] NPS Prism (best: PI=42.10526315789474)
+WARNING:utils.coin_mapper:[UNMATCHED] Docsumo (best: DOGE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Nearcut (best: NEAR=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Renaissance Learning North America (best: EURSAFO=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Septeo CNEE (best: NEAR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Net Health (best: USDT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Hypersonix (best: HYPE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] JMS Technical Solutions (best: VVV=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] Kojo (best: ONDO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] TCWGlobal (best: USDG=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Intapp (best: UNI=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Redolent (best: RENDER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Qualifyze (best: QNT=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Ignition, Inc. (best: BTC=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Bright Vision Technologies (best: BGB=47.36842105263158)
+WARNING:utils.coin_mapper:[UNMATCHED] Agilent Technologies (best: XAUT=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] Southwest Power Pool (best: XAUT=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] Philips Deutschland (best: BCAP=43.24324324324324)
+WARNING:utils.coin_mapper:[UNMATCHED] AssureSoft (best: EURSAFO=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Air Apps (best: BEAT=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Liquibase (best: SHIB=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Aura (best: BEAT=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Bruker Corporation (best: NEAR=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] Perforce (best: EURSAFO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Charles River (best: U=51.851851851851855)
+WARNING:utils.coin_mapper:[UNMATCHED] Golden 1 Credit Union (best: BGB=42.42424242424242)
+WARNING:utils.coin_mapper:[UNMATCHED] Deutsche Telekom IT Solutions Slovakia (best: ETC=37.03703703703704)
+WARNING:utils.coin_mapper:[UNMATCHED] Revvity (best: VELVET=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Runware (best: UNI=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Career Team Enterprises (best: ICP=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Intelmatix (best: XLM=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] HYUNDAI MOTORS (best: NEAR=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Vitru Educação (best: HTX=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Premiersoft (best: XMR=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Covent IT (best: WBT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Lemon.io (best: XMR=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Remote Talent Cloud (best: ICP=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] Inspiring Lives Today (best: WLFI=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Olsson (best: WLD=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Simplero (best: XMR=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Rutherford MP (best: ICP=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Paired (best: FLR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Toptal (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Toptal (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] RSE+ Architekten Ingenieure GmbH (best: VVV=40.90909090909091)
+WARNING:utils.coin_mapper:[UNMATCHED] RSE+ Architekten Ingenieure GmbH (best: VVV=40.90909090909091)
+WARNING:utils.coin_mapper:[UNMATCHED] ProWriterSites (best: WBT=51.851851851851855)
+WARNING:utils.coin_mapper:[UNMATCHED] Infiniti Group (best: ICP=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] Native Camp (best: AAVE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] NoGigiddy (best: DOGE=35.294117647058826)
+WARNING:utils.coin_mapper:[UNMATCHED] DataAnnotation.tech (best: AVAX=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Infiniti Group Ltd (best: WBT=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] budgetsbytammy.com (best: BGB=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Egear (best: NEAR=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Speechify Inc (best: SHIB=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] insightsoftware About Us (best: ICP=43.90243902439025)
+WARNING:utils.coin_mapper:[UNMATCHED] Palo Alto Networks (best: PI=64.28571428571428)
+WARNING:utils.coin_mapper:[UNMATCHED] IRE (best: FLR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] EY Studio+ Nederland (best: JTRSY=46.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Inspire Brands (best: RAIN=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Speechify Inc (best: SHIB=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Mindrift (best: MNT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] KAI Partners (best: ASTER=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] ALIQAN Technologies (best: LTC=51.851851851851855)
+WARNING:utils.coin_mapper:[UNMATCHED] Speechify Inc (best: SHIB=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Kuna (best: KCS=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Zensors (best: TAO=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Bnk To The Future (best: FIGR_HELOC=55.172413793103445)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Pavago (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Drivetrain (best: BEAT=58.8235294117647)
+WARNING:utils.coin_mapper:[UNMATCHED] Air Apps (best: BEAT=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] NinjaOne (best: XMR=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Mobena (best: ENA=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Paired (best: FLR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Willow Health (best: ETH=37.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Olsson (best: WLD=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Rehire (best: ETH=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] CAI (best: DAI=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] ServiceTitan (best: VELVET=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] InterContinental Recruiting (best: BCH=41.02564102564103)
+WARNING:utils.coin_mapper:[UNMATCHED] Proxify AB (best: NEAR=43.47826086956522)
+WARNING:utils.coin_mapper:[UNMATCHED] Nomad (best: ADA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Highlevel (best: FIGR_HELOC=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] Khibraty (best: HBAR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Supportyourapp (best: JUP=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Openrouter (best: ICP=51.851851851851855)
+WARNING:utils.coin_mapper:[UNMATCHED] Elevenlabs (best: VELVET=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Wonderdog (best: XMR=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Lemon.io (best: XMR=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Supportyourapp (best: JUP=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Supportyourapp (best: JUP=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Supportyourapp (best: JUP=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Supportyourapp (best: JUP=38.095238095238095)
+WARNING:utils.coin_mapper:[UNMATCHED] Nivoda (best: UNI=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Holepunch (best: AVAX=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] jerry.ai (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Kraken (best: RAIN=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Khibraty (best: HBAR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Accuweather Careers (best: ETC=45.714285714285715)
+WARNING:utils.coin_mapper:[UNMATCHED] Base.com (best: ATOM=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Pixx.io (best: PI=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Hyperdev (best: HYPE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Coupa Software (best: ICP=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] Sowelo Consulting (best: WBT=46.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Remote Talent Cloud (best: ICP=55.55555555555556)
+WARNING:utils.coin_mapper:[UNMATCHED] jerry.ai (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Bottle Nexus (best: TAO=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] NoGigiddy (best: DOGE=35.294117647058826)
+WARNING:utils.coin_mapper:[UNMATCHED] Level (best: VELVET=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] OnTheGoSystems (best: ETH=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] CRAE GROUP LTD (best: U=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Automattic (best: ATOM=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] BlueBox (best: BDX=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] The Podcast Consultant (best: BCH=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Turtles (best: TAO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] MapTiler (best: MNT=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Entrepreneur Cooperative (best: ICP=58.53658536585366)
+WARNING:utils.coin_mapper:[UNMATCHED] Sonova International (best: BGB=43.75)
+WARNING:utils.coin_mapper:[UNMATCHED] NTT Data (best: HTX=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] TKD Solutions (best: LINK=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Entrepreneur Cooperative (best: ICP=58.53658536585366)
+WARNING:utils.coin_mapper:[UNMATCHED] Ventra Health (best: ENA=63.1578947368421)
+WARNING:utils.coin_mapper:[UNMATCHED] Attio (best: ATOM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Sottelli (best: XLM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] E. Breuninger & Co. (best: BGB=45.16129032258065)
+WARNING:utils.coin_mapper:[UNMATCHED] EY Studio+ Nederland (best: JTRSY=46.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Valorx (best: AVAX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] ServiceNow (best: VVV=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Abbott (best: HTX=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] sofatutor GmbH (best: TAO=43.47826086956522)
+WARNING:utils.coin_mapper:[UNMATCHED] Stone & Tile (best: VVV=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Verdantas (best: ADA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] GM (best: GRAM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] GE Vernova (best: HBAR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Clark Builders (best: BUIDL=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] PCL Industrial Management (best: WLFI=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Hospitable (best: STABLE=75.0)
+WARNING:utils.coin_mapper:[UNMATCHED] HugeInc (best: DOGE=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] BrowserStack (best: EURSAFO=42.10526315789474)
+WARNING:utils.coin_mapper:[UNMATCHED] Vodafone (best: DOGE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Faith Technologies (best: LTC=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Worldwide Mission Critical (best: WLFI=48.97959183673469)
+WARNING:utils.coin_mapper:[UNMATCHED] GM (best: GRAM=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Qintess (best: QNT=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Home Depot (best: LEO=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] MOON (best: XMR=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Masco (best: SOL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Trinca (best: TRX=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] EY (best: ETH=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Vitru Educação (best: HTX=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] garden3d (best: RENDER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Lyncas (best: ZEC=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] CI&T (best: CC=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Huzzle (best: LEO=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Reveleer (best: RENDER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Close (best: CRO=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] 1Password (best: ALGO=47.05882352941177)
+WARNING:utils.coin_mapper:[UNMATCHED] Solar Secure Solutions (best: EUTBL=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Remote VA (best: ENA=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] MRIoA (best: XMR=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Remote VA (best: ENA=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] https://shiperp.com/ (best: USDT=38.46153846153846)
+WARNING:utils.coin_mapper:[UNMATCHED] Abstract (best: ASTER=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] Indigenous Climate Action (best: ICP=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] WorkStaff360 (best: EURSAFO=42.10526315789474)
+WARNING:utils.coin_mapper:[UNMATCHED] bunny.net (best: BEAT=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] AHU Technologies (best: LTC=41.666666666666664)
+WARNING:utils.coin_mapper:[UNMATCHED] Linkage Web Development (best: ICP=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Anexia Internetdienstleistungs (best: JTRSY=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Anexia Internetdienstleistungs (best: JTRSY=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Adoreal (best: ADA=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Hostinger (best: ASTER=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Lemon.io (best: XMR=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Timxor (best: XMR=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Stacksgov (best: TAO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Awesome Jobs (best: M=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Scrtlabs (best: STABLE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Aalansehaiyang (best: AVAX=52.17391304347826)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Harrisoneller (best: XLM=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Harrisoneller (best: XLM=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Kinfey (best: KCS=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Msmalley (best: MNT=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Msmalley (best: MNT=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Scottcjn (best: SOL=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Harrisoneller (best: XLM=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Sakibguy (best: SKY=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Digitalemcee (best: STABLE=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Holonym Foundation (best: EUTBL=42.30769230769231)
+WARNING:utils.coin_mapper:[UNMATCHED] Sonyschan (best: SOL=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Mamd69 (best: ADA=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Devbuildstack (best: BUIDL=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Devbuildstack (best: BUIDL=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Tradingstrategy Ai (best: ICP=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Frequencieschicksext (best: VVV=37.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Superpreviousattending (best: GRAM=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Superpreviousattending (best: GRAM=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Jhengy (best: ENA=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Matrixterminal (best: ICP=51.61290322580645)
+WARNING:utils.coin_mapper:[UNMATCHED] A Suozhang (best: SOL=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Gopartyparrot (best: NEAR=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Iri031 (best: RAIN=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Upshot Tech (best: USDE=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Ceosvex (best: CRO=46.15384615384615)
+WARNING:utils.coin_mapper:[UNMATCHED] Bansalnagesh (best: AVAX=47.61904761904762)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Coinbase (best: BCH=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Gemini (best: DOGE=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Bitgo (best: BTC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Fireblocks (best: FIGR_HELOC=70.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Consensys (best: CRO=53.333333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Paradigm (best: ADI=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Paradigm (best: ADI=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] WhiteBridge-Ltd (best: WBT=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] APEX CAPITAL PARTNERS LIMITED (best: BCAP=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Web3ink (best: LINK=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Playmate (best: MNT=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] LeverX (best: USDT=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] INMEDIATUM (best: ETH=44.44444444444444)
+WARNING:utils.coin_mapper:[UNMATCHED] Deloitte (best: DOT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] CowSwap (best: UNI=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Bifrost Foundation (best: BTC=48.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Runtime Verification (best: VVV=43.75)
+WARNING:utils.coin_mapper:[UNMATCHED] Dexible (best: DEXE=72.72727272727272)
+WARNING:utils.coin_mapper:[UNMATCHED] Indra Crypto Capital (best: BCAP=57.89473684210526)
+WARNING:utils.coin_mapper:[UNMATCHED] Indra Crypto Capital (best: BCAP=57.89473684210526)
+WARNING:utils.coin_mapper:[UNMATCHED] Seedify.fund (best: PUMP=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] A·Team (best: ATOM=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] prePO (best: PEPE=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Runtime Verification (best: VVV=43.75)
+WARNING:utils.coin_mapper:[UNMATCHED] Runtime Verification (best: VVV=43.75)
+WARNING:utils.coin_mapper:[UNMATCHED] Runtime Verification (best: VVV=43.75)
+WARNING:utils.coin_mapper:[UNMATCHED] NFT Contemporary (best: ICP=48.484848484848484)
+WARNING:utils.coin_mapper:[UNMATCHED] NFT Contemporary (best: ICP=48.484848484848484)
+WARNING:utils.coin_mapper:[UNMATCHED] Chorus One (best: CRO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] ICB Fund (best: BUIDL=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Request (best: USDT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Request (best: USDT=54.54545454545455)
+WARNING:utils.coin_mapper:[UNMATCHED] Platform and Capital (best: BCAP=56.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Outlier Ventures (best: ICP=60.60606060606061)
+WARNING:utils.coin_mapper:[UNMATCHED] Outlier Ventures (best: ICP=60.60606060606061)
+WARNING:utils.coin_mapper:[UNMATCHED] Compound Incorporated (best: ICP=52.63157894736842)
+WARNING:utils.coin_mapper:[UNMATCHED] Indra Crypto Capital (best: BCAP=57.89473684210526)
+WARNING:utils.coin_mapper:[UNMATCHED] f2pool & stakefish (best: XAUT=41.37931034482759)
+WARNING:utils.coin_mapper:[UNMATCHED] Exodus.io (best: EURSAFO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Exodus.io (best: EURSAFO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Status (best: STABLE=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Exodus.io (best: EURSAFO=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] TruStory (best: JTRSY=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] Indra Crypto Capital (best: BCAP=57.89473684210526)
+WARNING:utils.coin_mapper:[UNMATCHED] Indra Crypto Capital (best: BCAP=57.89473684210526)
+WARNING:utils.coin_mapper:[UNMATCHED] TruStory (best: JTRSY=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] TruStory (best: JTRSY=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] The Arcadia Group (best: XAUT=42.857142857142854)
+WARNING:utils.coin_mapper:[UNMATCHED] Private (Boutique trading firm) (best: ICP=45.833333333333336)
+WARNING:utils.coin_mapper:[UNMATCHED] Platinum (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] *On Behalf of Client* (best: WLFI=45.45454545454545)
+WARNING:utils.coin_mapper:[UNMATCHED] Polymath (best: DOT=62.5)
+WARNING:utils.coin_mapper:[UNMATCHED] Haas School of Business at University of California Berkeley (best: USTB=42.20183486238532)
+WARNING:utils.coin_mapper:[UNMATCHED] IBM (best: SHIB=57.142857142857146)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockchain Developers Inc. (best: BCAP=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] Blockchain Developers (best: BCAP=71.42857142857143)
+WARNING:utils.coin_mapper:[UNMATCHED] CryptoSphere (best: ETH=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Platinum (best: RAIN=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Pragmatic Coders (best: NEAR=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] CashBet (best: ZEC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] CashBet (best: ZEC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] CashBet (best: ZEC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] CashBet (best: ZEC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] CashBet (best: ZEC=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] Cindicator (best: CC=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Kraken (best: RAIN=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] TenX (best: ENA=60.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Intrepid Ventures (best: VVV=48.275862068965516)
+WARNING:utils.coin_mapper:[UNMATCHED] New Alchemy (best: AVAX=50.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Elite (best: LTC=61.53846153846154)
+WARNING:utils.coin_mapper:[UNMATCHED] IEG (best: PI=40.0)
+WARNING:utils.coin_mapper:[UNMATCHED] Lala World (best: WLFI=66.66666666666666)
+WARNING:utils.coin_mapper:[UNMATCHED] CryptoKitties (best: TAO=45.45454545454545)
+INFO:db.queries:Jobs mapped: 169 mapped, 1285 unmapped
+INFO:scraper.scheduler:[OK] Mapped 169 jobs to coins
+INFO:db.queries:Marked 0 jobs as expired from cryptocurrencyjobs.co
+INFO:db.queries:Marked 0 jobs as expired from greenhouse.io
+INFO:db.queries:Marked 0 jobs as expired from weworkremotely.com
+INFO:db.queries:Marked 0 jobs as expired from github.com
+INFO:db.queries:Marked 0 jobs as expired from blockace.io
+INFO:db.queries:Marked 0 jobs as expired from cryptojobslist.com
+INFO:db.queries:Marked 0 jobs as expired from remote3.co
+INFO:db.queries:Marked 0 jobs as expired from cryptojobs.com
+INFO:scraper.scheduler:
+[SUMMARY]
+INFO:scraper.scheduler:  New jobs: 499
+INFO:scraper.scheduler:  Updated jobs: 1123
+INFO:scraper.scheduler:  Mapped jobs: 169
+INFO:scraper.scheduler:  Expired jobs: 0
+INFO:scraper.scheduler:  Errors: 0
+INFO:scraper.diff_tracker:[DIFF] Saved: 499 new, 0 expired
+INFO:scraper.scheduler:
+======================================================================
+INFO:scraper.scheduler:SCRAPE RUN COMPLETED
+INFO:scraper.scheduler:======================================================================
+
+INFO:__main__:[STARTUP] 499 new jobs found, sending notifications...
+INFO:bot.notifications:[NOTIFY] 499 new jobs — sending notifications
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:bot.notifications:[NOTIFY] Group digest sent: 169 new jobs across 4 coins
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.notifications:[NOTIFY] DMs: 0 sent, 0 failed
+INFO:__main__:[STARTUP] Notifications: 0 sent, 0 failed
+INFO:__main__:[STARTUP] Initial scrape complete: 499 new, 1123 updated
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[MESSAGE_HANDLER] Received message from Ozyn_Got_Usd: hi
+INFO:bot.handlers:[KEYWORD] Found greeting in message: hi
+ERROR:bot.handlers:Error in message_handler: Unknown error in HTTP implementation: RuntimeError('Event loop is closed')
+Traceback (most recent call last):
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\request\_baserequest.py", line 305, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\request\_httpxrequest.py", line 279, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpcore\_async\connection_pool.py", line 229, in handle_async_request
+    await self._close_connections(closing)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpcore\_async\connection_pool.py", line 345, in _close_connections
+    await connection.aclose()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpcore\_async\connection.py", line 173, in aclose
+    await self._connection.aclose()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpcore\_async\http11.py", line 258, in aclose
+    await self._network_stream.aclose()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\httpcore\_backends\anyio.py", line 53, in aclose
+    await self._stream.aclose()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\anyio\streams\tls.py", line 236, in aclose
+    await self.transport_stream.aclose()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\anyio\_backends\_asyncio.py", line 1344, in aclose
+    self._transport.close()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 109, in close
+    self._loop.call_soon(self._call_connection_lost, None)
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 762, in call_soon
+    self._check_closed()
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\crypto-jobs-bot\bot\handlers.py", line 409, in message_handler
+    # Check for "expiring" keyword
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_message.py", line 2228, in reply_text
+    return await self.get_bot().send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_extbot.py", line 3150, in send_message
+    return await super().send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 1138, in send_message
+    return await self._send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_extbot.py", line 638, in _send_message
+    result = await super()._send_message(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 828, in _send_message
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 712, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\ext\_extbot.py", line 378, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\_bot.py", line 741, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DELL\AppData\Local\Programs\Python\Python311\Lib\site-packages\telegram\request\_baserequest.py", line 317, in _request_wrapper
+    raise NetworkError(f"Unknown error in HTTP implementation: {exc!r}") from exc
+telegram.error.NetworkError: Unknown error in HTTP implementation: RuntimeError('Event loop is closed')
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] jobs_handler called
+INFO:bot.handlers:[HANDLER] jobs_handler: found 31 coins
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] start_handler called
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] start_handler completed successfully
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[MESSAGE_HANDLER] Received message from Ozyn_Got_Usd: hello
+INFO:bot.handlers:[KEYWORD] Found greeting in message: hello
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] start_handler called
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] start_handler completed successfully
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[MESSAGE_HANDLER] Received message from Ozyn_Got_Usd: hello
+INFO:bot.handlers:[KEYWORD] Found greeting in message: hello
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] start_handler called
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/sendMessage "HTTP/1.1 200 OK"
+INFO:bot.handlers:[HANDLER] start_handler completed successfully
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getUpdates "HTTP/1.1 200 OK"

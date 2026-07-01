@@ -4,13 +4,12 @@ from telegram import Update
 from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
 
-logging.basicConfig(level=logging.INFO)
-
 from db.database import SessionLocal
 from db.queries import (
     get_jobs_by_coin,
     find_new_jobs,
     find_expiring_jobs,
+    get_upcoming_jobs,
     add_subscription,
     remove_subscription,
     get_user_subscriptions,
@@ -20,6 +19,7 @@ from bot.formatters import (
     format_job_card,
     format_jobs_list,
     format_new_jobs,
+    format_upcoming_jobs,
     format_expiring_jobs,
     format_subscriptions,
     format_jobs_by_coin,
@@ -30,6 +30,8 @@ logger = logging.getLogger(__name__)
 
 async def start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Handle /start command."""
+    if not update.message:
+        return
     try:
         logger.info("[HANDLER] start_handler called")
         message = format_start_message()
@@ -39,7 +41,7 @@ async def start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         logger.error(f"Error in start_handler: {str(e)}", exc_info=True)
         try:
             await update.message.reply_text("Sorry, an error occurred. Please try again.")
-        except:
+        except Exception:
             logger.error("Failed to send error message")
 
 
@@ -103,6 +105,26 @@ async def new_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
     except Exception as e:
         logger.error(f"Error in new_handler: {str(e)}")
+        await update.message.reply_text("Sorry, an error occurred. Please try again.")
+
+
+async def upcoming_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handle /upcoming command — jobs listed in the last 7 days, grouped by day."""
+    try:
+        logger.info("[HANDLER] upcoming_handler called")
+        db = SessionLocal()
+        try:
+            jobs = get_upcoming_jobs(days=7, db=db)
+            messages = format_upcoming_jobs(jobs)
+            for msg in messages:
+                await update.message.reply_text(
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                )
+                await asyncio.sleep(0.3)
+        finally:
+            db.close()
+    except Exception as e:
+        logger.error(f"Error in upcoming_handler: {str(e)}")
         await update.message.reply_text("Sorry, an error occurred. Please try again.")
 
 
@@ -347,21 +369,12 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                             parse_mode=ParseMode.HTML
                         )
                     else:
-                        title = f"🪙 <b>{coin}</b> — {len(jobs)} active jobs"
-                        message = format_jobs_list(jobs, title)
-                        await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-
-                        for i, job in enumerate(jobs[:3]):
-                            card = format_job_card(job)
-                            await update.message.reply_text(card, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-                            if i < 2:
-                                await update.message.reply_text("—", parse_mode=ParseMode.HTML)
-
-                        if len(jobs) > 3:
+                        title = f"{coin} — {len(jobs)} active jobs"
+                        for msg in format_jobs_list(jobs, title):
                             await update.message.reply_text(
-                                f"<i>...and {len(jobs) - 3} more jobs. Use /new or /expiring to see more.</i>",
-                                parse_mode=ParseMode.HTML
+                                msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
                             )
+                            await asyncio.sleep(0.3)
                 finally:
                     db.close()
                 return
@@ -378,8 +391,11 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                         parse_mode=ParseMode.HTML
                     )
                 else:
-                    message = format_new_jobs(jobs)
-                    await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                    for msg in format_new_jobs(jobs):
+                        await update.message.reply_text(
+                            msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                        )
+                        await asyncio.sleep(0.3)
             finally:
                 db.close()
             return
@@ -396,8 +412,11 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                         parse_mode=ParseMode.HTML
                     )
                 else:
-                    message = format_expiring_jobs(jobs)
-                    await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                    for msg in format_expiring_jobs(jobs):
+                        await update.message.reply_text(
+                            msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                        )
+                        await asyncio.sleep(0.3)
             finally:
                 db.close()
             return

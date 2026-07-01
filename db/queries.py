@@ -122,6 +122,18 @@ def find_new_jobs(hours: int = 720, db: Session = None) -> List[Job]:
     ).order_by(Job.listed_date.desc()).all()
 
 
+def get_upcoming_jobs(days: int = 7, db: Session = None) -> List[Job]:
+    """Get active jobs listed in the last N days, ordered newest first."""
+    if db is None:
+        from .database import SessionLocal
+        db = SessionLocal()
+    cutoff = datetime.utcnow() - timedelta(days=days)
+    return db.query(Job).filter(
+        Job.listed_date >= cutoff,
+        Job.is_active == True,
+    ).order_by(Job.listed_date.desc()).all()
+
+
 def find_expiring_jobs(hours: int = 48, db: Session = None) -> List[Job]:
     """Find active jobs with deadline in next N hours."""
     if db is None:
