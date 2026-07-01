@@ -1,6 +1,8 @@
 import logging
 import os
-from telegram.ext import Application, CommandHandler
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters
+from telegram.ext import ContextTypes
 
 from db.database import init_db
 from bot.handlers import (
@@ -12,6 +14,7 @@ from bot.handlers import (
     unsubscribe_handler,
     mysubs_handler,
     error_handler,
+    message_handler,
 )
 
 logging.basicConfig(
@@ -52,6 +55,10 @@ def main():
     application.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
     application.add_handler(CommandHandler("mysubs", mysubs_handler))
 
+    # Register message handler for keywords
+    logger.info("[BOT] Registering message handler for keyword detection...")
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+
     # Add error handler
     application.add_error_handler(error_handler)
 
@@ -62,7 +69,8 @@ def main():
     logger.info("Bot is running. Press Ctrl+C to stop.\n")
 
     try:
-        application.run_polling(allowed_updates=["message", "callback_query"])
+        # allowed_updates=None means receive all updates
+        application.run_polling(allowed_updates=None)
     except KeyboardInterrupt:
         logger.info("\n[SHUTDOWN] Keyboard interrupt received")
         logger.info("Bot stopped.")

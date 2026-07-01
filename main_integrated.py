@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from telegram.ext import Application, CommandHandler
+from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from db.database import init_db, SessionLocal
 from scraper.scheduler import JobScheduler
 from bot.handlers import (
@@ -18,6 +18,7 @@ from bot.handlers import (
     unsubscribe_handler,
     mysubs_handler,
     error_handler,
+    message_handler,
 )
 from bot.notifications import NotificationManager
 
@@ -46,6 +47,7 @@ class IntegratedBot:
         logger.info("="*70)
         logger.info("CRYPTO JOBS BOT - INTEGRATED (Bot + Scheduler + Notifications)")
         logger.info("="*70)
+        logger.info(f"Bot token: {self.bot_token[:20]}...***")
 
         # Initialize database
         logger.info("\n[INIT] Initializing database...")
@@ -55,6 +57,7 @@ class IntegratedBot:
         # Create Telegram application
         logger.info("\n[BOT] Creating Telegram application...")
         self.app = Application.builder().token(self.bot_token).build()
+        logger.info("[OK] Application created")
 
         # Register command handlers
         logger.info("[BOT] Registering command handlers...")
@@ -65,6 +68,11 @@ class IntegratedBot:
         self.app.add_handler(CommandHandler("subscribe", subscribe_handler))
         self.app.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
         self.app.add_handler(CommandHandler("mysubs", mysubs_handler))
+
+        # Register message handler for keywords
+        logger.info("[BOT] Registering message handler for keyword detection...")
+        self.app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+
         self.app.add_error_handler(error_handler)
 
         logger.info("[OK] Command handlers registered")
@@ -80,43 +88,25 @@ class IntegratedBot:
         self.scheduler = JobScheduler()
         logger.info("[OK] Scheduler created")
 
-        # Start scheduler (runs every 60 minutes)
-        logger.info("\n[SCHEDULER] Starting scheduler (every 60 minutes)...")
-        await self._start_scheduler_with_notifications()
+        # Start scheduler in background (runs every 60 minutes)
+        logger.info("\n[SCHEDULER] Starting scheduler in background (every 60 minutes)...")
+        # Use create_task to run scheduler setup in background without blocking
+        asyncio.create_task(self._start_scheduler_with_notifications())
 
-        # Start bot
+        # Start bot - this will run immediately, not blocked by scheduler
         logger.info("\n[POLLING] Starting bot polling...")
         logger.info("Bot is running. Press Ctrl+C to stop.\n")
 
         try:
-            await self.app.run_polling(allowed_updates=["message", "callback_query"])
+            # allowed_updates=None means receive all updates
+            await self.app.run_polling(allowed_updates=None)
         except KeyboardInterrupt:
             logger.info("\n[SHUTDOWN] Keyboard interrupt received")
             await self.stop()
 
     async def _start_scheduler_with_notifications(self):
         """Start scheduler with integrated notifications."""
-        # Run scrapers once on startup
-        logger.info("\n[STARTUP] Running initial scrape...")
-        result = await self.scheduler.run_all_scrapers()
-
-        # Handle notifications if we got new jobs
-        if result.get("new", 0) > 0:
-            logger.info(f"[STARTUP] {result['new']} new jobs found, checking for notifications...")
-            db = SessionLocal()
-            from db.models import Job
-            new_jobs = db.query(Job).filter(Job.created_at >= result["timestamp"]).all()
-
-            if new_jobs and self.notification_manager:
-                notify_result = await self.notification_manager.notify_all_new_jobs(new_jobs)
-                result["notifications_sent"] = notify_result.get("total_sent", 0)
-                result["notifications_failed"] = notify_result.get("total_failed", 0)
-
-            db.close()
-
-        logger.info(f"[STARTUP] Scrape complete: {result['new']} new, {result['updated']} updated")
-
-        # Now start the scheduled periodic scraping
+        # Define the scheduled job wrapper first
         async def scheduled_job_with_notifications():
             """Wrapper to handle notifications after scraping."""
             logger.info("\n[SCHEDULED] Running periodic scrape...")
@@ -139,8 +129,12 @@ class IntegratedBot:
 
                 db.close()
 
-        # Replace the scheduler's job with our wrapped version
-        self.scheduler.scheduler.remove_job("scrape_all_sites")
+        # START SCHEDULER IMMEDIATELY (don't wait for initial scrape)
+        try:
+            self.scheduler.scheduler.remove_job("scrape_all_sites")
+        except Exception:
+            pass
+
         self.scheduler.scheduler.add_job(
             scheduled_job_with_notifications,
             "interval",
@@ -150,9 +144,29 @@ class IntegratedBot:
             misfire_grace_time=60,
         )
 
-        # Start scheduler
+        # Start scheduler NOW - don't block the bot!
         self.scheduler.scheduler.start()
-        logger.info("[OK] Scheduler started with notifications")
+        logger.info("[OK] Scheduler started - ready to receive bot messages!")
+
+        # NOW run the initial scrape in the background (won't block bot)
+        logger.info("\n[STARTUP] Running initial scrape in background...")
+        result = await self.scheduler.run_all_scrapers()
+
+        # Handle notifications if we got new jobs
+        if result.get("new", 0) > 0:
+            logger.info(f"[STARTUP] {result['new']} new jobs found, sending notifications...")
+            db = SessionLocal()
+            from db.models import Job
+            new_jobs = db.query(Job).filter(Job.created_at >= result["timestamp"]).all()
+
+            if new_jobs and self.notification_manager:
+                notify_result = await self.notification_manager.notify_all_new_jobs(new_jobs)
+                logger.info(f"[STARTUP] Notifications: {notify_result['total_sent']} sent, "
+                           f"{notify_result['total_failed']} failed")
+
+            db.close()
+
+        logger.info(f"[STARTUP] Initial scrape complete: {result['new']} new, {result['updated']} updated")
 
     async def stop(self):
         """Stop bot and scheduler gracefully."""
