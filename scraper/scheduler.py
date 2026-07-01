@@ -18,6 +18,7 @@ from scraper.blockchainjobs import BlockchainjobsScraper
 from scraper.cryptocurrencyjobs_io import CryptocurrencyjobsioScraper
 from scraper.we_work_remotely import WeWorkRemotelyScraper
 from scraper.startup_jobs import StartupJobsScraper
+from scraper.github_jobs import GithubJobsScraper
 from db.database import SessionLocal
 from db.queries import insert_or_update_jobs, mark_expired_jobs, map_jobs_to_coins
 from scraper.diff_tracker import save_diff
@@ -47,6 +48,8 @@ class JobScheduler:
             CryptocurrencyjobsioScraper(),
             WeWorkRemotelyScraper(),
             StartupJobsScraper(),
+            # GitHub
+            GithubJobsScraper(),
         ]
         logger.info(f"Initialized JobScheduler with {len(self.scrapers)} scrapers")
 
@@ -118,10 +121,13 @@ class JobScheduler:
             logger.error(f"[ERROR] Mapping failed: {str(e)}")
             mapped_count = 0
 
-        # Mark expired jobs
+        # Mark expired jobs — ONLY when scraper returned > 0 results.
+        # If a scraper returned 0 (failed connection or parse error), we have no
+        # authoritative list to compare against, so we must NOT expire existing
+        # jobs or they disappear from /jobs every time a site is unreachable.
         expired_count = 0
         for source_site, job_count in source_jobs.items():
-            if job_count is not None:
+            if job_count is not None and job_count > 0:
                 try:
                     current_urls = [j["url"] for j in all_jobs if j["source_site"] == source_site]
                     expired = mark_expired_jobs(source_site, current_urls, db)

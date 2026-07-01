@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 from datetime import datetime, timedelta
 from db.models import Job
 
@@ -61,11 +61,11 @@ def format_jobs_list(jobs: List[Job], title: str = "") -> str:
 
 
 def format_new_jobs(jobs: List[Job]) -> str:
-    """Format jobs for /new command."""
+    """Format jobs for /new command (last 30 days)."""
     if not jobs:
-        return "✨ No new jobs in the last 24 hours"
+        return "✨ No new jobs in the last 30 days"
 
-    title = f"✨ <b>New Jobs (Last 24h)</b> — {len(jobs)} total\n"
+    title = f"✨ <b>New Jobs (Last 30 Days)</b> — {len(jobs)} total\n"
     parts = [title]
 
     for i, job in enumerate(jobs, 1):
@@ -110,19 +110,57 @@ def format_subscriptions(subs: List[str]) -> str:
 
 def format_job_for_group(job: Job) -> str:
     """Format job notification for group chat."""
-    deadline_text = job.deadline.strftime("%b %d, %Y") if job.deadline else "No deadline"
-    listed_text = job.listed_date.strftime("%b %d, %Y") if job.listed_date else "Unknown"
     coin_text = job.coin_ticker if job.coin_ticker else "MISC"
+    listed_text = job.listed_date.strftime("%b %d, %Y") if job.listed_date else datetime.utcnow().strftime("%b %d, %Y")
+    deadline_text = job.deadline.strftime("%b %d, %Y") if job.deadline else "Open"
 
-    return f"""<b>🆕 {coin_text}</b> | {job.title}
+    return (
+        f"<b>New job available for {coin_text}</b>\n\n"
+        f"<b>{job.title}</b>\n"
+        f"<b>Company:</b> {job.company}\n"
+        f"<b>Location:</b> {job.location or 'Remote'}\n"
+        f"<b>Listed:</b> {listed_text}\n"
+        f"<b>Deadline:</b> {deadline_text}\n"
+        f"<b>Source:</b> {job.source_site}\n\n"
+        f'<a href="{job.url}">View Full Job</a>'
+    )
 
-<b>💼 Company:</b> {job.company}
-<b>📍 Location:</b> {job.location}
-<b>📅 Posted:</b> {listed_text}
-<b>⏳ Deadline:</b> {deadline_text}
-<b>📌 Source:</b> {job.source_site}
 
-<a href="{job.url}">View Full Job</a>"""
+def format_jobs_by_coin(grouped_jobs: Dict[str, List[Job]]) -> str:
+    """Format jobs grouped by coin with full details."""
+    if not grouped_jobs:
+        return "No jobs available yet."
+
+    total_jobs = sum(len(jobs) for jobs in grouped_jobs.values())
+    lines = [f"<b>Available Jobs by Coin</b> — {total_jobs} total jobs\n"]
+
+    for coin, jobs in grouped_jobs.items():
+        lines.append(f"\n<b>{coin}</b> ({len(jobs)} jobs)")
+        lines.append("—" * 40)
+
+        for idx, job in enumerate(jobs, 1):
+            title = job.title[:45] if len(job.title) > 45 else job.title
+            lines.append(f"{idx}. <b>{title}</b> @ {job.company}")
+
+    lines.append(f"\n<i>Total: {total_jobs} active jobs across {len(grouped_jobs)} coins</i>")
+    return "\n".join(lines)
+
+
+def format_coin_statistics(coin_counts: Dict[str, int]) -> str:
+    """Format coin statistics showing job counts per coin."""
+    if not coin_counts:
+        return "No jobs available yet."
+
+    total_jobs = sum(coin_counts.values())
+    lines = [f"<b>Jobs Available by Coin</b> — {total_jobs} total jobs\n"]
+
+    for idx, (coin, count) in enumerate(coin_counts.items(), 1):
+        emoji = f"{idx}️⃣"
+        percentage = (count / total_jobs * 100) if total_jobs > 0 else 0
+        lines.append(f"{emoji} <b>{coin}</b>: {count} jobs ({percentage:.1f}%)")
+
+    lines.append(f"\n<i>Total: {total_jobs} active jobs across {len(coin_counts)} coins</i>")
+    return "\n".join(lines)
 
 
 def format_start_message() -> str:
@@ -136,8 +174,9 @@ I help you find crypto jobs matching your interests. Subscribe to coins and get 
 
 📌 <b>/start</b> — Show this message
 🪙 <b>/coin BTC</b> — Jobs for a specific coin (e.g., /coin ETH, /coin LINK)
-✨ <b>/new</b> — New jobs from last 24 hours
+✨ <b>/new</b> — New jobs from last 30 days
 ⏰ <b>/expiring</b> — Jobs expiring in next 48 hours
+📊 <b>/jobs</b> — View available jobs per coin
 🔔 <b>/subscribe COIN</b> — Subscribe to a coin (e.g., /subscribe ETH)
 🔕 <b>/unsubscribe COIN</b> — Unsubscribe from a coin
 📋 <b>/mysubs</b> — View your subscriptions

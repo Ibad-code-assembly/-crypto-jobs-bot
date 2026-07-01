@@ -112,26 +112,27 @@ class IntegratedBot:
 
     async def _start_scheduler_with_notifications(self):
         """Start scheduler with integrated notifications."""
-        # Define the scheduled job wrapper first
         async def scheduled_job_with_notifications():
-            """Wrapper to handle notifications after scraping."""
+            """Run scrapers then send group notifications for every new job."""
             logger.info("\n[SCHEDULED] Running periodic scrape...")
             result = await self.scheduler.run_all_scrapers()
 
-            # Get new jobs and send notifications
             if result.get("new", 0) > 0:
-                logger.info(f"[SCHEDULED] {result['new']} new jobs, sending notifications...")
+                logger.info(f"[SCHEDULED] {result['new']} new jobs — sending group notifications...")
                 db = SessionLocal()
                 from db.models import Job
 
-                new_jobs = db.query(Job).filter(Job.created_at >= result["timestamp"]).all()
+                new_jobs = db.query(Job).filter(
+                    Job.created_at >= result["timestamp"],
+                    Job.is_active == True,
+                ).all()
 
                 if new_jobs and self.notification_manager:
                     notify_result = await self.notification_manager.notify_all_new_jobs(new_jobs)
-                    result["notifications_sent"] = notify_result.get("total_sent", 0)
-                    result["notifications_failed"] = notify_result.get("total_failed", 0)
-                    logger.info(f"[SCHEDULED] Notifications: {notify_result['total_sent']} sent, "
-                               f"{notify_result['total_failed']} failed")
+                    logger.info(
+                        f"[SCHEDULED] Notifications: {notify_result['total_sent']} sent, "
+                        f"{notify_result['total_failed']} failed"
+                    )
 
                 db.close()
 

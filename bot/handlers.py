@@ -96,17 +96,18 @@ async def coin_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 async def new_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handle /new command to show jobs from last 24 hours."""
+    """Handle /new command to show jobs from last month."""
     try:
         logger.info("[HANDLER] new_handler called")
         db = SessionLocal()
 
         try:
-            jobs = find_new_jobs(hours=24, db=db)
+            # Show jobs from last 30 days (1 month)
+            jobs = find_new_jobs(hours=30*24, db=db)
 
             if not jobs:
                 await update.message.reply_text(
-                    "✨ <b>New Jobs (Last 24h)</b>\n\nNo new jobs found.",
+                    "✨ <b>New Jobs (Last 30 Days)</b>\n\nNo new jobs found in the last month.",
                     parse_mode=ParseMode.HTML
                 )
                 return
@@ -243,6 +244,36 @@ async def mysubs_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         await update.message.reply_text("Sorry, an error occurred. Please try again.")
 
 
+async def jobs_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handle /jobs command to show available jobs grouped by coin."""
+    try:
+        logger.info("[HANDLER] jobs_handler called")
+        db = SessionLocal()
+
+        try:
+            from db.queries import get_jobs_grouped_by_coin
+            from bot.formatters import format_jobs_by_coin
+
+            grouped_jobs = get_jobs_grouped_by_coin(db)
+
+            if not grouped_jobs:
+                await update.message.reply_text(
+                    "No jobs available yet.",
+                    parse_mode=ParseMode.HTML
+                )
+                return
+
+            message = format_jobs_by_coin(grouped_jobs)
+            await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
+        finally:
+            db.close()
+
+    except Exception as e:
+        logger.error(f"Error in jobs_handler: {str(e)}")
+        await update.message.reply_text("Sorry, an error occurred. Please try again.")
+
+
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Handle errors."""
     logger.error(f"Exception while handling an update: {context.error}")
@@ -340,7 +371,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
                 jobs = find_new_jobs(hours=24, db=db)
                 if not jobs:
                     await update.message.reply_text(
-                        "✨ <b>New Jobs (Last 24h)</b>\n\nNo new jobs found.",
+                        "✨ <b>New Jobs (Last 30 Days)</b>\n\nNo new jobs found.",
                         parse_mode=ParseMode.HTML
                     )
                 else:
@@ -371,7 +402,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         # Fallback: Respond to simple greetings like "hi"
         if "hi" in message_lower or "hello" in message_lower or "hey" in message_lower:
             logger.info(f"[KEYWORD] Found greeting in message: {message_text[:50]}")
-            greeting = "👋 <b>Hello!</b>\n\nI'm Crypto Jobs Bot. Here's what I can do:\n\n/start - Show all commands\n/coin BTC - Get Bitcoin jobs\n/new - New jobs (24h)\n/expiring - Jobs expiring soon\n/subscribe ETH - Get notifications"
+            greeting = "👋 <b>Hello!</b>\n\nI'm Crypto Jobs Bot. Here's what I can do:\n\n/start - Show all commands\n/coin BTC - Get Bitcoin jobs\n/new - New jobs (30 days)\n/expiring - Jobs expiring soon\n/jobs - Available jobs per coin\n/subscribe ETH - Get notifications"
             await update.message.reply_text(greeting, parse_mode=ParseMode.HTML)
             return
 
