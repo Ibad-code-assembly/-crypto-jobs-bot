@@ -87,7 +87,7 @@ def _log_unmatched(company_name: str, best_match: str, score: int):
         timestamp = datetime.utcnow().isoformat() + "Z"
         log_entry = f"{company_name} | {best_match} | {score} | {timestamp}\n"
 
-        with open(UNMATCHED_LOG_FILE, "a") as f:
+        with open(UNMATCHED_LOG_FILE, "a", encoding="utf-8") as f:
             f.write(log_entry)
     except Exception as e:
         logger.error(f"Error writing to unmatched log: {str(e)}")

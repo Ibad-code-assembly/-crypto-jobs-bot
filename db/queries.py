@@ -32,27 +32,31 @@ def insert_or_update_jobs(jobs: List[Dict], db: Session) -> Tuple[int, int]:
                 updated_count += 1
                 logger.debug(f"Updated job: {existing_job.title} ({job_hash[:8]}...)")
             else:
-                new_job = Job(
-                    title=job_data["title"],
-                    company=job_data["company"],
-                    location=job_data.get("location", "Unknown"),
-                    url=job_data["url"],
-                    listed_date=job_data.get("listed_date"),
-                    deadline=job_data.get("deadline"),
-                    source_site=job_data["source_site"],
-                    scraped_at=job_data.get("scraped_at", datetime.utcnow()),
-                    job_hash=job_hash,
-                    coin_ticker=job_data.get("coin_ticker"),
-                    is_active=True
-                )
-                db.add(new_job)
-                new_count += 1
-                logger.debug(f"Inserted job: {new_job.title} ({job_hash[:8]}...)")
+                # Use savepoint so a duplicate-hash failure doesn't wipe the whole batch
+                sp = db.begin_nested()
+                try:
+                    new_job = Job(
+                        title=job_data["title"],
+                        company=job_data["company"],
+                        location=job_data.get("location", "Unknown"),
+                        url=job_data["url"],
+                        listed_date=job_data.get("listed_date"),
+                        deadline=job_data.get("deadline"),
+                        source_site=job_data["source_site"],
+                        scraped_at=job_data.get("scraped_at", datetime.utcnow()),
+                        job_hash=job_hash,
+                        coin_ticker=job_data.get("coin_ticker"),
+                        is_active=True
+                    )
+                    db.add(new_job)
+                    db.flush()
+                    sp.commit()
+                    new_count += 1
+                    logger.debug(f"Inserted job: {new_job.title} ({job_hash[:8]}...)")
+                except IntegrityError:
+                    sp.rollback()
+                    logger.debug(f"Duplicate hash skipped: {job_data.get('title')}")
 
-        except IntegrityError:
-            db.rollback()
-            logger.warning(f"Integrity error for job: {job_data.get('title')}")
-            continue
         except Exception as e:
             logger.error(f"Error processing job {job_data.get('title')}: {str(e)}")
             continue
@@ -105,17 +109,17 @@ def get_jobs_by_coin(coin_ticker: str, db: Session) -> List[Job]:
     ).order_by(Job.created_at.desc()).all()
 
 
-def find_new_jobs(hours: int = 24, db: Session = None) -> List[Job]:
-    """Find active jobs created in last N hours."""
+def find_new_jobs(hours: int = 720, db: Session = None) -> List[Job]:
+    """Find active jobs with listed_date in last N hours (default 30 days)."""
     if db is None:
         from .database import SessionLocal
         db = SessionLocal()
 
     cutoff_time = datetime.utcnow() - timedelta(hours=hours)
     return db.query(Job).filter(
-        Job.created_at >= cutoff_time,
+        Job.listed_date >= cutoff_time,
         Job.is_active == True
-    ).order_by(Job.created_at.desc()).all()
+    ).order_by(Job.listed_date.desc()).all()
 
 
 def find_expiring_jobs(hours: int = 48, db: Session = None) -> List[Job]:
@@ -252,3 +256,46 @@ def map_jobs_to_coins(jobs: List[Job], db: Session) -> List[Job]:
         raise
 
     return jobs
+
+
+def get_jobs_grouped_by_coin(db: Session) -> Dict[str, List[Job]]:
+    """
+    Get active jobs grouped by coin ticker.
+    Returns dict: {coin_ticker: [Job, Job, ...]}
+    """
+    all_jobs = db.query(Job).filter(
+        Job.is_active == True,
+        Job.coin_ticker != None
+    ).order_by(Job.coin_ticker, Job.created_at.desc()).all()
+
+    grouped = {}
+    for job in all_jobs:
+        if job.coin_ticker not in grouped:
+            grouped[job.coin_ticker] = []
+        grouped[job.coin_ticker].append(job)
+
+    return grouped
+
+
+def get_job_count_by_coin(db: Session) -> Dict[str, int]:
+    """
+    Get count of active jobs grouped by coin ticker.
+    Returns dict: {coin_ticker: count}
+    """
+    from sqlalchemy import func
+
+    try:
+        results = db.query(
+            Job.coin_ticker,
+            func.count(Job.id).label('count')
+        ).filter(
+            Job.is_active == True,
+            Job.coin_ticker != None
+        ).group_by(Job.coin_ticker).order_by(
+            func.count(Job.id).desc()
+        ).all()
+
+        return {ticker: count for ticker, count in results if ticker}
+    except Exception as e:
+        logger.error(f"Error getting job count by coin: {str(e)}")
+        return {}

@@ -3,6 +3,7 @@
 
 import os
 import logging
+import sys
 from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
@@ -21,7 +22,7 @@ logger = logging.getLogger(__name__)
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     logger.error("ERROR: BOT_TOKEN not found in .env file!")
-    exit(1)
+    sys.exit(1)
 
 logger.info(f"Bot token loaded: {BOT_TOKEN[:20]}...***")
 
@@ -44,7 +45,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         logger.info(f"[SKIP] No 'hi' in message")
 
 
-async def main():
+def main():
     """Main entry point"""
     logger.info("="*60)
     logger.info("MINIMAL BOT TEST")
@@ -65,11 +66,10 @@ async def main():
     logger.info("Bot is running. Send 'hi' in Telegram group.\n")
 
     try:
-        await app.run_polling(allowed_updates=None)
+        app.run_polling(allowed_updates=None)
     except KeyboardInterrupt:
         logger.info("\n[SHUTDOWN] Bot stopped by user")
 
 
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    main()

@@ -1,0 +1,60 @@
+INFO:__main__:======================================================================
+INFO:__main__:CRYPTO JOBS BOT - INTEGRATED (Bot + Scheduler + Notifications)
+INFO:__main__:======================================================================
+INFO:__main__:Bot token: 8651166506:AAGpxCowX...***
+INFO:__main__:
+[INIT] Initializing database...
+INFO:__main__:[OK] Database initialized
+INFO:__main__:
+[BOT] Creating Telegram application...
+INFO:__main__:[OK] Application created
+INFO:__main__:[BOT] Registering command handlers...
+INFO:__main__:[BOT] Registering message handler for keyword detection...
+INFO:__main__:[OK] Command handlers registered
+INFO:__main__:
+[NOTIFY] Creating notification manager...
+INFO:__main__:[OK] Notification manager created
+INFO:__main__:
+[SCHEDULER] Creating job scheduler...
+INFO:scraper.scheduler:Initialized JobScheduler with 8 scrapers
+INFO:__main__:[OK] Scheduler created
+INFO:__main__:
+[SCHEDULER] Starting scheduler in background thread (every 6 hours)...
+INFO:__main__:[OK] Scheduler thread started
+INFO:__main__:
+[POLLING] Starting bot polling...
+INFO:__main__:Bot is running. Press Ctrl+C to stop.
+
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "Scrape all sites and send notifications" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+INFO:__main__:[OK] Scheduler started - ready to receive bot messages!
+INFO:__main__:
+[STARTUP] Running initial scrape in background...
+INFO:scraper.scheduler:
+======================================================================
+INFO:scraper.scheduler:SCRAPE RUN STARTED
+INFO:scraper.scheduler:======================================================================
+INFO:scraper.scheduler:
+Scraping cryptocurrencyjobs.co...
+INFO:scraper.base_scraper:Starting scraper: cryptocurrencyjobs.co
+INFO:scraper.cryptocurrencyjobs:Starting scraper: cryptocurrencyjobs.co
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getMe "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/deleteWebhook "HTTP/1.1 200 OK"
+INFO:apscheduler.scheduler:Scheduler started
+INFO:telegram.ext.Application:Application started
+INFO:httpx:HTTP Request: POST https://8ehcb38y1u-dsn.algolia.net/1/indexes/*/queries "HTTP/1.1 200 OK"
+INFO:scraper.cryptocurrencyjobs:[cryptocurrencyjobs.co] Page 0: 200 hits (4 total pages)
+INFO:httpx:HTTP Request: POST https://8ehcb38y1u-dsn.algolia.net/1/indexes/*/queries "HTTP/1.1 200 OK"
+INFO:scraper.cryptocurrencyjobs:[cryptocurrencyjobs.co] Page 1: 200 hits (4 total pages)
+INFO:httpx:HTTP Request: POST https://8ehcb38y1u-dsn.algolia.net/1/indexes/*/queries "HTTP/1.1 200 OK"
+INFO:scraper.cryptocurrencyjobs:[cryptocurrencyjobs.co] Page 2: 200 hits (4 total pages)
+INFO:httpx:HTTP Request: POST https://8ehcb38y1u-dsn.algolia.net/1/indexes/*/queries "HTTP/1.1 200 OK"
+INFO:scraper.cryptocurrencyjobs:[cryptocurrencyjobs.co] Page 3: 166 hits (4 total pages)
+INFO:scraper.cryptocurrencyjobs:[OK] cryptocurrencyjobs.co: Scraped 765 jobs
+INFO:scraper.base_scraper:[OK] cryptocurrencyjobs.co: Scraped 765 jobs
+INFO:scraper.scheduler:[OK] cryptocurrencyjobs.co: Found 765 jobs
+INFO:scraper.scheduler:
+Scraping greenhouse.io...
+INFO:scraper.base_scraper:Starting scraper: greenhouse.io
+INFO:scraper.greenhouse:Starting scraper: greenhouse.io

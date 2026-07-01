@@ -5,20 +5,16 @@ from typing import List, Dict
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
-from scraper.web3_career import Web3CareerScraper
 from scraper.cryptojobslist import CryptoJobsListScraper
 from scraper.cryptocurrencyjobs import CryptocurrencyJobsScraper
-from scraper.crypto_jobs import CryptoJobsScraper
 from scraper.cryptojobs import CryptoJobsScraper as CryptoJobsComScraper
 from scraper.remote3 import Remote3Scraper
-from scraper.coinmarketcap_jobs import CoinMarketCapJobsScraper
-from scraper.gitcoin import GitcoinScraper
-from scraper.wellfound import WellfoundScraper
-from scraper.blockchainjobs import BlockchainjobsScraper
-from scraper.cryptocurrencyjobs_io import CryptocurrencyjobsioScraper
 from scraper.we_work_remotely import WeWorkRemotelyScraper
-from scraper.startup_jobs import StartupJobsScraper
 from scraper.github_jobs import GithubJobsScraper
+from scraper.blockace import BlockaceScraper
+from scraper.greenhouse import GreenhouseScraper
+from scraper.crypto_jobs import CryptoJobsScraper
+from scraper.startup_jobs import StartupJobsScraper
 from db.database import SessionLocal
 from db.queries import insert_or_update_jobs, mark_expired_jobs, map_jobs_to_coins
 from scraper.diff_tracker import save_diff
@@ -33,23 +29,19 @@ class JobScheduler:
         """Initialize scheduler with all scraper instances."""
         self.scheduler = AsyncIOScheduler()
         self.scrapers = [
-            # Original 7 boards
-            Web3CareerScraper(),
-            CryptoJobsListScraper(),
-            CryptocurrencyJobsScraper(),
-            CryptoJobsScraper(),
-            CryptoJobsComScraper(),
-            Remote3Scraper(),
-            CoinMarketCapJobsScraper(),
-            # New 6 boards
-            GitcoinScraper(),
-            WellfoundScraper(),
-            BlockchainjobsScraper(),
-            CryptocurrencyjobsioScraper(),
-            WeWorkRemotelyScraper(),
-            StartupJobsScraper(),
-            # GitHub
-            GithubJobsScraper(),
+            # Confirmed working — ordered fastest first
+            CryptocurrencyJobsScraper(),   # cryptocurrencyjobs.co - 765 jobs (Algolia API)
+            GreenhouseScraper(),           # greenhouse.io - 429 jobs (Coinbase, Ripple, Gemini…)
+            WeWorkRemotelyScraper(),       # weworkremotely.com - 246 jobs
+            GithubJobsScraper(),           # github.com - 52 jobs
+            BlockaceScraper(),             # blockace.io - 70 jobs
+            CryptoJobsListScraper(),       # cryptojobslist.com - 25 jobs
+            Remote3Scraper(),              # remote3.co - 20 jobs
+            CryptoJobsComScraper(),        # cryptojobs.com - 15 jobs
+            CryptoJobsScraper(),           # crypto.jobs - 11 jobs (plain HTTP)
+            StartupJobsScraper(),          # news.ycombinator.com/jobs - crypto-filtered
+            # Excluded: web3.career (Cloudflare), gitcoin.co / blockchainjobs.io (DNS fail),
+            #           wellfound.com (DataDome CAPTCHA), coinmarketcap jobs (DNS fail)
         ]
         logger.info(f"Initialized JobScheduler with {len(self.scrapers)} scrapers")
 

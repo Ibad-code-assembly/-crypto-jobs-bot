@@ -20,6 +20,7 @@ from bot.handlers import (
     mysubs_handler,
     error_handler,
     message_handler,
+    unknown_command_handler,
 )
 from bot.notifications import NotificationManager
 
@@ -71,9 +72,12 @@ class IntegratedBot:
         self.app.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
         self.app.add_handler(CommandHandler("mysubs", mysubs_handler))
 
-        # Register message handler for keywords
+        # Register message handler for plain-text keywords
         logger.info("[BOT] Registering message handler for keyword detection...")
         self.app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+
+        # Unknown commands like /BTC /ETH /XMR → treated as coin lookups (must be LAST)
+        self.app.add_handler(MessageHandler(filters.COMMAND, unknown_command_handler))
 
         self.app.add_error_handler(error_handler)
 
@@ -90,8 +94,8 @@ class IntegratedBot:
         self.scheduler = JobScheduler()
         logger.info("[OK] Scheduler created")
 
-        # Start scheduler in background thread (runs every 60 minutes)
-        logger.info("\n[SCHEDULER] Starting scheduler in background thread (every 60 minutes)...")
+        # Start scheduler in background thread (runs every 6 hours)
+        logger.info("\n[SCHEDULER] Starting scheduler in background thread (every 6 hours)...")
         import threading
         scheduler_thread = threading.Thread(
             target=lambda: asyncio.run(self._start_scheduler_with_notifications()),
@@ -145,10 +149,10 @@ class IntegratedBot:
         self.scheduler.scheduler.add_job(
             scheduled_job_with_notifications,
             "interval",
-            minutes=60,
+            hours=6,
             id="scrape_all_sites_with_notifications",
             name="Scrape all sites and send notifications",
-            misfire_grace_time=60,
+            misfire_grace_time=300,
         )
 
         # Start scheduler NOW - don't block the bot!

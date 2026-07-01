@@ -1,0 +1,103 @@
+INFO:__main__:======================================================================
+INFO:__main__:CRYPTO JOBS BOT - INTEGRATED (Bot + Scheduler + Notifications)
+INFO:__main__:======================================================================
+INFO:__main__:Bot token: 8651166506:AAGpxCowX...***
+INFO:__main__:
+[INIT] Initializing database...
+INFO:__main__:[OK] Database initialized
+INFO:__main__:
+[BOT] Creating Telegram application...
+DEBUG:telegram.ext.ExtBot:Set Bot API URL: https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ
+DEBUG:telegram.ext.ExtBot:Set Bot API File URL: https://api.telegram.org/file/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ
+INFO:__main__:[OK] Application created
+INFO:__main__:[BOT] Registering command handlers...
+INFO:__main__:[BOT] Registering message handler for keyword detection...
+INFO:__main__:[OK] Command handlers registered
+INFO:__main__:
+[NOTIFY] Creating notification manager...
+INFO:__main__:[OK] Notification manager created
+INFO:__main__:
+[SCHEDULER] Creating job scheduler...
+DEBUG:tzlocal:Looking up time zone info from registry
+INFO:scraper.scheduler:Initialized JobScheduler with 7 scrapers
+INFO:__main__:[OK] Scheduler created
+INFO:__main__:
+[SCHEDULER] Starting scheduler in background thread (every 60 minutes)...
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:__main__:[OK] Scheduler thread started
+INFO:__main__:
+[POLLING] Starting bot polling...
+INFO:__main__:Bot is running. Press Ctrl+C to stop.
+
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:apscheduler.scheduler:Added job "Scrape all sites and send notifications" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:telegram.ext:Network Retry Loop (Bootstrap Initialize Application): Starting
+INFO:__main__:[OK] Scheduler started - ready to receive bot messages!
+INFO:__main__:
+[STARTUP] Running initial scrape in background...
+DEBUG:telegram.ext.ExtBot:Calling Bot API endpoint `getMe` with parameters `{}`
+INFO:scraper.scheduler:
+======================================================================
+INFO:scraper.scheduler:SCRAPE RUN STARTED
+INFO:scraper.scheduler:======================================================================
+INFO:scraper.scheduler:
+Scraping web3.career...
+DEBUG:httpcore.connection:connect_tcp.started host='api.telegram.org' port=443 local_address=None timeout=5.0 socket_options=None
+DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x0000021925140050>
+DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x00000219250234A0> server_hostname='api.telegram.org' timeout=5.0
+INFO:scraper.base_scraper:Starting scraper: web3.career
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:Next wakeup is due at 2026-07-01 04:43:20.993991-07:00 (in 3599.596833 seconds)
+DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x0000021925117FD0>
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.30.1'), (b'Date', b'Wed, 01 Jul 2026 10:43:21 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'412'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/getMe "HTTP/1.1 200 OK"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:telegram.ext.ExtBot:Call to Bot API endpoint `getMe` finished with return value `{'id': 8651166506, 'is_bot': True, 'first_name': 'CryptoJob', 'username': 'cryptojoobs_bot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False, 'supports_guest_queries': False, 'can_connect_to_business': False, 'has_main_web_app': False, 'has_topics_enabled': False, 'allows_users_to_create_topics': False, 'can_manage_bots': False, 'supports_join_request_queries': False}`
+DEBUG:telegram.ext.ExtBot:This Bot is already initialized.
+DEBUG:telegram.ext:Network Retry Loop (Bootstrap Initialize Application): Action succeeded. Stopping loop.
+DEBUG:telegram.ext.Updater:Updater started (polling)
+DEBUG:telegram.ext:Network Retry Loop (Bootstrap delete Webhook): Starting
+DEBUG:telegram.ext.Updater:Deleting webhook
+DEBUG:telegram.ext.ExtBot:Calling Bot API endpoint `deleteWebhook` with parameters `{}`
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx/1.30.1'), (b'Date', b'Wed, 01 Jul 2026 10:43:21 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'68'), (b'Connection', b'keep-alive'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Allow-Methods', b'GET, POST, OPTIONS'), (b'Access-Control-Expose-Headers', b'Content-Length,Content-Type,Date,Server,Connection')])
+INFO:httpx:HTTP Request: POST https://api.telegram.org/bot8651166506:AAGpxCowXyJefz-RYRAeTcXDN5fvSKRI0mQ/deleteWebhook "HTTP/1.1 200 OK"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:telegram.ext.ExtBot:Call to Bot API endpoint `deleteWebhook` finished with return value `True`
+DEBUG:telegram.ext:Network Retry Loop (Bootstrap delete Webhook): Action succeeded. Stopping loop.
+DEBUG:telegram.ext.Updater:Bootstrap done
+DEBUG:telegram.ext.Updater:Waiting for polling to start
+DEBUG:telegram.ext.Updater:Polling updates from Telegram started
+DEBUG:telegram.ext:Network Retry Loop (Polling Updates): Starting
+DEBUG:telegram.ext.ExtBot:Calling Bot API endpoint `getUpdates` with parameters `{'timeout': datetime.timedelta(seconds=10), 'offset': 0}`
+INFO:apscheduler.scheduler:Scheduler started
+DEBUG:telegram.ext.Application:JobQueue started
+INFO:telegram.ext.Application:Application started
+DEBUG:httpcore.connection:connect_tcp.started host='api.telegram.org' port=443 local_address=None timeout=5.0 socket_options=None
+DEBUG:apscheduler.scheduler:Looking for jobs to run
+DEBUG:apscheduler.scheduler:No jobs; waiting until a job is added
+DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x0000021925104F50>
+DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x0000021925023530> server_hostname='api.telegram.org' timeout=5.0
+DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x00000219250F1990>
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>

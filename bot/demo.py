@@ -46,11 +46,11 @@ def demo():
     print("\n" + "-"*70)
     print("COMMAND: /new")
     print("-"*70)
-    new_jobs = find_new_jobs(hours=24, db=db)
+    new_jobs = find_new_jobs(hours=30*24, db=db)
     if new_jobs:
         print(format_new_jobs(new_jobs))
     else:
-        print("[OK] No new jobs in the last 24 hours")
+        print("[OK] No new jobs in the last 30 days")
 
     # /expiring
     print("\n" + "-"*70)
@@ -62,6 +62,18 @@ def demo():
         print(format_expiring_jobs(expiring_jobs))
     else:
         print("[OK] No jobs expiring in the next 48 hours")
+
+    # /jobs
+    print("\n" + "-"*70)
+    print("COMMAND: /jobs")
+    print("-"*70)
+    from db.queries import get_jobs_grouped_by_coin
+    from bot.formatters import format_jobs_by_coin
+    grouped_jobs = get_jobs_grouped_by_coin(db)
+    if grouped_jobs:
+        print(format_jobs_by_coin(grouped_jobs))
+    else:
+        print("[OK] No jobs available yet")
 
     # /subscribe
     print("\n" + "-"*70)

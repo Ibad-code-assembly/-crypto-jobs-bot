@@ -1,10 +1,10 @@
+import asyncio
 import logging
 from telegram import Update
 from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
 
-# Enable debug logging for handlers
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 from db.database import SessionLocal
 from db.queries import (
@@ -22,6 +22,7 @@ from bot.formatters import (
     format_new_jobs,
     format_expiring_jobs,
     format_subscriptions,
+    format_jobs_by_coin,
 )
 
 logger = logging.getLogger(__name__)
@@ -63,28 +64,17 @@ async def coin_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
             if not jobs:
                 await update.message.reply_text(
-                    f"🪙 <b>{coin}</b>\n\nNo active jobs found.",
+                    f"<b>{coin}</b>\n\nNo active jobs found for this coin.\n"
+                    f"Try /jobs to see all available coins.",
                     parse_mode=ParseMode.HTML
                 )
                 return
 
-            title = f"🪙 <b>{coin}</b> — {len(jobs)} active jobs"
-            message = format_jobs_list(jobs, title)
-
-            await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-
-            # Send detailed cards for first 3 jobs
-            for i, job in enumerate(jobs[:3]):
-                card = format_job_card(job)
-                await update.message.reply_text(card, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-
-                if i < 2:
-                    await update.message.reply_text("—", parse_mode=ParseMode.HTML)
-
-            if len(jobs) > 3:
+            title = f"{coin} — {len(jobs)} active jobs"
+            messages = format_jobs_list(jobs, title)
+            for msg in messages:
                 await update.message.reply_text(
-                    f"<i>...and {len(jobs) - 3} more jobs. Use /new or /expiring to see more.</i>",
-                    parse_mode=ParseMode.HTML
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
                 )
 
         finally:
@@ -96,25 +86,18 @@ async def coin_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 async def new_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handle /new command to show jobs from last month."""
+    """Handle /new command — recent coin-specific jobs grouped by coin."""
     try:
         logger.info("[HANDLER] new_handler called")
         db = SessionLocal()
-
         try:
-            # Show jobs from last 30 days (1 month)
-            jobs = find_new_jobs(hours=30*24, db=db)
-
-            if not jobs:
+            jobs = find_new_jobs(hours=30 * 24, db=db)
+            messages = format_new_jobs(jobs)
+            for msg in messages:
                 await update.message.reply_text(
-                    "✨ <b>New Jobs (Last 30 Days)</b>\n\nNo new jobs found in the last month.",
-                    parse_mode=ParseMode.HTML
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
                 )
-                return
-
-            message = format_new_jobs(jobs)
-            await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-
+                await asyncio.sleep(0.3)  # avoid Telegram flood limit
         finally:
             db.close()
 
@@ -124,23 +107,39 @@ async def new_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
 
 async def expiring_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handle /expiring command to show jobs with deadlines in next 48 hours."""
+    """Handle /expiring command to show jobs expiring in next 30 days."""
     try:
         logger.info("[HANDLER] expiring_handler called")
         db = SessionLocal()
 
         try:
-            jobs = find_expiring_jobs(hours=48, db=db)
+            from db.models import Job
+            from datetime import datetime, timedelta
 
-            if not jobs:
+            now = datetime.utcnow()
+            cutoff = now + timedelta(days=30)
+
+            # Jobs with explicit deadline within 30 days
+            deadline_jobs = db.query(Job).filter(
+                Job.is_active == True,
+                Job.deadline >= now,
+                Job.deadline <= cutoff,
+            ).order_by(Job.deadline.asc()).all()
+
+            # Jobs without deadline that are 20+ days old (likely to be removed soon)
+            old_cutoff = now - timedelta(days=20)
+            aging_jobs = db.query(Job).filter(
+                Job.is_active == True,
+                Job.deadline == None,
+                Job.listed_date <= old_cutoff,
+            ).order_by(Job.listed_date.asc()).limit(50).all()
+
+            jobs = deadline_jobs + aging_jobs
+            messages = format_expiring_jobs(jobs)
+            for msg in messages:
                 await update.message.reply_text(
-                    "⏰ <b>Jobs Expiring Soon</b>\n\nNo jobs expiring in the next 48 hours.",
-                    parse_mode=ParseMode.HTML
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
                 )
-                return
-
-            message = format_expiring_jobs(jobs)
-            await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
         finally:
             db.close()
@@ -252,7 +251,6 @@ async def jobs_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
         try:
             from db.queries import get_jobs_grouped_by_coin
-            from bot.formatters import format_jobs_by_coin
 
             grouped_jobs = get_jobs_grouped_by_coin(db)
             logger.info(f"[HANDLER] jobs_handler: found {len(grouped_jobs)} coins")
@@ -416,3 +414,37 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
     except Exception as e:
         logger.error(f"Error in message_handler: {str(e)}", exc_info=True)
+
+
+async def unknown_command_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """
+    Handle unknown commands like /BTC, /ETH, /XMR.
+    Treats the command name as a coin ticker and shows jobs for it.
+    """
+    if not update.message or not update.message.text:
+        return
+
+    try:
+        # Extract ticker from command e.g. "/XMR" -> "XMR"
+        raw = update.message.text.split()[0].lstrip("/").upper()
+        # Strip bot username suffix e.g. /BTC@mybot
+        ticker = raw.split("@")[0]
+
+        if not ticker or len(ticker) > 10:
+            return
+
+        logger.info(f"[HANDLER] unknown_command_handler: treating /{ticker} as coin lookup")
+        db = SessionLocal()
+        try:
+            jobs = get_jobs_by_coin(ticker, db)
+            messages = format_jobs_list(jobs, f"{ticker} jobs")
+            for msg in messages:
+                await update.message.reply_text(
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                )
+                await asyncio.sleep(0.3)
+        finally:
+            db.close()
+
+    except Exception as e:
+        logger.error(f"Error in unknown_command_handler: {str(e)}")

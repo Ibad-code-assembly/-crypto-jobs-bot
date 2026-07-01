@@ -10,6 +10,7 @@ from bot.handlers import (
     coin_handler,
     new_handler,
     expiring_handler,
+    jobs_handler,
     subscribe_handler,
     unsubscribe_handler,
     mysubs_handler,
@@ -51,6 +52,7 @@ def main():
     application.add_handler(CommandHandler("coin", coin_handler))
     application.add_handler(CommandHandler("new", new_handler))
     application.add_handler(CommandHandler("expiring", expiring_handler))
+    application.add_handler(CommandHandler("jobs", jobs_handler))
     application.add_handler(CommandHandler("subscribe", subscribe_handler))
     application.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
     application.add_handler(CommandHandler("mysubs", mysubs_handler))
