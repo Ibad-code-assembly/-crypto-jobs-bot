@@ -255,22 +255,27 @@ async def jobs_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
             from bot.formatters import format_jobs_by_coin
 
             grouped_jobs = get_jobs_grouped_by_coin(db)
+            logger.info(f"[HANDLER] jobs_handler: found {len(grouped_jobs)} coins")
 
             if not grouped_jobs:
                 await update.message.reply_text(
-                    "No jobs available yet.",
+                    "No jobs available yet. Try again after the next scrape.",
                     parse_mode=ParseMode.HTML
                 )
                 return
 
-            message = format_jobs_by_coin(grouped_jobs)
-            await update.message.reply_text(message, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            # format_jobs_by_coin returns a list of messages (split for Telegram limit)
+            messages = format_jobs_by_coin(grouped_jobs)
+            for msg in messages:
+                await update.message.reply_text(
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                )
 
         finally:
             db.close()
 
     except Exception as e:
-        logger.error(f"Error in jobs_handler: {str(e)}")
+        logger.error(f"Error in jobs_handler: {str(e)}", exc_info=True)
         await update.message.reply_text("Sorry, an error occurred. Please try again.")
 
 

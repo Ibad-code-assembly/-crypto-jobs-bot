@@ -126,24 +126,45 @@ def format_job_for_group(job: Job) -> str:
     )
 
 
-def format_jobs_by_coin(grouped_jobs: Dict[str, List[Job]]) -> str:
-    """Format jobs grouped by coin with full details."""
+def format_jobs_by_coin(grouped_jobs: Dict[str, List[Job]]) -> List[str]:
+    """
+    Format jobs grouped by coin. Returns a list of messages (split to stay
+    under Telegram's 4096-char limit).
+    """
     if not grouped_jobs:
-        return "No jobs available yet."
+        return ["No jobs available yet."]
 
     total_jobs = sum(len(jobs) for jobs in grouped_jobs.values())
-    lines = [f"<b>Available Jobs by Coin</b> — {total_jobs} total jobs\n"]
+    messages = []
+    current = [f"<b>Available Jobs by Coin</b> - {total_jobs} total jobs\n"]
 
     for coin, jobs in grouped_jobs.items():
-        lines.append(f"\n<b>{coin}</b> ({len(jobs)} jobs)")
-        lines.append("—" * 40)
-
+        block = [f"\n<b>{coin}</b> ({len(jobs)} jobs)", "-" * 30]
         for idx, job in enumerate(jobs, 1):
-            title = job.title[:45] if len(job.title) > 45 else job.title
-            lines.append(f"{idx}. <b>{title}</b> @ {job.company}")
+            title = job.title[:50] if len(job.title) > 50 else job.title
+            listed = job.listed_date.strftime("%b %d") if job.listed_date else ""
+            date_tag = f" | {listed}" if listed else ""
+            block.append(f"{idx}. <b>{title}</b>\n   {job.company}{date_tag}")
 
-    lines.append(f"\n<i>Total: {total_jobs} active jobs across {len(grouped_jobs)} coins</i>")
-    return "\n".join(lines)
+        block_text = "\n".join(block)
+
+        # Split into new message if adding this block would exceed 4000 chars
+        current_text = "\n".join(current)
+        if len(current_text) + len(block_text) > 3800:
+            messages.append(current_text)
+            current = [block_text]
+        else:
+            current.append(block_text)
+
+    footer = f"\n<i>Total: {total_jobs} active jobs across {len(grouped_jobs)} coins</i>"
+    current_text = "\n".join(current)
+    if len(current_text) + len(footer) > 3800:
+        messages.append(current_text)
+        messages.append(footer)
+    else:
+        messages.append(current_text + footer)
+
+    return messages
 
 
 def format_coin_statistics(coin_counts: Dict[str, int]) -> str:
