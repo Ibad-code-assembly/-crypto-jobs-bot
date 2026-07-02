@@ -15,6 +15,7 @@ from scraper.blockace import BlockaceScraper
 from scraper.greenhouse import GreenhouseScraper
 from scraper.crypto_jobs import CryptoJobsScraper
 from scraper.startup_jobs import StartupJobsScraper
+from scraper.twitter_jobs import TwitterJobsScraper
 from db.database import SessionLocal
 from db.queries import insert_or_update_jobs, mark_expired_jobs, map_jobs_to_coins
 from scraper.diff_tracker import save_diff
@@ -40,6 +41,7 @@ class JobScheduler:
             CryptoJobsComScraper(),        # cryptojobs.com - 15 jobs
             CryptoJobsScraper(),           # crypto.jobs - 11 jobs (plain HTTP)
             StartupJobsScraper(),          # news.ycombinator.com/jobs - crypto-filtered
+            TwitterJobsScraper(),          # twitter.com - job tweets from ~30 crypto accounts
             # Excluded: web3.career (Cloudflare), gitcoin.co / blockchainjobs.io (DNS fail),
             #           wellfound.com (DataDome CAPTCHA), coinmarketcap jobs (DNS fail)
         ]

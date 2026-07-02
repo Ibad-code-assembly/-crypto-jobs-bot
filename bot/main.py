@@ -3,6 +3,11 @@ import os
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from telegram.ext import ContextTypes
+from telegram.request import HTTPXRequest
+import httpx
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from db.database import init_db
 from bot.handlers import (
@@ -42,9 +47,22 @@ def main():
     init_db()
     logger.info("[OK] Database initialized")
 
-    # Create application
+    # Create application with optional proxy support
     logger.info("\n[BOT] Creating Telegram bot application...")
-    application = Application.builder().token(bot_token).build()
+
+    proxy_url = os.getenv("TELEGRAM_PROXY")
+    if proxy_url:
+        logger.info(f"[PROXY] Using proxy: {proxy_url}")
+        try:
+            client = httpx.AsyncClient(proxy=proxy_url, timeout=30.0)
+            request = HTTPXRequest(client=client)
+            application = Application.builder().token(bot_token).request(request).build()
+            logger.info("[OK] Application created with proxy")
+        except Exception as e:
+            logger.error(f"[PROXY ERROR] Failed to configure proxy: {e}")
+            application = Application.builder().token(bot_token).build()
+    else:
+        application = Application.builder().token(bot_token).build()
 
     # Register command handlers
     logger.info("[BOT] Registering command handlers...")

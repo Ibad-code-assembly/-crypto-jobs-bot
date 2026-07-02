@@ -2,11 +2,15 @@ import asyncio
 import logging
 import os
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
+from telegram.request import HTTPXRequest
+from telegram.error import TimedOut
+import httpx
 from db.database import init_db, SessionLocal
 from scraper.scheduler import JobScheduler
 from bot.handlers import (
@@ -61,10 +65,29 @@ class IntegratedBot:
         init_db()
         logger.info("[OK] Database initialized")
 
-        # Create Telegram application
+        # Create Telegram application with optional proxy support
         logger.info("\n[BOT] Creating Telegram application...")
-        self.app = Application.builder().token(self.bot_token).build()
-        logger.info("[OK] Application created")
+
+        # Check for proxy configuration
+        proxy_url = os.getenv("TELEGRAM_PROXY")
+        if proxy_url:
+            logger.info(f"[PROXY] Using proxy: {proxy_url}")
+            try:
+                # Create custom HTTP client with proxy
+                client = httpx.AsyncClient(
+                    proxy=proxy_url,
+                    timeout=30.0
+                )
+                request = HTTPXRequest(client=client)
+                self.app = Application.builder().token(self.bot_token).request(request).build()
+                logger.info("[OK] Application created with proxy")
+            except Exception as e:
+                logger.error(f"[PROXY ERROR] Failed to configure proxy: {e}")
+                logger.info("[FALLBACK] Creating application without proxy")
+                self.app = Application.builder().token(self.bot_token).build()
+        else:
+            self.app = Application.builder().token(self.bot_token).build()
+            logger.info("[OK] Application created (no proxy configured)")
 
         # Register command handlers
         logger.info("[BOT] Registering command handlers...")
@@ -117,8 +140,32 @@ class IntegratedBot:
         try:
             # Use synchronous polling (not await)
             self.app.run_polling(allowed_updates=None)
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, SystemExit):
             logger.info("\n[SHUTDOWN] Keyboard interrupt received")
+        except (TimedOut, TimeoutError) as e:
+            logger.error(f"\n[NETWORK] Telegram connection timed out: {type(e).__name__}")
+            logger.error("This is likely due to ISP/network blocking Telegram API servers")
+            logger.error("Solution: Use a VPN or configure a proxy in .env (TELEGRAM_PROXY=...)\n")
+            logger.warning("[FALLBACK] Running in scraper-only mode - jobs are still being collected!")
+            logger.warning("Scrapers will run every 6 hours and store jobs in the database.")
+            logger.warning("Once you enable network access (VPN/Proxy), restart the bot to send Telegram messages.\n")
+
+            # Keep the scheduler running even if Telegram is unavailable
+            try:
+                while True:
+                    time.sleep(1)
+            except KeyboardInterrupt:
+                logger.info("\n[SHUTDOWN] Keyboard interrupt received")
+        except Exception as e:
+            logger.error(f"\n[ERROR] Unexpected error: {type(e).__name__}: {e}")
+            logger.error("Bot will still continue running scrapers in fallback mode\n")
+
+            # Keep the scheduler running even if there's an error
+            try:
+                while True:
+                    time.sleep(1)
+            except KeyboardInterrupt:
+                logger.info("\n[SHUTDOWN] Keyboard interrupt received")
 
     async def _start_scheduler_with_notifications(self):
         """Start scheduler with integrated notifications."""

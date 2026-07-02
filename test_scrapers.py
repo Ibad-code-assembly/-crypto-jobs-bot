@@ -14,6 +14,7 @@ SCRAPERS = [
     ("cryptojobs.com",       "scraper.cryptojobs",             "CryptoJobsScraper"),
     ("crypto.jobs",          "scraper.crypto_jobs",            "CryptoJobsScraper"),
     ("ycombinator.com/jobs", "scraper.startup_jobs",           "StartupJobsScraper"),
+    ("twitter.com",          "scraper.twitter_jobs",           "TwitterJobsScraper"),
 ]
 
 async def test_scraper(name, module_path, class_name):
