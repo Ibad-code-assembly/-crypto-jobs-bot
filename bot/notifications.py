@@ -30,20 +30,25 @@ class NotificationManager:
     # Hot coin alerts (>4 jobs for same coin)
     # ------------------------------------------------------------------
 
-    async def send_hot_coin_alert(self, coin_ticker: str, jobs: List[Job]) -> bool:
+    async def send_hot_coin_alert(self, coin_ticker: str, jobs: List[Job], date_str: str = None) -> bool:
         """
-        Send a special highlighted alert for coins with >4 new jobs.
+        Send a special highlighted alert for coins with 4+ jobs listed on the same date.
         This is sent BEFORE the regular digest.
         """
-        if not self.group_chat_id or len(jobs) <= 4:
+        if not self.group_chat_id or len(jobs) < 4:
             return False
 
         # Create exciting alert message
         lines = [
             f"🔥 <b>HOT: {coin_ticker} is HIRING!</b> 🔥",
             f"<b>{len(jobs)} NEW POSITIONS</b> for <b>{coin_ticker}</b>",
-            f"Huge hiring activity detected!\n",
         ]
+
+        # Show the date if provided
+        if date_str:
+            lines.append(f"Posted on: <b>{date_str}</b>")
+
+        lines.append(f"Massive hiring activity detected!\n")
 
         # List top jobs
         shown = 0
@@ -67,7 +72,7 @@ class NotificationManager:
                 parse_mode="HTML",
                 disable_web_page_preview=True,
             )
-            logger.info(f"[NOTIFY] 🔥 Hot coin alert sent: {coin_ticker} with {len(jobs)} jobs")
+            logger.info(f"[NOTIFY] 🔥 Hot coin alert: {coin_ticker} with {len(jobs)} jobs on {date_str}")
             return True
         except Exception as e:
             logger.error(f"[NOTIFY] Failed to send hot coin alert for {coin_ticker}: {e}")
@@ -184,7 +189,7 @@ class NotificationManager:
     async def notify_all_new_jobs(self, new_jobs: List[Job]) -> Dict[str, int]:
         """
         Called after each scrape with the list of newly inserted jobs.
-        1. Detects "hot coins" (>4 jobs) and sends special alerts
+        1. Detects "hot coins" (4+ jobs listed on same date) and sends special alerts
         2. Sends one digest to the group chat.
         3. DMs individual subscribers per coin.
         """
@@ -199,13 +204,27 @@ class NotificationManager:
         for job in coin_jobs:
             by_coin.setdefault(job.coin_ticker, []).append(job)
 
-        # 1. Send special alerts for hot coins (>4 jobs)
-        hot_coins = {coin: jobs for coin, jobs in by_coin.items() if len(jobs) > 4}
-        if hot_coins:
-            logger.info(f"[NOTIFY] 🔥 Detected {len(hot_coins)} hot coin(s): {', '.join(hot_coins.keys())}")
-            for coin_ticker in sorted(hot_coins.keys()):
-                await self.send_hot_coin_alert(coin_ticker, hot_coins[coin_ticker])
-                await asyncio.sleep(0.5)  # Stagger alerts
+        # 1. Send special alerts for hot coins (4+ jobs listed on same date)
+        hot_coins_by_date: Dict[str, Dict[str, List[Job]]] = {}  # coin -> {date -> [jobs]}
+
+        for coin_ticker, jobs_for_coin in by_coin.items():
+            # Group this coin's jobs by listing date
+            by_date: Dict[str, List[Job]] = {}
+            for job in jobs_for_coin:
+                date_str = job.listed_date.strftime("%Y-%m-%d") if job.listed_date else "Unknown"
+                by_date.setdefault(date_str, []).append(job)
+
+            # Check if any date has 4+ jobs for this coin
+            hot_dates = {date: jobs for date, jobs in by_date.items() if len(jobs) >= 4}
+            if hot_dates:
+                hot_coins_by_date[coin_ticker] = hot_dates
+
+        if hot_coins_by_date:
+            logger.info(f"[NOTIFY] 🔥 Detected hot coins with 4+ jobs on same date")
+            for coin_ticker in sorted(hot_coins_by_date.keys()):
+                for date_str, jobs_on_date in sorted(hot_coins_by_date[coin_ticker].items()):
+                    await self.send_hot_coin_alert(coin_ticker, jobs_on_date, date_str)
+                    await asyncio.sleep(0.5)  # Stagger alerts
 
         # 2. Group digest (single message)
         await self.send_digest_to_group(new_jobs)
