@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from telegram.request import HTTPXRequest
-from telegram.error import TimedOut
+from telegram.error import TimedOut, TelegramError
 import httpx
 from db.database import init_db, SessionLocal
 from scraper.scheduler import JobScheduler
@@ -65,29 +65,42 @@ class IntegratedBot:
         init_db()
         logger.info("[OK] Database initialized")
 
-        # Create Telegram application with optional proxy support
+        # Create Telegram application with longer timeouts and optional proxy support
         logger.info("\n[BOT] Creating Telegram application...")
+        logger.info("[BOT] Using extended timeouts (60 seconds) for Telegram API...")
 
         # Check for proxy configuration
         proxy_url = os.getenv("TELEGRAM_PROXY")
-        if proxy_url:
-            logger.info(f"[PROXY] Using proxy: {proxy_url}")
-            try:
-                # Create custom HTTP client with proxy
-                client = httpx.AsyncClient(
+        try:
+            if proxy_url:
+                logger.info(f"[PROXY] Using proxy: {proxy_url}")
+                request = HTTPXRequest(
                     proxy=proxy_url,
-                    timeout=30.0
+                    connect_timeout=60.0,
+                    read_timeout=60.0,
+                    write_timeout=60.0,
+                    pool_timeout=60.0,
                 )
-                request = HTTPXRequest(client=client)
-                self.app = Application.builder().token(self.bot_token).request(request).build()
-                logger.info("[OK] Application created with proxy")
-            except Exception as e:
-                logger.error(f"[PROXY ERROR] Failed to configure proxy: {e}")
-                logger.info("[FALLBACK] Creating application without proxy")
+            else:
+                # Create HTTPXRequest with longer timeout (no proxy)
+                request = HTTPXRequest(
+                    connect_timeout=60.0,
+                    read_timeout=60.0,
+                    write_timeout=60.0,
+                    pool_timeout=60.0,
+                )
+
+            self.app = Application.builder().token(self.bot_token).request(request).build()
+            logger.info("[OK] Application created with 60-second timeout")
+        except Exception as e:
+            logger.error(f"[ERROR] Failed to create application with custom timeout: {e}")
+            logger.info("[FALLBACK] Attempting to create application with default settings...")
+            try:
                 self.app = Application.builder().token(self.bot_token).build()
-        else:
-            self.app = Application.builder().token(self.bot_token).build()
-            logger.info("[OK] Application created (no proxy configured)")
+                logger.info("[OK] Application created with default settings")
+            except Exception as e2:
+                logger.error(f"[CRITICAL] Failed to create application: {e2}")
+                raise
 
         # Register command handlers
         logger.info("[BOT] Registering command handlers...")
@@ -123,8 +136,8 @@ class IntegratedBot:
         self.scheduler = JobScheduler()
         logger.info("[OK] Scheduler created")
 
-        # Start scheduler in background thread (runs every 6 hours)
-        logger.info("\n[SCHEDULER] Starting scheduler in background thread (every 6 hours)...")
+        # Start scheduler in background thread (runs every 4 hours)
+        logger.info("\n[SCHEDULER] Starting scheduler in background thread (every 4 hours)...")
         import threading
         scheduler_thread = threading.Thread(
             target=lambda: asyncio.run(self._start_scheduler_with_notifications()),
@@ -133,39 +146,78 @@ class IntegratedBot:
         scheduler_thread.start()
         logger.info("[OK] Scheduler thread started")
 
-        # Start bot - this will run immediately, not blocked by scheduler
-        logger.info("\n[POLLING] Starting bot polling...")
+        # Start bot with retry logic
+        logger.info("\n[POLLING] Starting bot with retry logic...")
         logger.info("Bot is running. Press Ctrl+C to stop.\n")
+        self._run_bot_with_retries()
 
+    def _run_bot_with_retries(self):
+        """Run bot polling with exponential backoff retry logic."""
+        max_retries = 3  # Reduced to 3 since network is genuinely blocked
+        retry_count = 0
+        base_wait = 5  # Start with 5 seconds
+
+        while True:
+            try:
+                # Use synchronous polling (not await)
+                self.app.run_polling(allowed_updates=None)
+                # If we get here, polling ended normally
+                logger.info("\n[SHUTDOWN] Bot polling ended normally")
+                break
+
+            except (KeyboardInterrupt, SystemExit):
+                logger.info("\n[SHUTDOWN] Keyboard interrupt received")
+                break
+
+            except (TimedOut, TimeoutError, TelegramError, Exception) as e:
+                retry_count += 1
+                wait_time = base_wait * (2 ** (retry_count - 1))  # Exponential backoff: 5, 10, 20 seconds
+
+                logger.error(f"\n[NETWORK ERROR] Attempt {retry_count}/{max_retries} failed: {type(e).__name__}")
+                logger.error(f"Details: {str(e)[:200]}")
+                logger.error("\nPossible causes:")
+                logger.error("  • ISP/Network blocking Telegram API (port 443)")
+                logger.error("  • Firewall still blocking despite rules added")
+                logger.error("  • Corporate proxy intercepting HTTPS")
+                logger.error("  • Telegram API temporarily unavailable")
+
+                if retry_count >= max_retries:
+                    logger.error(f"\n[FALLBACK] Max retries ({max_retries}) reached.")
+                    logger.warning("========================================")
+                    logger.warning("Switching to SCRAPER-ONLY MODE")
+                    logger.warning("========================================")
+                    logger.warning("✓ Job scraping is still ACTIVE")
+                    logger.warning("✓ Jobs stored in database every 6 hours")
+                    logger.warning("✗ Telegram messages DISABLED")
+                    logger.warning("\nTo fix: Try a VPN or contact your network admin")
+                    logger.warning("========================================\n")
+                    # Keep the scheduler running even if Telegram is unavailable
+                    self._run_fallback_mode()
+                    break
+                else:
+                    logger.warning(f"\n[RETRY] Waiting {wait_time}s before retry {retry_count}/{max_retries}...")
+                    logger.warning("Solutions to try:")
+                    logger.warning("  1. Restart your computer (firewall rules need restart)")
+                    logger.warning("  2. Try a VPN (ProtonVPN, ExpressVPN)")
+                    logger.warning("  3. Check TELEGRAM_PROXY in .env file\n")
+                    time.sleep(wait_time)
+
+    def _run_fallback_mode(self):
+        """Run in scraper-only mode without Telegram connectivity."""
+        logger.info("\n" + "="*70)
+        logger.info("FALLBACK MODE: Scraper Only (No Telegram Messages)")
+        logger.info("="*70)
+        logger.info("✓ Job scraping is ACTIVE - running every 6 hours")
+        logger.info("✓ Jobs are being STORED in the database")
+        logger.info("✗ Telegram notifications are DISABLED")
+        logger.info("="*70 + "\n")
+
+        # Keep the scheduler running even if Telegram is unavailable
         try:
-            # Use synchronous polling (not await)
-            self.app.run_polling(allowed_updates=None)
-        except (KeyboardInterrupt, SystemExit):
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
             logger.info("\n[SHUTDOWN] Keyboard interrupt received")
-        except (TimedOut, TimeoutError) as e:
-            logger.error(f"\n[NETWORK] Telegram connection timed out: {type(e).__name__}")
-            logger.error("This is likely due to ISP/network blocking Telegram API servers")
-            logger.error("Solution: Use a VPN or configure a proxy in .env (TELEGRAM_PROXY=...)\n")
-            logger.warning("[FALLBACK] Running in scraper-only mode - jobs are still being collected!")
-            logger.warning("Scrapers will run every 6 hours and store jobs in the database.")
-            logger.warning("Once you enable network access (VPN/Proxy), restart the bot to send Telegram messages.\n")
-
-            # Keep the scheduler running even if Telegram is unavailable
-            try:
-                while True:
-                    time.sleep(1)
-            except KeyboardInterrupt:
-                logger.info("\n[SHUTDOWN] Keyboard interrupt received")
-        except Exception as e:
-            logger.error(f"\n[ERROR] Unexpected error: {type(e).__name__}: {e}")
-            logger.error("Bot will still continue running scrapers in fallback mode\n")
-
-            # Keep the scheduler running even if there's an error
-            try:
-                while True:
-                    time.sleep(1)
-            except KeyboardInterrupt:
-                logger.info("\n[SHUTDOWN] Keyboard interrupt received")
 
     async def _start_scheduler_with_notifications(self):
         """Start scheduler with integrated notifications."""
@@ -202,7 +254,7 @@ class IntegratedBot:
         self.scheduler.scheduler.add_job(
             scheduled_job_with_notifications,
             "interval",
-            hours=6,
+            hours=4,
             id="scrape_all_sites_with_notifications",
             name="Scrape all sites and send notifications",
             misfire_grace_time=300,
