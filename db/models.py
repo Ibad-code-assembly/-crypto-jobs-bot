@@ -1,5 +1,6 @@
 import hashlib
-from sqlalchemy import Column, String, Integer, DateTime, Boolean, UniqueConstraint, create_engine
+import re
+from sqlalchemy import Column, String, Integer, DateTime, Boolean, UniqueConstraint, create_engine, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
@@ -41,13 +42,41 @@ class Job(Base):
     scraped_at = Column(DateTime, nullable=False)
     job_hash = Column(String, nullable=False, unique=True, index=True)
     coin_ticker = Column(String, index=True)
+    duplicate_sources = Column(Text, default="")  # Track which sources posted this job
+    duplicate_count = Column(Integer, default=1)   # How many times seen from different sources
     is_active = Column(Boolean, default=True, index=True)
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     @staticmethod
+    def normalize_string(s: str) -> str:
+        """Normalize string for fingerprinting: lowercase, remove extra spaces, trim punctuation."""
+        if not s:
+            return ""
+        # Lowercase and strip whitespace
+        s = s.lower().strip()
+        # Remove special punctuation/formatting (keep alphanumeric, spaces, hyphens)
+        s = re.sub(r'[^\w\s\-]', '', s)
+        # Collapse multiple spaces
+        s = re.sub(r'\s+', ' ', s)
+        return s
+
+    @staticmethod
     def generate_hash(title: str, company: str, url: str) -> str:
-        content = f"{title}|{company}|{url}".lower().strip()
+        """Generate fingerprint hash: normalized title + company + domain."""
+        # Normalize title and company
+        norm_title = Job.normalize_string(title)
+        norm_company = Job.normalize_string(company)
+
+        # Extract domain from URL to avoid hash mismatches due to URL formatting
+        try:
+            from urllib.parse import urlparse
+            domain = urlparse(url).netloc.lower()
+        except Exception:
+            domain = url.lower()
+
+        # Create fingerprint: title|company|domain
+        content = f"{norm_title}|{norm_company}|{domain}"
         return hashlib.sha256(content.encode()).hexdigest()
 
     def __repr__(self):

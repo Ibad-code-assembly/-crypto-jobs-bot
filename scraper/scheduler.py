@@ -94,8 +94,8 @@ class JobScheduler:
 
         logger.info(f"\n[AGGREGATION] Total jobs from all scrapers: {len(all_jobs)}")
 
-        # Insert/update jobs
-        new_count, updated_count = insert_or_update_jobs(all_jobs, db)
+        # Insert/update jobs with deduplication tracking
+        new_count, updated_count, duplicate_count = insert_or_update_jobs(all_jobs, db)
 
         # Map jobs to coins
         try:
@@ -132,9 +132,15 @@ class JobScheduler:
         logger.info(f"\n[SUMMARY]")
         logger.info(f"  New jobs: {new_count}")
         logger.info(f"  Updated jobs: {updated_count}")
+        logger.info(f"  Duplicates (same job, different sources): {duplicate_count}")
         logger.info(f"  Mapped jobs: {mapped_count}")
         logger.info(f"  Expired jobs: {expired_count}")
         logger.info(f"  Errors: {len(errors)}")
+
+        # Space-saving summary
+        dedup_savings = duplicate_count
+        if dedup_savings > 0:
+            logger.info(f"\n[DEDUP] ✅ Saved {dedup_savings} entries by detecting same job from multiple sources")
 
         # Save diff
         try:
@@ -154,6 +160,7 @@ class JobScheduler:
         return {
             "new": new_count,
             "updated": updated_count,
+            "duplicates": duplicate_count,
             "expired": expired_count,
             "mapped": mapped_count,
             "errors": errors,

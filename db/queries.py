@@ -8,13 +8,14 @@ from .models import Job, Subscription, Coin
 logger = logging.getLogger(__name__)
 
 
-def insert_or_update_jobs(jobs: List[Dict], db: Session) -> Tuple[int, int]:
+def insert_or_update_jobs(jobs: List[Dict], db: Session) -> Tuple[int, int, int]:
     """
-    Insert new jobs or update existing ones based on job_hash.
-    Returns (new_count, updated_count).
+    Insert new jobs, update existing ones, and track duplicates based on job_hash.
+    Returns (new_count, updated_count, duplicate_count).
     """
     new_count = 0
     updated_count = 0
+    duplicate_count = 0
 
     for job_data in jobs:
         try:
@@ -27,6 +28,25 @@ def insert_or_update_jobs(jobs: List[Dict], db: Session) -> Tuple[int, int]:
             existing_job = db.query(Job).filter(Job.job_hash == job_hash).first()
 
             if existing_job:
+                # Job already exists - track duplicate source
+                source_site = job_data["source_site"]
+
+                # Update duplicate sources list if not already tracked
+                if existing_job.duplicate_sources:
+                    sources = existing_job.duplicate_sources.split(",")
+                else:
+                    sources = [existing_job.source_site] if existing_job.source_site else []
+
+                if source_site not in sources:
+                    sources.append(source_site)
+                    existing_job.duplicate_sources = ",".join(sources)
+                    existing_job.duplicate_count = len(sources)
+                    duplicate_count += 1
+                    logger.info(
+                        f"[DEDUP] Found duplicate: '{existing_job.title[:50]}' "
+                        f"from {source_site} (also from {existing_job.source_site})"
+                    )
+
                 existing_job.is_active = True
                 existing_job.updated_at = datetime.utcnow()
                 updated_count += 1
@@ -46,6 +66,8 @@ def insert_or_update_jobs(jobs: List[Dict], db: Session) -> Tuple[int, int]:
                         scraped_at=job_data.get("scraped_at", datetime.utcnow()),
                         job_hash=job_hash,
                         coin_ticker=job_data.get("coin_ticker"),
+                        duplicate_sources=job_data["source_site"],
+                        duplicate_count=1,
                         is_active=True
                     )
                     db.add(new_job)
@@ -63,13 +85,15 @@ def insert_or_update_jobs(jobs: List[Dict], db: Session) -> Tuple[int, int]:
 
     try:
         db.commit()
-        logger.info(f"Jobs: {new_count} inserted, {updated_count} updated")
+        logger.info(
+            f"Jobs: {new_count} inserted, {updated_count} updated, {duplicate_count} duplicates detected"
+        )
     except Exception as e:
         db.rollback()
         logger.error(f"Error committing jobs: {str(e)}")
         raise
 
-    return new_count, updated_count
+    return new_count, updated_count, duplicate_count
 
 
 def mark_expired_jobs(source_site: str, current_job_urls: List[str], db: Session) -> int:
