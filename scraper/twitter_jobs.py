@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import List, Dict, Optional
 
 import httpx
+from httpx import ConnectTimeout, ReadTimeout, WriteTimeout
 
 from .base_scraper import BaseScraper
 
@@ -452,13 +453,23 @@ class TwitterJobsScraper(BaseScraper):
                     "features": json.dumps(_USER_FEATURES),
                 },
             )
+            if r.status_code == 429:
+                logger.warning(f"[Twitter] Rate limited (429) for @{screen_name} - backing off")
+                await asyncio.sleep(5)  # Back off 5 seconds
+                return None
             if r.status_code != 200:
-                logger.debug(f"[Twitter] {screen_name}: {r.status_code}")
+                logger.debug(f"[Twitter] @{screen_name}: HTTP {r.status_code}")
                 return None
             data = r.json()
             return data["data"]["user"]["result"]["rest_id"]
+        except (ConnectTimeout, ReadTimeout, WriteTimeout) as e:
+            logger.warning(f"[Twitter] Timeout for @{screen_name}: {type(e).__name__}")
+            return None
+        except json.JSONDecodeError:
+            logger.warning(f"[Twitter] Invalid JSON response for @{screen_name}")
+            return None
         except Exception as e:
-            logger.debug(f"[Twitter] get_user_id({screen_name}): {e}")
+            logger.debug(f"[Twitter] get_user_id(@{screen_name}): {type(e).__name__}: {e}")
             return None
 
     async def _get_user_tweets(self, user_id: str, count: int = 50) -> List[dict]:
@@ -478,8 +489,12 @@ class TwitterJobsScraper(BaseScraper):
                     "features": json.dumps(_FEATURES),
                 },
             )
+            if r.status_code == 429:
+                logger.warning(f"[Twitter] Rate limited (429) for user_id={user_id} - backing off")
+                await asyncio.sleep(5)  # Back off 5 seconds
+                return []
             if r.status_code != 200:
-                logger.debug(f"[Twitter] UserTweets({user_id}): {r.status_code}")
+                logger.debug(f"[Twitter] UserTweets({user_id}): HTTP {r.status_code}")
                 return []
             data = r.json()
             tweets = []
@@ -510,11 +525,17 @@ class TwitterJobsScraper(BaseScraper):
                                     .get("screen_name", "")
                             ),
                         })
-                    except Exception:
-                        pass
+                    except (KeyError, TypeError):
+                        pass  # Skip malformed entries
             return tweets
+        except (ConnectTimeout, ReadTimeout, WriteTimeout) as e:
+            logger.warning(f"[Twitter] Timeout fetching tweets for {user_id}: {type(e).__name__}")
+            return []
+        except json.JSONDecodeError:
+            logger.warning(f"[Twitter] Invalid JSON response for user_id={user_id}")
+            return []
         except Exception as e:
-            logger.debug(f"[Twitter] _get_user_tweets({user_id}): {e}")
+            logger.debug(f"[Twitter] _get_user_tweets({user_id}): {type(e).__name__}: {e}")
             return []
 
     # ── Tweet filtering & parsing ────────────────────────────────────────────
@@ -626,16 +647,16 @@ class TwitterJobsScraper(BaseScraper):
         jobs: List[dict] = []
         seen_urls: set = set()
 
-        # ── Phase 1: job aggregator accounts (50 tweets each) ──
+        # ── Phase 1: job aggregator accounts (30 tweets each - reduced from 50 for stability) ──
         logger.info(f"[Twitter] Phase 1: scraping {len(_JOB_AGGREGATORS)} job aggregator accounts")
         for screen_name in _JOB_AGGREGATORS:
             user_id = await self._get_user_id(screen_name)
             if not user_id:
                 logger.debug(f"[Twitter] @{screen_name}: not found / private")
-                await asyncio.sleep(1.0)
+                await asyncio.sleep(2.0)
                 continue
 
-            tweets = await self._get_user_tweets(user_id, count=50)
+            tweets = await self._get_user_tweets(user_id, count=30)
             logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets fetched")
 
             for tweet in tweets:
@@ -644,18 +665,18 @@ class TwitterJobsScraper(BaseScraper):
                     seen_urls.add(job["url"])
                     jobs.append(job)
 
-            await asyncio.sleep(1.5)  # be polite between accounts
+            await asyncio.sleep(2.5)  # be polite between accounts (increased from 1.5s to avoid rate limits)
 
-        # ── Phase 2: coin project accounts (20 tweets each, 150 coins total) ──
+        # ── Phase 2: coin project accounts (15 tweets each, 150 coins total - reduced from 20) ──
         logger.info(f"[Twitter] Phase 2: scraping {len(_COIN_ACCOUNTS)} coin project accounts (top 150 by market cap)")
         for ticker, screen_name in _COIN_ACCOUNTS:
             user_id = await self._get_user_id(screen_name)
             if not user_id:
                 logger.debug(f"[Twitter] @{screen_name} ({ticker}): not found")
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(1.5)  # increased to reduce rate limiting
                 continue
 
-            tweets = await self._get_user_tweets(user_id, count=20)
+            tweets = await self._get_user_tweets(user_id, count=10)  # reduced from 15 for stability
             logger.info(f"[Twitter] @{screen_name} ({ticker}): {len(tweets)} tweets")
 
             for tweet in tweets:
@@ -672,10 +693,10 @@ class TwitterJobsScraper(BaseScraper):
             user_id = await self._get_user_id(screen_name)
             if not user_id:
                 logger.debug(f"[Twitter] @{screen_name}: not found")
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(1.5)  # increased to reduce rate limiting
                 continue
 
-            tweets = await self._get_user_tweets(user_id, count=15)
+            tweets = await self._get_user_tweets(user_id, count=10)  # reduced from 15 for stability
             logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
 
             for tweet in tweets:
@@ -684,7 +705,7 @@ class TwitterJobsScraper(BaseScraper):
                     seen_urls.add(job["url"])
                     jobs.append(job)
 
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(1.5)  # increased to reduce rate limiting
 
         # ── Phase 4: blockchain accounts (15 tweets each) ──
         logger.info(f"[Twitter] Phase 4: scraping {len(_BLOCKCHAIN_ACCOUNTS)} blockchain accounts")
@@ -692,10 +713,10 @@ class TwitterJobsScraper(BaseScraper):
             user_id = await self._get_user_id(screen_name)
             if not user_id:
                 logger.debug(f"[Twitter] @{screen_name}: not found")
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(1.5)  # increased to reduce rate limiting
                 continue
 
-            tweets = await self._get_user_tweets(user_id, count=15)
+            tweets = await self._get_user_tweets(user_id, count=10)  # reduced from 15 for stability
             logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
 
             for tweet in tweets:
@@ -704,7 +725,7 @@ class TwitterJobsScraper(BaseScraper):
                     seen_urls.add(job["url"])
                     jobs.append(job)
 
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(1.5)  # increased to reduce rate limiting
 
         # ── Phase 5: DeFi protocol accounts (15 tweets each) ──
         logger.info(f"[Twitter] Phase 5: scraping {len(_DEFI_ACCOUNTS)} DeFi accounts")
@@ -712,10 +733,10 @@ class TwitterJobsScraper(BaseScraper):
             user_id = await self._get_user_id(screen_name)
             if not user_id:
                 logger.debug(f"[Twitter] @{screen_name}: not found")
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(1.5)  # increased to reduce rate limiting
                 continue
 
-            tweets = await self._get_user_tweets(user_id, count=15)
+            tweets = await self._get_user_tweets(user_id, count=10)  # reduced from 15 for stability
             logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
 
             for tweet in tweets:
@@ -724,7 +745,7 @@ class TwitterJobsScraper(BaseScraper):
                     seen_urls.add(job["url"])
                     jobs.append(job)
 
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(1.5)  # increased to reduce rate limiting
 
         # ── Phase 6: VC and investment firm accounts (15 tweets each) ──
         logger.info(f"[Twitter] Phase 6: scraping {len(_VC_ACCOUNTS)} VC accounts")
@@ -732,10 +753,10 @@ class TwitterJobsScraper(BaseScraper):
             user_id = await self._get_user_id(screen_name)
             if not user_id:
                 logger.debug(f"[Twitter] @{screen_name}: not found")
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(1.5)  # increased to reduce rate limiting
                 continue
 
-            tweets = await self._get_user_tweets(user_id, count=15)
+            tweets = await self._get_user_tweets(user_id, count=10)  # reduced from 15 for stability
             logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
 
             for tweet in tweets:
@@ -744,7 +765,7 @@ class TwitterJobsScraper(BaseScraper):
                     seen_urls.add(job["url"])
                     jobs.append(job)
 
-            await asyncio.sleep(0.8)
+            await asyncio.sleep(1.5)  # increased to reduce rate limiting
 
         logger.info(f"[OK] twitter.com: {len(jobs)} job tweets collected")
         return jobs
