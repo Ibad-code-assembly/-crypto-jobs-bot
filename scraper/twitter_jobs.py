@@ -289,6 +289,58 @@ _COIN_ACCOUNTS: List[tuple] = [
     ("EGLD",  "MultiversX"),
     ("XDC",   "XinFinNetwork"),
     ("VRA",   "verasitytech"),
+    # Additional 50 coins (to reach 150 total)
+    ("SHIB",  "Shibtoken"),
+    ("PEPE",  "pepe"),
+    ("DOGE",  "dogecoin"),
+    ("MEME",  "memecoin"),
+    ("SAFE",  "safe"),
+    ("WLD",   "worldcoin"),
+    ("ARK",   "arkproject"),
+    ("ILV",   "illuviumgg"),
+    ("QNT",   "QuantNetwork"),
+    ("RNDR",  "rendertoken"),
+    ("GALA",  "ProjectGala"),
+    ("ASTR",  "AstarNetwork"),
+    ("CANTO", "CantoPublic"),
+    ("METIS", "MetisDAO"),
+    ("MANTLE","0xMantle"),
+    ("ZK",    "zksyncdao"),
+    ("LINEA", "LineaBuild"),
+    ("SCROLL","Scroll_ZK"),
+    ("MANTA", "MantaNetwork"),
+    ("TAIKO", "TaikoL2"),
+    ("IMX2",  "Immutable"),
+    ("MAGIC", "MagicLand_io"),
+    ("STARL", "StarLabsDAO"),
+    ("PIXEL", "PixelswapDEX"),
+    ("ZORA",  "ourZORA"),
+    ("ENJ",   "EnjinCoin"),
+    ("REVV",  "REVVmotorsport"),
+    ("LABS",  "labsdao"),
+    ("LOKA",  "LokANetwork"),
+    ("MYTH",  "MythologyNFT"),
+    ("FLOKI", "Floki_Inu"),
+    ("KISHU", "KishuInu"),
+    ("ELON",  "ElonToken"),
+    ("BNPL",  "BNPLToken"),
+    ("LOOKS", "LooksRareNFT"),
+    ("BLUR2", "blur_io"),
+    ("X2Y2",  "x2y2_official"),
+    ("DYDX2", "dYdX"),
+    ("GMGM",  "GmGmDeFi"),
+    ("BOND",  "BondAppIO"),
+    ("ALICE", "AliceNetwork"),
+    ("ROSE2", "OasisProtocol"),
+    ("BETA",  "BetaFinance"),
+    ("TOKE",  "TokenengineApp"),
+    ("NEON",  "NeonEVM"),
+    ("TONE",  "TonaNetwork"),
+    ("ALEPH", "alephzero"),
+    ("AVAIL", "AvailProject"),
+    ("MONAD", "monad_xyz"),
+    ("BEVM",  "BEVMofficial"),
+    ("SOON",  "Solv_Finance"),
 ]
 
 # Keywords that identify a tweet as a job posting
@@ -594,8 +646,8 @@ class TwitterJobsScraper(BaseScraper):
 
             await asyncio.sleep(1.5)  # be polite between accounts
 
-        # ── Phase 2: coin project accounts (20 tweets each) ──
-        logger.info(f"[Twitter] Phase 2: scraping {len(_COIN_ACCOUNTS)} coin project accounts")
+        # ── Phase 2: coin project accounts (20 tweets each, 150 coins total) ──
+        logger.info(f"[Twitter] Phase 2: scraping {len(_COIN_ACCOUNTS)} coin project accounts (top 150 by market cap)")
         for ticker, screen_name in _COIN_ACCOUNTS:
             user_id = await self._get_user_id(screen_name)
             if not user_id:
