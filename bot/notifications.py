@@ -27,6 +27,53 @@ class NotificationManager:
         self.group_chat_id = int(os.getenv("GROUP_CHAT_ID", 0))
 
     # ------------------------------------------------------------------
+    # Hot coin alerts (>4 jobs for same coin)
+    # ------------------------------------------------------------------
+
+    async def send_hot_coin_alert(self, coin_ticker: str, jobs: List[Job]) -> bool:
+        """
+        Send a special highlighted alert for coins with >4 new jobs.
+        This is sent BEFORE the regular digest.
+        """
+        if not self.group_chat_id or len(jobs) <= 4:
+            return False
+
+        # Create exciting alert message
+        lines = [
+            f"🔥 <b>HOT: {coin_ticker} is HIRING!</b> 🔥",
+            f"<b>{len(jobs)} NEW POSITIONS</b> for <b>{coin_ticker}</b>",
+            f"Huge hiring activity detected!\n",
+        ]
+
+        # List top jobs
+        shown = 0
+        max_show = 8
+        for job in jobs[:max_show]:
+            title = job.title if len(job.title) <= 50 else job.title[:47] + "..."
+            lines.append(f"  ✓ <b>{title}</b> @ {job.company}")
+            shown += 1
+
+        if len(jobs) > max_show:
+            lines.append(f"\n  ...and <b>{len(jobs) - max_show} more positions</b>!")
+
+        lines.append(f"\n💼 Use <b>/coin {coin_ticker}</b> to see all jobs!")
+
+        message = "\n".join(lines)
+
+        try:
+            await self.app.bot.send_message(
+                chat_id=self.group_chat_id,
+                text=message,
+                parse_mode="HTML",
+                disable_web_page_preview=True,
+            )
+            logger.info(f"[NOTIFY] 🔥 Hot coin alert sent: {coin_ticker} with {len(jobs)} jobs")
+            return True
+        except Exception as e:
+            logger.error(f"[NOTIFY] Failed to send hot coin alert for {coin_ticker}: {e}")
+            return False
+
+    # ------------------------------------------------------------------
     # Group digest
     # ------------------------------------------------------------------
 
@@ -137,18 +184,33 @@ class NotificationManager:
     async def notify_all_new_jobs(self, new_jobs: List[Job]) -> Dict[str, int]:
         """
         Called after each scrape with the list of newly inserted jobs.
-        1. Sends one digest to the group chat.
-        2. DMs individual subscribers per coin.
+        1. Detects "hot coins" (>4 jobs) and sends special alerts
+        2. Sends one digest to the group chat.
+        3. DMs individual subscribers per coin.
         """
         if not new_jobs:
             return {"total_sent": 0, "total_failed": 0}
 
         logger.info(f"[NOTIFY] {len(new_jobs)} new jobs — sending notifications")
 
-        # 1. Group digest (single message)
+        # Group jobs by coin to detect hot coins
+        coin_jobs = [j for j in new_jobs if j.coin_ticker]
+        by_coin: Dict[str, List[Job]] = {}
+        for job in coin_jobs:
+            by_coin.setdefault(job.coin_ticker, []).append(job)
+
+        # 1. Send special alerts for hot coins (>4 jobs)
+        hot_coins = {coin: jobs for coin, jobs in by_coin.items() if len(jobs) > 4}
+        if hot_coins:
+            logger.info(f"[NOTIFY] 🔥 Detected {len(hot_coins)} hot coin(s): {', '.join(hot_coins.keys())}")
+            for coin_ticker in sorted(hot_coins.keys()):
+                await self.send_hot_coin_alert(coin_ticker, hot_coins[coin_ticker])
+                await asyncio.sleep(0.5)  # Stagger alerts
+
+        # 2. Group digest (single message)
         await self.send_digest_to_group(new_jobs)
 
-        # 2. DM individual subscribers for coin-mapped jobs
+        # 3. DM individual subscribers for coin-mapped jobs
         total_sent = total_failed = 0
         for job in new_jobs:
             if job.coin_ticker:
