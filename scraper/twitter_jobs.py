@@ -79,7 +79,8 @@ _USER_FEATURES = {
 
 # Dedicated crypto job aggregator accounts — highest signal, scrape 50 tweets each
 _JOB_AGGREGATORS = [
-    "CryptoJobsList",       # 82k followers
+    # Original accounts
+    "CryptoJobsList",
     "web3careers",
     "BlockchainJob",
     "DefiWork",
@@ -94,7 +95,97 @@ _JOB_AGGREGATORS = [
     "blockacejobs",
     "CryptoRecruiter",
     "Web3Talent",
+    # New job boards
+    "Web3Career",
+    "Remote3Jobs",
+    "Web3Jobs",
+    "Degen_Jobs",
+    "CryptoJobs",
 ]
+
+# Exchange accounts — monitor for hiring announcements
+_EXCHANGE_ACCOUNTS = [
+    "binance",
+    "coinbase",
+    "krakenfx",
+    "Bybit_Official",
+    "OKX",
+    "BitgetGlobal",
+    "MEXC_Official",
+    "kucoincom",
+    "gate_io",
+    "HTX_Global",
+    "Bitfinex",
+    "CryptoCom",
+    "Gemini",
+    "Bitstamp",
+    "BingXOfficial",
+]
+
+# Blockchain layer-1 and layer-2 networks
+_BLOCKCHAIN_ACCOUNTS = [
+    "ethereum",
+    "solana",
+    "SuiNetwork",
+    "Aptos",
+    "avax",
+    "base",
+    "arbitrum",
+    "Optimism",
+    "zksync",
+    "Starknet",
+    "SeiNetwork",
+    "Injective",
+    "CelestiaOrg",
+    "NEARProtocol",
+    "Polkadot",
+    "cosmos",
+    "Ripple",
+    "Cardano",
+    "ton_blockchain",
+    "InternetComputer",
+]
+
+# DeFi protocols
+_DEFI_ACCOUNTS = [
+    "Uniswap",
+    "aave",
+    "LidoFinance",
+    "compoundfinance",
+    "MakerDAO",
+    "Pendle_fi",
+    "EthenaLabs",
+    "eigenlayer",
+    "JupiterExchange",
+    "PancakeSwap",
+    "CurveFinance",
+    "Synthetix_io",
+    "MorphoLabs",
+    "1inch",
+]
+
+# VC and investment firms
+_VC_ACCOUNTS = [
+    "a16zcrypto",
+    "Paradigm",
+    "ElectricCapital",
+    "AllianceDAO",
+    "BinanceLabs",
+    "PanteraCapital",
+    "MulticoinCap",
+    "1kxnetwork",
+    "coinfund_io",
+    "FrameworkVC",
+]
+
+# Combine all accounts for monitoring
+_ALL_MONITOR_ACCOUNTS = (
+    _JOB_AGGREGATORS +
+    _EXCHANGE_ACCOUNTS +
+    _BLOCKCHAIN_ACCOUNTS +
+    _DEFI_ACCOUNTS +
+    _VC_ACCOUNTS
+)
 
 # Top-100 coin project accounts — scrape fewer tweets, force-tag with coin ticker
 _COIN_ACCOUNTS: List[tuple] = [
@@ -202,15 +293,23 @@ _COIN_ACCOUNTS: List[tuple] = [
 
 # Keywords that identify a tweet as a job posting
 _JOB_KEYWORDS = {
+    # Primary hiring indicators
     "hiring", "we're hiring", "we are hiring", "now hiring",
     "job opening", "job opportunity", "open role", "open position",
-    "looking for a", "looking for an", "join our team", "join us",
-    "apply now", "apply here", "apply at", "full-time", "full time",
-    "part-time", "part time", "developer", "engineer", "researcher",
-    "analyst", "designer", "internship", "remote work",
+    "join our team", "join us", "career", "careers",
+    "job", "jobs", "vacancy", "vacancies",
+    "apply now", "apply here", "apply at",
+    "work with us", "recruiting", "looking for",
+    "new role", "new opportunity",
+    # Role descriptors
+    "developer", "engineer", "researcher", "analyst", "designer",
+    "internship", "remote work", "full-time", "part-time",
+    "solidity", "rust", "typescript", "golang", "python",
+    # Hashtags
     "#web3jobs", "#cryptojobs", "#blockchainjobs", "#web3careers",
     "#hiring", "#defi", "#nftjobs", "#web3hiring",
-    "salary", "compensation", "equity", "token", "bounty",
+    # Compensation
+    "salary", "compensation", "equity", "token", "bounty", "grant",
 }
 
 # URLs to skip when extracting apply links (Twitter's own media/pic links)
@@ -514,6 +613,86 @@ class TwitterJobsScraper(BaseScraper):
                     jobs.append(job)
 
             await asyncio.sleep(1.0)
+
+        # ── Phase 3: exchange accounts (15 tweets each, monitor for job keywords) ──
+        logger.info(f"[Twitter] Phase 3: scraping {len(_EXCHANGE_ACCOUNTS)} exchange accounts")
+        for screen_name in _EXCHANGE_ACCOUNTS:
+            user_id = await self._get_user_id(screen_name)
+            if not user_id:
+                logger.debug(f"[Twitter] @{screen_name}: not found")
+                await asyncio.sleep(0.8)
+                continue
+
+            tweets = await self._get_user_tweets(user_id, count=15)
+            logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
+
+            for tweet in tweets:
+                job = self._tweet_to_job(tweet, forced_ticker=None)
+                if job and job["url"] not in seen_urls:
+                    seen_urls.add(job["url"])
+                    jobs.append(job)
+
+            await asyncio.sleep(0.8)
+
+        # ── Phase 4: blockchain accounts (15 tweets each) ──
+        logger.info(f"[Twitter] Phase 4: scraping {len(_BLOCKCHAIN_ACCOUNTS)} blockchain accounts")
+        for screen_name in _BLOCKCHAIN_ACCOUNTS:
+            user_id = await self._get_user_id(screen_name)
+            if not user_id:
+                logger.debug(f"[Twitter] @{screen_name}: not found")
+                await asyncio.sleep(0.8)
+                continue
+
+            tweets = await self._get_user_tweets(user_id, count=15)
+            logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
+
+            for tweet in tweets:
+                job = self._tweet_to_job(tweet, forced_ticker=None)
+                if job and job["url"] not in seen_urls:
+                    seen_urls.add(job["url"])
+                    jobs.append(job)
+
+            await asyncio.sleep(0.8)
+
+        # ── Phase 5: DeFi protocol accounts (15 tweets each) ──
+        logger.info(f"[Twitter] Phase 5: scraping {len(_DEFI_ACCOUNTS)} DeFi accounts")
+        for screen_name in _DEFI_ACCOUNTS:
+            user_id = await self._get_user_id(screen_name)
+            if not user_id:
+                logger.debug(f"[Twitter] @{screen_name}: not found")
+                await asyncio.sleep(0.8)
+                continue
+
+            tweets = await self._get_user_tweets(user_id, count=15)
+            logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
+
+            for tweet in tweets:
+                job = self._tweet_to_job(tweet, forced_ticker=None)
+                if job and job["url"] not in seen_urls:
+                    seen_urls.add(job["url"])
+                    jobs.append(job)
+
+            await asyncio.sleep(0.8)
+
+        # ── Phase 6: VC and investment firm accounts (15 tweets each) ──
+        logger.info(f"[Twitter] Phase 6: scraping {len(_VC_ACCOUNTS)} VC accounts")
+        for screen_name in _VC_ACCOUNTS:
+            user_id = await self._get_user_id(screen_name)
+            if not user_id:
+                logger.debug(f"[Twitter] @{screen_name}: not found")
+                await asyncio.sleep(0.8)
+                continue
+
+            tweets = await self._get_user_tweets(user_id, count=15)
+            logger.info(f"[Twitter] @{screen_name}: {len(tweets)} tweets")
+
+            for tweet in tweets:
+                job = self._tweet_to_job(tweet, forced_ticker=None)
+                if job and job["url"] not in seen_urls:
+                    seen_urls.add(job["url"])
+                    jobs.append(job)
+
+            await asyncio.sleep(0.8)
 
         logger.info(f"[OK] twitter.com: {len(jobs)} job tweets collected")
         return jobs
