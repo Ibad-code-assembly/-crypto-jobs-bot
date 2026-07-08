@@ -207,10 +207,11 @@ def format_upcoming_jobs(jobs: List[Job], max_per_day: int = 10) -> List[str]:
         for i, job in enumerate(shown, 1):
             title_text = job.title if len(job.title) <= 60 else job.title[:57] + "..."
             coin_tag = f" [{job.coin_ticker}]" if job.coin_ticker else ""
+            listed = job.listed_date.strftime("%b %d") if job.listed_date else "Unknown"
             apply_tag = f' | <a href="{job.url}">Apply</a>' if job.url else ""
             entry = (
                 f"{i}. <b>{title_text}</b>{coin_tag}\n"
-                f"   {job.company}"
+                f"   {job.company} | Listed: {listed}"
                 + apply_tag
             )
             if len("\n".join(buf)) + len(entry) + 2 > _LIMIT:
@@ -343,12 +344,12 @@ def format_coin_statistics(coin_counts: Dict[str, int]) -> str:
 def format_start_message() -> str:
     return (
         "<b>Crypto Jobs Bot</b>\n\n"
-        "I scrape crypto/blockchain job boards every hour and group jobs by coin.\n\n"
+        "I scrape 58+ crypto/blockchain accounts every 4 hours and group jobs by coin.\n\n"
         "<b>Commands:</b>\n"
         "/jobs  -  List all coins with job counts\n"
-        "/coin BTC  -  All Bitcoin jobs (title, company, date, apply link)\n"
+        "/coin BTC  -  All Bitcoin jobs (title, company, <b>date listed</b>, apply link)\n"
         "/new  -  Jobs listed in the last 30 days, grouped by coin\n"
-        "/upcoming  -  Jobs posted in the last 7 days, grouped by day\n"
+        "/upcoming  -  Jobs posted in the last 7 days, grouped by day (with <b>date</b>)\n"
         "/expiring  -  Jobs expiring in the next 30 days\n"
         "/subscribe ETH  -  Get notified when new ETH jobs appear\n"
         "/unsubscribe ETH  -  Stop ETH notifications\n"
