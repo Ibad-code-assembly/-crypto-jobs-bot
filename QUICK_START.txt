@@ -1,0 +1,124 @@
+============================================================
+CRYPTO JOBS BOT - QUICK START (5 MINUTES)
+============================================================
+
+STEP 1: Create .env file (from project root)
+============================================================
+Copy-paste into .env:
+
+BOT_TOKEN=your_telegram_token_here
+API_HOST=0.0.0.0
+API_PORT=8000
+DEBUG=True
+DATABASE_URL=sqlite:///./crypto_jobs.db
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+LOG_LEVEL=INFO
+
+
+STEP 2: Create web/.env.local file
+============================================================
+Copy-paste into web/.env.local:
+
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+NODE_ENV=development
+
+
+STEP 3: Install Dependencies (one time only)
+============================================================
+From project root:
+
+pip install -r requirements.txt
+
+Then:
+cd web
+npm install
+cd ..
+
+
+STEP 4: Open 3 Terminals and Run These Commands
+============================================================
+
+TERMINAL 1 (Backend API):
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+
+TERMINAL 2 (Frontend):
+cd web
+npm run dev
+
+TERMINAL 3 (Bot - optional, skip if no BOT_TOKEN):
+python main_integrated.py
+
+
+STEP 5: Open in Browser
+============================================================
+Frontend:    http://localhost:3000
+API Docs:    http://localhost:8000/docs
+Health:      http://localhost:8000/health
+
+
+DONE! 🎉
+============================================================
+
+Click on Dashboard to see charts and data.
+
+To stop everything, press Ctrl+C in each terminal.
+
+
+TROUBLESHOOTING
+============================================================
+
+Port 8000 in use?
+→ python -m uvicorn api.main:app --port 8001 --reload
+→ Update web/.env.local: NEXT_PUBLIC_API_URL=http://localhost:8001/api
+
+Port 3000 in use?
+→ npm run dev -- -p 3001
+
+npm install failing?
+→ npm cache clean --force
+→ Delete web/node_modules folder
+→ Run: npm install
+
+Python modules missing?
+→ pip install -r requirements.txt --force-reinstall
+
+API not responding?
+→ Check Terminal 1 - is it running?
+→ Check for errors in Terminal 1
+
+Frontend can't reach API?
+→ Open DevTools (F12)
+→ Check Network tab for /api/ requests
+→ Should see 200 OK responses
+
+
+QUICK LINKS
+============================================================
+
+http://localhost:3000              → Frontend (Landing Page)
+http://localhost:3000/dashboard    → Dashboard
+http://localhost:3000/jobs         → Jobs Page
+http://localhost:3000/coins        → Coins Page
+http://localhost:3000/analytics    → Analytics
+http://localhost:3000/settings     → Settings
+http://localhost:8000/docs         → API Documentation
+http://localhost:8000/health       → API Health Check
+
+
+NEXT STEPS
+============================================================
+
+1. Explore the dashboard - see charts and metrics
+2. Go to /jobs - browse job listings
+3. Go to /coins - view coin exchange listings
+4. Go to /analytics - see market insights
+5. Visit http://localhost:8000/docs - test API endpoints
+6. Read LOCALHOST_COMPLETE.md for detailed guide
+
+
+READY? 🚀
+============================================================
+
+Follow steps 1-5 above and you'll have everything running!
+
+For more details, read: LOCALHOST_COMPLETE.md
