@@ -341,16 +341,58 @@ def format_coin_statistics(coin_counts: Dict[str, int]) -> str:
     return "\n".join(lines)
 
 
+def format_new_coins(coins: List) -> List[str]:
+    """
+    /newcoins — Latest coins listed on exchanges.
+    Example:
+        🪙 AIXBT
+        Exchanges: Binance, Coinbase
+        Pairs: USDT
+    """
+    if not coins:
+        return ["📉 No new coins listed on exchanges yet. Check back soon."]
+
+    pages: List[str] = []
+    buf: List[str] = [
+        f"<b>🪙 New Coin Listings</b>  -  {len(coins)} coins\n",
+        "<i>Latest coins listed across 10 major exchanges</i>\n",
+    ]
+
+    for coin in coins:
+        symbol = coin.coin_symbol
+        exchanges = coin.exchanges.split(",") if coin.exchanges else ["Unknown"]
+        pairs = coin.trading_pairs.split(",") if coin.trading_pairs else ["USDT"]
+        date_str = coin.listed_date.strftime("%b %d %H:%M") if coin.listed_date else "Recently"
+
+        lines = [
+            f"<b>{symbol}</b>",
+            f"  Exchanges: {', '.join(exchanges)}",
+            f"  Pairs: {', '.join(pairs)}",
+            f"  Listed: {date_str}",
+            ""
+        ]
+
+        content = "\n".join(lines)
+        if len("\n".join(buf)) + len(content) > _LIMIT:
+            _flush(pages, buf)
+        buf.extend(lines)
+
+    _flush(pages, buf)
+    return pages
+
+
 def format_start_message() -> str:
     return (
         "<b>Crypto Jobs Bot</b>\n\n"
-        "I scrape 58+ crypto/blockchain accounts every 4 hours and group jobs by coin.\n\n"
+        "I scrape 58+ crypto/blockchain accounts every 4 hours and group jobs by coin.\n"
+        "I also monitor 10 exchanges for new coin listings every 4 hours.\n\n"
         "<b>Commands:</b>\n"
         "/jobs  -  List all coins with job counts\n"
         "/coin BTC  -  All Bitcoin jobs (title, company, <b>date listed</b>, apply link)\n"
         "/new  -  Jobs listed in the last 30 days, grouped by coin\n"
         "/upcoming  -  Jobs posted in the last 7 days, grouped by day (with <b>date</b>)\n"
         "/expiring  -  Jobs expiring in the next 30 days\n"
+        "/newcoins  -  New coins listed on exchanges (auto-updated every 4 hours)\n"
         "/subscribe ETH  -  Get notified when new ETH jobs appear\n"
         "/unsubscribe ETH  -  Stop ETH notifications\n"
         "/mysubs  -  See your active subscriptions\n\n"

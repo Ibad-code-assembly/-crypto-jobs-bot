@@ -183,6 +183,57 @@ class NotificationManager:
         return {"sent": sent, "failed": failed}
 
     # ------------------------------------------------------------------
+    # New coin listing alerts
+    # ------------------------------------------------------------------
+
+    async def send_new_coins_alert(self, new_coins: List) -> bool:
+        """
+        Send alert about new coins listed on exchanges.
+        Grouped by exchange.
+        """
+        if not self.group_chat_id or not new_coins:
+            return False
+
+        # Group coins by exchange
+        by_exchange: Dict[str, List] = {}
+        for coin in new_coins[:30]:  # Limit to 30 most recent
+            for exchange in coin.exchanges.split(","):
+                by_exchange.setdefault(exchange, []).append(coin)
+
+        lines = [
+            f"🪙 <b>New Coin Listings!</b>  -  {len(new_coins)} coins across {len(by_exchange)} exchanges\n"
+        ]
+
+        shown = 0
+        for exchange in sorted(by_exchange.keys()):
+            coins_on_ex = by_exchange[exchange]
+            lines.append(f"<b>{exchange}</b>: {len(coins_on_ex)} coins")
+            for coin in coins_on_ex[:5]:  # Show first 5 per exchange
+                pairs = coin.trading_pairs.split(",")[:2] if coin.trading_pairs else ["USDT"]
+                lines.append(f"  • <b>{coin.coin_symbol}</b> ({', '.join(pairs)})")
+                shown += 1
+
+            if len(coins_on_ex) > 5:
+                lines.append(f"  ...and {len(coins_on_ex) - 5} more")
+
+        lines.append(f"\n💰 Use <b>/newcoins</b> to see all new listings!")
+
+        message = "\n".join(lines)
+
+        try:
+            await self.app.bot.send_message(
+                chat_id=self.group_chat_id,
+                text=message,
+                parse_mode="HTML",
+                disable_web_page_preview=True,
+            )
+            logger.info(f"[NOTIFY] 🪙 New coins alert: {len(new_coins)} coins across {len(by_exchange)} exchanges")
+            return True
+        except Exception as e:
+            logger.error(f"[NOTIFY] Failed to send new coins alert: {e}")
+            return False
+
+    # ------------------------------------------------------------------
     # Main entry point called by scheduler
     # ------------------------------------------------------------------
 

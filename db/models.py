@@ -83,6 +83,37 @@ class Job(Base):
         return f"<Job(id={self.id}, title={self.title}, company={self.company}, hash={self.job_hash[:8]}...)>"
 
 
+class NewCoinListing(Base):
+    __tablename__ = "new_coin_listings"
+    __table_args__ = (
+        UniqueConstraint('coin_symbol', 'coin_hash', name='uq_coin_listing'),
+    )
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    coin_symbol = Column(String, nullable=False, index=True)
+    coin_name = Column(String)
+    coin_hash = Column(String, nullable=False, unique=True, index=True)  # Hash of symbol to deduplicate
+    exchanges = Column(Text, default="")  # CSV list of exchanges where listed
+    exchange_count = Column(Integer, default=1)  # How many exchanges
+    trading_pairs = Column(Text, default="")  # CSV list of pairs (USDT, BUSD, etc.)
+    url = Column(String)  # Link to exchange listing/announcement
+    listed_date = Column(DateTime)  # When first listed
+    source_site = Column(String, nullable=False, index=True)  # First exchange that posted it
+    scraped_at = Column(DateTime, nullable=False)
+    is_active = Column(Boolean, default=True, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    @staticmethod
+    def generate_hash(symbol: str) -> str:
+        """Generate fingerprint hash from coin symbol."""
+        norm_symbol = symbol.upper().strip()
+        return hashlib.sha256(norm_symbol.encode()).hexdigest()
+
+    def __repr__(self):
+        return f"<NewCoinListing(id={self.id}, symbol={self.coin_symbol}, exchanges={self.exchange_count})>"
+
+
 class Subscription(Base):
     __tablename__ = "subscriptions"
     __table_args__ = (

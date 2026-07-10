@@ -255,6 +255,124 @@ def get_job_count(db: Session) -> int:
     return db.query(Job).filter(Job.is_active == True).count()
 
 
+def insert_or_update_new_coins(coins: List[Dict], db: Session) -> Tuple[int, int, int]:
+    """
+    Insert new coin listings, update existing ones, and track duplicates based on coin_hash.
+    Returns (new_count, updated_count, duplicate_count).
+    """
+    from .models import NewCoinListing
+
+    new_count = 0
+    updated_count = 0
+    duplicate_count = 0
+
+    for coin_data in coins:
+        try:
+            coin_hash = NewCoinListing.generate_hash(coin_data["symbol"])
+            existing_coin = db.query(NewCoinListing).filter(NewCoinListing.coin_hash == coin_hash).first()
+
+            if existing_coin:
+                # Coin already listed - track additional exchange
+                exchange = coin_data["source_site"]
+
+                if existing_coin.exchanges:
+                    exchanges = existing_coin.exchanges.split(",")
+                else:
+                    exchanges = []
+
+                if exchange not in exchanges:
+                    exchanges.append(exchange)
+                    existing_coin.exchanges = ",".join(exchanges)
+                    existing_coin.exchange_count = len(exchanges)
+                    duplicate_count += 1
+                    logger.info(
+                        f"[NEW-COIN-DEDUP] {existing_coin.coin_symbol} now listed on {exchange} "
+                        f"(also on {existing_coin.exchanges})"
+                    )
+
+                # Update trading pairs if new one provided
+                if coin_data.get("trading_pairs"):
+                    if existing_coin.trading_pairs:
+                        pairs = set(existing_coin.trading_pairs.split(","))
+                        pairs.update(coin_data["trading_pairs"].split(","))
+                        existing_coin.trading_pairs = ",".join(sorted(pairs))
+                    else:
+                        existing_coin.trading_pairs = coin_data["trading_pairs"]
+
+                existing_coin.is_active = True
+                existing_coin.updated_at = datetime.utcnow()
+                updated_count += 1
+                logger.debug(f"Updated coin: {existing_coin.coin_symbol}")
+            else:
+                sp = db.begin_nested()
+                try:
+                    new_coin = NewCoinListing(
+                        coin_symbol=coin_data["symbol"].upper(),
+                        coin_name=coin_data.get("name", ""),
+                        coin_hash=coin_hash,
+                        exchanges=coin_data["source_site"],
+                        exchange_count=1,
+                        trading_pairs=coin_data.get("trading_pairs", ""),
+                        url=coin_data.get("url", ""),
+                        listed_date=coin_data.get("listed_date", datetime.utcnow()),
+                        source_site=coin_data["source_site"],
+                        scraped_at=coin_data.get("scraped_at", datetime.utcnow()),
+                        is_active=True
+                    )
+                    db.add(new_coin)
+                    db.flush()
+                    sp.commit()
+                    new_count += 1
+                    logger.debug(f"Inserted coin: {new_coin.coin_symbol}")
+                except IntegrityError:
+                    sp.rollback()
+                    logger.debug(f"Duplicate coin skipped: {coin_data.get('symbol')}")
+
+        except Exception as e:
+            logger.error(f"Error processing coin {coin_data.get('symbol')}: {str(e)}")
+            continue
+
+    try:
+        db.commit()
+        logger.info(
+            f"Coins: {new_count} inserted, {updated_count} updated, {duplicate_count} duplicates detected"
+        )
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error committing coins: {str(e)}")
+        raise
+
+    return new_count, updated_count, duplicate_count
+
+
+def get_new_coins(days: int = 7, db: Session = None) -> List:
+    """Get new coin listings from last N days, ordered newest first."""
+    if db is None:
+        from .database import SessionLocal
+        db = SessionLocal()
+
+    from .models import NewCoinListing
+
+    cutoff = datetime.utcnow() - timedelta(days=days)
+    return db.query(NewCoinListing).filter(
+        NewCoinListing.listed_date >= cutoff,
+        NewCoinListing.is_active == True,
+    ).order_by(NewCoinListing.listed_date.desc()).all()
+
+
+def get_newest_coins(limit: int = 20, db: Session = None) -> List:
+    """Get newest coin listings (newest first)."""
+    if db is None:
+        from .database import SessionLocal
+        db = SessionLocal()
+
+    from .models import NewCoinListing
+
+    return db.query(NewCoinListing).filter(
+        NewCoinListing.is_active == True
+    ).order_by(NewCoinListing.listed_date.desc()).limit(limit).all()
+
+
 def map_jobs_to_coins(jobs: List[Job], db: Session) -> List[Job]:
     """
     Map jobs to coin tickers using fuzzy matching.

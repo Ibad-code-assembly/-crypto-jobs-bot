@@ -13,6 +13,7 @@ from db.queries import (
     add_subscription,
     remove_subscription,
     get_user_subscriptions,
+    get_newest_coins,
 )
 from bot.formatters import (
     format_start_message,
@@ -263,6 +264,43 @@ async def mysubs_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     except Exception as e:
         logger.error(f"Error in mysubs_handler: {str(e)}")
         await update.message.reply_text("Sorry, an error occurred. Please try again.")
+
+
+async def newcoins_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handle /newcoins command to show new coin listings."""
+    try:
+        logger.info("[HANDLER] newcoins_handler called")
+        db = SessionLocal()
+
+        try:
+            coins = get_newest_coins(limit=50, db=db)
+            logger.info(f"[HANDLER] newcoins_handler: found {len(coins)} new coins")
+
+            if not coins:
+                await update.message.reply_text(
+                    "📉 No new coins listed yet. Check back soon!",
+                    parse_mode=ParseMode.HTML
+                )
+                return
+
+            messages = format_new_coins(coins)
+            for msg in messages:
+                await update.message.reply_text(
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                )
+                await asyncio.sleep(0.3)
+
+            logger.info("[HANDLER] newcoins_handler completed successfully")
+
+        finally:
+            db.close()
+
+    except Exception as e:
+        logger.error(f"Error in newcoins_handler: {str(e)}", exc_info=True)
+        try:
+            await update.message.reply_text("Sorry, an error occurred. Please try again.")
+        except Exception:
+            logger.error("Failed to send error message")
 
 
 async def jobs_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

@@ -20,6 +20,7 @@ from bot.handlers import (
     upcoming_handler,
     expiring_handler,
     jobs_handler,
+    newcoins_handler,
     subscribe_handler,
     unsubscribe_handler,
     mysubs_handler,
@@ -110,6 +111,7 @@ class IntegratedBot:
         self.app.add_handler(CommandHandler("upcoming", upcoming_handler))
         self.app.add_handler(CommandHandler("expiring", expiring_handler))
         self.app.add_handler(CommandHandler("jobs", jobs_handler))
+        self.app.add_handler(CommandHandler("newcoins", newcoins_handler))
         self.app.add_handler(CommandHandler("subscribe", subscribe_handler))
         self.app.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
         self.app.add_handler(CommandHandler("mysubs", mysubs_handler))
@@ -222,13 +224,15 @@ class IntegratedBot:
     async def _start_scheduler_with_notifications(self):
         """Start scheduler with integrated notifications."""
         async def scheduled_job_with_notifications():
-            """Run scrapers then send group notifications for every new job."""
+            """Run scrapers then send group notifications for jobs and new coins."""
             logger.info("\n[SCHEDULED] Running periodic scrape...")
             result = await self.scheduler.run_all_scrapers()
 
+            db = SessionLocal()
+
+            # JOBS NOTIFICATIONS
             if result.get("new", 0) > 0:
                 logger.info(f"[SCHEDULED] {result['new']} new jobs — sending group notifications...")
-                db = SessionLocal()
                 from db.models import Job
 
                 new_jobs = db.query(Job).filter(
@@ -239,11 +243,24 @@ class IntegratedBot:
                 if new_jobs and self.notification_manager:
                     notify_result = await self.notification_manager.notify_all_new_jobs(new_jobs)
                     logger.info(
-                        f"[SCHEDULED] Notifications: {notify_result['total_sent']} sent, "
+                        f"[SCHEDULED] Job notifications: {notify_result['total_sent']} sent, "
                         f"{notify_result['total_failed']} failed"
                     )
 
-                db.close()
+            # COINS NOTIFICATIONS
+            if result.get("new_coins", 0) > 0:
+                logger.info(f"[SCHEDULED] {result['new_coins']} new coins — sending alert...")
+                from db.models import NewCoinListing
+
+                new_coins = db.query(NewCoinListing).filter(
+                    NewCoinListing.created_at >= result["timestamp"],
+                    NewCoinListing.is_active == True,
+                ).order_by(NewCoinListing.listed_date.desc()).limit(30).all()
+
+                if new_coins and self.notification_manager:
+                    await self.notification_manager.send_new_coins_alert(new_coins)
+
+            db.close()
 
         # START SCHEDULER IMMEDIATELY (don't wait for initial scrape)
         try:
@@ -268,21 +285,33 @@ class IntegratedBot:
         logger.info("\n[STARTUP] Running initial scrape in background...")
         result = await self.scheduler.run_all_scrapers()
 
+        db = SessionLocal()
+
         # Handle notifications if we got new jobs
         if result.get("new", 0) > 0:
             logger.info(f"[STARTUP] {result['new']} new jobs found, sending notifications...")
-            db = SessionLocal()
             from db.models import Job
             new_jobs = db.query(Job).filter(Job.created_at >= result["timestamp"]).all()
 
             if new_jobs and self.notification_manager:
                 notify_result = await self.notification_manager.notify_all_new_jobs(new_jobs)
-                logger.info(f"[STARTUP] Notifications: {notify_result['total_sent']} sent, "
+                logger.info(f"[STARTUP] Job notifications: {notify_result['total_sent']} sent, "
                            f"{notify_result['total_failed']} failed")
 
-            db.close()
+        # Handle notifications if we got new coins
+        if result.get("new_coins", 0) > 0:
+            logger.info(f"[STARTUP] {result['new_coins']} new coins found, sending alert...")
+            from db.models import NewCoinListing
+            new_coins = db.query(NewCoinListing).filter(
+                NewCoinListing.created_at >= result["timestamp"]
+            ).order_by(NewCoinListing.listed_date.desc()).limit(30).all()
 
-        logger.info(f"[STARTUP] Initial scrape complete: {result['new']} new, {result['updated']} updated")
+            if new_coins and self.notification_manager:
+                await self.notification_manager.send_new_coins_alert(new_coins)
+
+        db.close()
+
+        logger.info(f"[STARTUP] Initial scrape complete: {result['new']} jobs, {result['new_coins']} coins")
 
     async def stop(self):
         """Stop bot and scheduler gracefully."""

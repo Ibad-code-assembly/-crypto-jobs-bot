@@ -16,8 +16,13 @@ from scraper.greenhouse import GreenhouseScraper
 from scraper.crypto_jobs import CryptoJobsScraper
 from scraper.startup_jobs import StartupJobsScraper
 from scraper.twitter_jobs import TwitterJobsScraper
+from scraper.coin_listings import (
+    BinanceScraper, CoinbaseScraper, BybitScraper, OKXScraper,
+    BitgetScraper, KrakenScraper, KuCoinScraper, GateIOScraper,
+    MEXCScraper, HTXScraper
+)
 from db.database import SessionLocal
-from db.queries import insert_or_update_jobs, mark_expired_jobs, map_jobs_to_coins
+from db.queries import insert_or_update_jobs, mark_expired_jobs, map_jobs_to_coins, insert_or_update_new_coins
 from scraper.diff_tracker import save_diff
 
 logger = logging.getLogger(__name__)
@@ -29,7 +34,7 @@ class JobScheduler:
     def __init__(self):
         """Initialize scheduler with all scraper instances."""
         self.scheduler = AsyncIOScheduler()
-        self.scrapers = [
+        self.job_scrapers = [
             # Confirmed working — ordered fastest first
             CryptocurrencyJobsScraper(),   # cryptocurrencyjobs.co - 765 jobs (Algolia API)
             GreenhouseScraper(),           # greenhouse.io - 429 jobs (Coinbase, Ripple, Gemini…)
@@ -45,11 +50,24 @@ class JobScheduler:
             # Excluded: web3.career (Cloudflare), gitcoin.co / blockchainjobs.io (DNS fail),
             #           wellfound.com (DataDome CAPTCHA), coinmarketcap jobs (DNS fail)
         ]
-        logger.info(f"Initialized JobScheduler with {len(self.scrapers)} scrapers")
+        self.coin_scrapers = [
+            # 10 exchange coin listing scrapers
+            BinanceScraper(),
+            CoinbaseScraper(),
+            BybitScraper(),
+            OKXScraper(),
+            BitgetScraper(),
+            KrakenScraper(),
+            KuCoinScraper(),
+            GateIOScraper(),
+            MEXCScraper(),
+            HTXScraper(),
+        ]
+        logger.info(f"Initialized JobScheduler with {len(self.job_scrapers)} job scrapers + {len(self.coin_scrapers)} coin scrapers")
 
     async def run_all_scrapers(self) -> Dict:
         """
-        Run all scrapers and aggregate results.
+        Run all scrapers (jobs + coins) and aggregate results.
 
         Returns:
             {
@@ -57,23 +75,27 @@ class JobScheduler:
                 "updated": int,
                 "expired": int,
                 "mapped": int,
+                "new_coins": int,
                 "errors": list,
                 "timestamp": datetime,
                 "source_summary": dict
             }
         """
         logger.info(f"\n{'='*70}")
-        logger.info("SCRAPE RUN STARTED")
+        logger.info("SCRAPE RUN STARTED (JOBS + COINS)")
         logger.info('='*70)
 
         db = SessionLocal()
         all_jobs = []
+        all_coins = []
         errors = []
         source_jobs = {}
+        source_coins = {}
         timestamp = datetime.utcnow()
 
-        # Run all scrapers
-        for scraper in self.scrapers:
+        # ──── JOBS SCRAPING ────
+        logger.info("\n[PHASE 1] SCRAPING JOBS...")
+        for scraper in self.job_scrapers:
             try:
                 logger.info(f"\nScraping {scraper.source_site}...")
                 async with scraper:
@@ -94,8 +116,34 @@ class JobScheduler:
 
         logger.info(f"\n[AGGREGATION] Total jobs from all scrapers: {len(all_jobs)}")
 
+        # ──── COINS SCRAPING ────
+        logger.info("\n[PHASE 2] SCRAPING NEW COIN LISTINGS...")
+        for scraper in self.coin_scrapers:
+            try:
+                logger.info(f"\nScraping {scraper.source_site} for new coins...")
+                async with scraper:
+                    coins = await scraper.run()
+                    if coins:
+                        logger.info(f"[OK] {scraper.source_site}: Found {len(coins)} coins")
+                        all_coins.extend(coins)
+                        source_coins[scraper.source_site] = len(coins)
+                    else:
+                        logger.warning(f"[EMPTY] {scraper.source_site}: No coins found")
+                        source_coins[scraper.source_site] = 0
+
+            except Exception as e:
+                error_msg = f"{scraper.source_site}: {str(e)}"
+                logger.error(f"[ERROR] {error_msg}")
+                errors.append(error_msg)
+                source_coins[scraper.source_site] = None
+
+        logger.info(f"\n[AGGREGATION] Total coins from all exchanges: {len(all_coins)}")
+
         # Insert/update jobs with deduplication tracking
         new_count, updated_count, duplicate_count = insert_or_update_jobs(all_jobs, db)
+
+        # Insert/update coins with deduplication tracking
+        new_coins_count, updated_coins_count, duplicate_coins_count = insert_or_update_new_coins(all_coins, db)
 
         # Map jobs to coins
         try:
@@ -130,17 +178,23 @@ class JobScheduler:
                     logger.error(f"[ERROR] Marking expired for {source_site}: {str(e)}")
 
         logger.info(f"\n[SUMMARY]")
-        logger.info(f"  New jobs: {new_count}")
-        logger.info(f"  Updated jobs: {updated_count}")
-        logger.info(f"  Duplicates (same job, different sources): {duplicate_count}")
-        logger.info(f"  Mapped jobs: {mapped_count}")
-        logger.info(f"  Expired jobs: {expired_count}")
-        logger.info(f"  Errors: {len(errors)}")
+        logger.info(f"  JOBS:")
+        logger.info(f"    New: {new_count}")
+        logger.info(f"    Updated: {updated_count}")
+        logger.info(f"    Duplicates: {duplicate_count}")
+        logger.info(f"    Mapped: {mapped_count}")
+        logger.info(f"    Expired: {expired_count}")
+        logger.info(f"  COINS:")
+        logger.info(f"    New listings: {new_coins_count}")
+        logger.info(f"    Updated listings: {updated_coins_count}")
+        logger.info(f"    Multi-exchange: {duplicate_coins_count}")
+        logger.info(f"  ERRORS: {len(errors)}")
 
         # Space-saving summary
-        dedup_savings = duplicate_count
-        if dedup_savings > 0:
-            logger.info(f"\n[DEDUP] ✅ Saved {dedup_savings} entries by detecting same job from multiple sources")
+        if duplicate_count > 0:
+            logger.info(f"\n[DEDUP-JOBS] ✅ Saved {duplicate_count} entries by detecting same job from multiple sources")
+        if duplicate_coins_count > 0:
+            logger.info(f"[DEDUP-COINS] ✅ Detected {duplicate_coins_count} coins listed on multiple exchanges")
 
         # Save diff
         try:
@@ -163,9 +217,11 @@ class JobScheduler:
             "duplicates": duplicate_count,
             "expired": expired_count,
             "mapped": mapped_count,
+            "new_coins": new_coins_count,
             "errors": errors,
             "timestamp": timestamp,
             "source_summary": source_jobs,
+            "coin_summary": source_coins,
         }
 
     async def start(self, interval_minutes: int = 60):

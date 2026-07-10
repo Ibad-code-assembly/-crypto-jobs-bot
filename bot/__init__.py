@@ -4,6 +4,7 @@ from bot.handlers import (
     new_handler,
     upcoming_handler,
     expiring_handler,
+    newcoins_handler,
     subscribe_handler,
     unsubscribe_handler,
     mysubs_handler,
@@ -13,6 +14,7 @@ from bot.formatters import (
     format_start_message,
     format_job_card,
     format_jobs_list,
+    format_new_coins,
 )
 
 __all__ = [
@@ -21,6 +23,7 @@ __all__ = [
     "new_handler",
     "upcoming_handler",
     "expiring_handler",
+    "newcoins_handler",
     "subscribe_handler",
     "unsubscribe_handler",
     "mysubs_handler",
@@ -28,4 +31,5 @@ __all__ = [
     "format_start_message",
     "format_job_card",
     "format_jobs_list",
+    "format_new_coins",
 ]
