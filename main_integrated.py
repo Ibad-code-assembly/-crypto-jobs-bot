@@ -255,10 +255,20 @@ class IntegratedBot:
                 new_coins = db.query(NewCoinListing).filter(
                     NewCoinListing.created_at >= result["timestamp"],
                     NewCoinListing.is_active == True,
-                ).order_by(NewCoinListing.listed_date.desc()).limit(30).all()
+                ).order_by(NewCoinListing.listed_date.desc()).all()
 
                 if new_coins and self.notification_manager:
-                    await self.notification_manager.send_new_coins_alert(new_coins)
+                    # Group by symbol for display
+                    coins_dict = {}
+                    for coin in new_coins[:30]:
+                        if coin.coin_symbol not in coins_dict:
+                            coins_dict[coin.coin_symbol] = []
+                        coins_dict[coin.coin_symbol].append({
+                            "exchange": coin.exchange,
+                            "listed_date": coin.listed_date,
+                            "trading_pairs": coin.trading_pairs,
+                        })
+                    await self.notification_manager.send_new_coins_alert(coins_dict)
 
             db.close()
 
@@ -304,10 +314,20 @@ class IntegratedBot:
             from db.models import NewCoinListing
             new_coins = db.query(NewCoinListing).filter(
                 NewCoinListing.created_at >= result["timestamp"]
-            ).order_by(NewCoinListing.listed_date.desc()).limit(30).all()
+            ).order_by(NewCoinListing.listed_date.desc()).all()
 
             if new_coins and self.notification_manager:
-                await self.notification_manager.send_new_coins_alert(new_coins)
+                # Group by symbol for display
+                coins_dict = {}
+                for coin in new_coins[:30]:
+                    if coin.coin_symbol not in coins_dict:
+                        coins_dict[coin.coin_symbol] = []
+                    coins_dict[coin.coin_symbol].append({
+                        "exchange": coin.exchange,
+                        "listed_date": coin.listed_date,
+                        "trading_pairs": coin.trading_pairs,
+                    })
+                await self.notification_manager.send_new_coins_alert(coins_dict)
 
         db.close()
 

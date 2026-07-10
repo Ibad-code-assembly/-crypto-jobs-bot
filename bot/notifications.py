@@ -186,37 +186,38 @@ class NotificationManager:
     # New coin listing alerts
     # ------------------------------------------------------------------
 
-    async def send_new_coins_alert(self, new_coins: List) -> bool:
+    async def send_new_coins_alert(self, new_coins_dict: Dict) -> bool:
         """
         Send alert about new coins listed on exchanges.
-        Grouped by exchange.
+        Shows: Coin -> Exchange with date and pairs.
         """
-        if not self.group_chat_id or not new_coins:
+        if not self.group_chat_id or not new_coins_dict:
             return False
 
-        # Group coins by exchange
-        by_exchange: Dict[str, List] = {}
-        for coin in new_coins[:30]:  # Limit to 30 most recent
-            for exchange in coin.exchanges.split(","):
-                by_exchange.setdefault(exchange, []).append(coin)
+        # Count total listings
+        total_listings = sum(len(v) for v in new_coins_dict.values())
 
         lines = [
-            f"🪙 <b>New Coin Listings!</b>  -  {len(new_coins)} coins across {len(by_exchange)} exchanges\n"
+            f"🪙 <b>New Coin Listings!</b>  -  {len(new_coins_dict)} coins, {total_listings} total listings\n"
         ]
 
-        shown = 0
-        for exchange in sorted(by_exchange.keys()):
-            coins_on_ex = by_exchange[exchange]
-            lines.append(f"<b>{exchange}</b>: {len(coins_on_ex)} coins")
-            for coin in coins_on_ex[:5]:  # Show first 5 per exchange
-                pairs = coin.trading_pairs.split(",")[:2] if coin.trading_pairs else ["USDT"]
-                lines.append(f"  • <b>{coin.coin_symbol}</b> ({', '.join(pairs)})")
-                shown += 1
+        shown_coins = 0
+        for symbol, listings in list(new_coins_dict.items())[:10]:  # Show top 10 coins
+            lines.append(f"<b>{symbol}</b>")
+            for listing in listings:
+                exchange = listing.get("exchange", "?")
+                date_obj = listing.get("listed_date")
+                pairs = listing.get("trading_pairs", "USDT")
 
-            if len(coins_on_ex) > 5:
-                lines.append(f"  ...and {len(coins_on_ex) - 5} more")
+                date_str = date_obj.strftime("%b %d") if date_obj else "Recently"
+                lines.append(f"  📍 {exchange}: {pairs} ({date_str})")
 
-        lines.append(f"\n💰 Use <b>/newcoins</b> to see all new listings!")
+            shown_coins += 1
+
+        if len(new_coins_dict) > 10:
+            lines.append(f"\n  ...and {len(new_coins_dict) - 10} more coins")
+
+        lines.append(f"\n💰 Use <b>/newcoins</b> to see all listings!")
 
         message = "\n".join(lines)
 
@@ -227,7 +228,7 @@ class NotificationManager:
                 parse_mode="HTML",
                 disable_web_page_preview=True,
             )
-            logger.info(f"[NOTIFY] 🪙 New coins alert: {len(new_coins)} coins across {len(by_exchange)} exchanges")
+            logger.info(f"[NOTIFY] 🪙 New coins alert: {len(new_coins_dict)} coins, {total_listings} listings")
             return True
         except Exception as e:
             logger.error(f"[NOTIFY] Failed to send new coins alert: {e}")

@@ -341,36 +341,35 @@ def format_coin_statistics(coin_counts: Dict[str, int]) -> str:
     return "\n".join(lines)
 
 
-def format_new_coins(coins: List) -> List[str]:
+def format_new_coins(coins_dict: Dict) -> List[str]:
     """
-    /newcoins — Latest coins listed on exchanges.
+    /newcoins — Latest coins listed on exchanges with dates per exchange.
     Example:
         🪙 AIXBT
-        Exchanges: Binance, Coinbase
-        Pairs: USDT
+        📍 Binance: USDT (May 09 14:30)
+        📍 Coinbase: USD (May 09 15:45)
     """
-    if not coins:
+    if not coins_dict:
         return ["📉 No new coins listed on exchanges yet. Check back soon."]
 
     pages: List[str] = []
     buf: List[str] = [
-        f"<b>🪙 New Coin Listings</b>  -  {len(coins)} coins\n",
-        "<i>Latest coins listed across 10 major exchanges</i>\n",
+        f"<b>🪙 New Coin Listings</b>  -  {len(coins_dict)} coins\n",
+        "<i>Latest coins with listing dates per exchange</i>\n",
     ]
 
-    for coin in coins:
-        symbol = coin.coin_symbol
-        exchanges = coin.exchanges.split(",") if coin.exchanges else ["Unknown"]
-        pairs = coin.trading_pairs.split(",") if coin.trading_pairs else ["USDT"]
-        date_str = coin.listed_date.strftime("%b %d %H:%M") if coin.listed_date else "Recently"
+    for symbol, listings in coins_dict.items():
+        lines = [f"<b>{symbol}</b>"]
 
-        lines = [
-            f"<b>{symbol}</b>",
-            f"  Exchanges: {', '.join(exchanges)}",
-            f"  Pairs: {', '.join(pairs)}",
-            f"  Listed: {date_str}",
-            ""
-        ]
+        for listing in listings:
+            exchange = listing.get("exchange", "?")
+            date_obj = listing.get("listed_date")
+            pairs = listing.get("trading_pairs", "USDT")
+
+            date_str = date_obj.strftime("%b %d %H:%M") if date_obj else "Recently"
+            lines.append(f"  📍 <b>{exchange}</b>: {pairs} ({date_str})")
+
+        lines.append("")
 
         content = "\n".join(lines)
         if len("\n".join(buf)) + len(content) > _LIMIT:
