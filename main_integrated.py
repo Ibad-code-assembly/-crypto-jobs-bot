@@ -21,6 +21,8 @@ from bot.handlers import (
     expiring_handler,
     jobs_handler,
     newcoins_handler,
+    newlistings_handler,
+    listings30_handler,
     subscribe_handler,
     unsubscribe_handler,
     mysubs_handler,
@@ -112,6 +114,8 @@ class IntegratedBot:
         self.app.add_handler(CommandHandler("expiring", expiring_handler))
         self.app.add_handler(CommandHandler("jobs", jobs_handler))
         self.app.add_handler(CommandHandler("newcoins", newcoins_handler))
+        self.app.add_handler(CommandHandler("newlistings", newlistings_handler))
+        self.app.add_handler(CommandHandler("listings30", listings30_handler))
         self.app.add_handler(CommandHandler("subscribe", subscribe_handler))
         self.app.add_handler(CommandHandler("unsubscribe", unsubscribe_handler))
         self.app.add_handler(CommandHandler("mysubs", mysubs_handler))

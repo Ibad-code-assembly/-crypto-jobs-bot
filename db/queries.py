@@ -453,3 +453,72 @@ def get_job_count_by_coin(db: Session) -> Dict[str, int]:
     except Exception as e:
         logger.error(f"Error getting job count by coin: {str(e)}")
         return {}
+
+
+def get_coins_listed_in_period(start_days_ago: int, end_days_ago: int = 0, db: Session = None) -> List:
+    """
+    Get coin listings from a specific period.
+    start_days_ago: How many days ago was the start (e.g., 30 for 30 days ago)
+    end_days_ago: How many days ago was the end (e.g., 0 for today)
+
+    Example: get_coins_listed_in_period(30, 0) = coins listed between 30-0 days ago
+    Example: get_coins_listed_in_period(31, 30) = coins listed between 31-30 days ago (the 30-day mark)
+    """
+    if db is None:
+        from .database import SessionLocal
+        db = SessionLocal()
+
+    from .models import NewCoinListing
+
+    now = datetime.utcnow()
+    start_cutoff = now - timedelta(days=start_days_ago)
+    end_cutoff = now - timedelta(days=end_days_ago)
+
+    return db.query(NewCoinListing).filter(
+        NewCoinListing.listed_date >= end_cutoff,
+        NewCoinListing.listed_date <= start_cutoff,
+        NewCoinListing.is_active == True,
+    ).order_by(NewCoinListing.listed_date.desc()).all()
+
+
+def get_coins_listed_today(db: Session = None) -> List:
+    """Get coins listed in the last 24 hours."""
+    if db is None:
+        from .database import SessionLocal
+        db = SessionLocal()
+
+    from .models import NewCoinListing
+
+    cutoff = datetime.utcnow() - timedelta(hours=24)
+    return db.query(NewCoinListing).filter(
+        NewCoinListing.listed_date >= cutoff,
+        NewCoinListing.is_active == True,
+    ).order_by(NewCoinListing.listed_date.desc()).all()
+
+
+def get_coins_by_listing_date_range(days: int = 7, db: Session = None) -> Dict[str, List]:
+    """
+    Get coins listed in last N days, grouped by date.
+    Returns: {date_str: [coin_listings]}
+    """
+    if db is None:
+        from .database import SessionLocal
+        db = SessionLocal()
+
+    from .models import NewCoinListing
+
+    cutoff = datetime.utcnow() - timedelta(days=days)
+    listings = db.query(NewCoinListing).filter(
+        NewCoinListing.listed_date >= cutoff,
+        NewCoinListing.is_active == True,
+    ).order_by(NewCoinListing.listed_date.desc()).all()
+
+    # Group by date
+    grouped = {}
+    for listing in listings:
+        date_str = listing.listed_date.strftime("%b %d, %Y") if listing.listed_date else "Unknown"
+        if date_str not in grouped:
+            grouped[date_str] = []
+        grouped[date_str].append(listing)
+
+    return grouped

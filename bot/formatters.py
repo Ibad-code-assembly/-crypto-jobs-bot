@@ -380,6 +380,92 @@ def format_new_coins(coins_dict: Dict) -> List[str]:
     return pages
 
 
+def format_coin_listings(listings: List, title: str = "New Coin Listings") -> List[str]:
+    """
+    Format coin exchange listings grouped by symbol.
+    Shows which exchange listed each coin and when.
+    """
+    if not listings:
+        return [f"{title}\n\n📉 No new coin listings found."]
+
+    # Group by symbol
+    grouped: Dict[str, List] = {}
+    for listing in listings:
+        symbol = listing.coin_symbol
+        if symbol not in grouped:
+            grouped[symbol] = []
+        grouped[symbol].append(listing)
+
+    pages: List[str] = []
+    buf: List[str] = [
+        f"<b>🪙 {title}</b>  -  {len(grouped)} coins\n",
+        "<i>Listed on exchanges</i>\n",
+    ]
+
+    for symbol in sorted(grouped.keys()):
+        coin_listings = grouped[symbol]
+        header = f"\n<b>{symbol}</b>  ({len(coin_listings)} exchange{'s' if len(coin_listings) != 1 else ''})"
+
+        if len("\n".join(buf)) + len(header) > _LIMIT:
+            _flush(pages, buf)
+        buf.append(header)
+
+        for listing in coin_listings:
+            exchange = listing.exchange
+            pairs = listing.trading_pairs or "USDT"
+            date_str = listing.listed_date.strftime("%b %d, %H:%M") if listing.listed_date else "Recently"
+            entry = f"  📍 <b>{exchange}</b>: {pairs} ({date_str})"
+
+            if len("\n".join(buf)) + len(entry) > _LIMIT:
+                _flush(pages, buf)
+            buf.append(entry)
+
+    _flush(pages, buf)
+    return pages
+
+
+def format_coin_listings_by_date(grouped_listings: Dict[str, List], title: str = "Coin Listings") -> List[str]:
+    """
+    Format coin listings grouped by date.
+    groupedlistings: {date_str: [listings]}
+    """
+    if not grouped_listings:
+        return [f"{title}\n\n📉 No coin listings found for this period."]
+
+    pages: List[str] = []
+    buf: List[str] = [
+        f"<b>{title}</b>\n",
+        "<i>Grouped by date</i>\n",
+    ]
+
+    for date_str in sorted(grouped_listings.keys(), reverse=True):
+        listings = grouped_listings[date_str]
+        header = f"\n<b>{date_str}</b>  -  {len(listings)} listing{'s' if len(listings) != 1 else ''}"
+
+        if len("\n".join(buf)) + len(header) > _LIMIT:
+            _flush(pages, buf)
+        buf.append(header)
+
+        # Group by symbol within this date
+        by_symbol: Dict[str, List] = {}
+        for listing in listings:
+            if listing.coin_symbol not in by_symbol:
+                by_symbol[listing.coin_symbol] = []
+            by_symbol[listing.coin_symbol].append(listing)
+
+        for symbol in sorted(by_symbol.keys()):
+            coin_listings = by_symbol[symbol]
+            exchanges = ", ".join([f"{l.exchange}" for l in coin_listings])
+            entry = f"  🪙 <b>{symbol}</b>: {exchanges}"
+
+            if len("\n".join(buf)) + len(entry) > _LIMIT:
+                _flush(pages, buf)
+            buf.append(entry)
+
+    _flush(pages, buf)
+    return pages
+
+
 def format_start_message() -> str:
     return (
         "<b>Crypto Jobs Bot</b>\n\n"
@@ -392,6 +478,8 @@ def format_start_message() -> str:
         "/upcoming  -  Jobs posted in the last 7 days, grouped by day (with <b>date</b>)\n"
         "/expiring  -  Jobs expiring in the next 30 days\n"
         "/newcoins  -  New coins listed on exchanges (auto-updated every 4 hours)\n"
+        "/newlistings  -  Latest coins listed (last 7 days)\n"
+        "/listings30  -  Coins listed around 30 days ago\n"
         "/subscribe ETH  -  Get notified when new ETH jobs appear\n"
         "/unsubscribe ETH  -  Stop ETH notifications\n"
         "/mysubs  -  See your active subscriptions\n\n"

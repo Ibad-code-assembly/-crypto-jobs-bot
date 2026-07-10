@@ -14,6 +14,10 @@ from db.queries import (
     remove_subscription,
     get_user_subscriptions,
     get_newest_coins,
+    get_new_coins,
+    get_coins_listed_in_period,
+    get_coins_by_listing_date_range,
+    get_coins_listed_today,
 )
 from bot.formatters import (
     format_start_message,
@@ -24,6 +28,8 @@ from bot.formatters import (
     format_expiring_jobs,
     format_subscriptions,
     format_jobs_by_coin,
+    format_coin_listings,
+    format_coin_listings_by_date,
 )
 
 logger = logging.getLogger(__name__)
@@ -505,3 +511,77 @@ async def unknown_command_handler(update: Update, context: ContextTypes.DEFAULT_
 
     except Exception as e:
         logger.error(f"Error in unknown_command_handler: {str(e)}")
+
+
+async def newlistings_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handle /newlistings command — coins listed in last 7 days on exchanges."""
+    try:
+        logger.info("[HANDLER] newlistings_handler called")
+        db = SessionLocal()
+
+        try:
+            # Get coins listed in last 7 days, grouped by date
+            listings = get_coins_by_listing_date_range(days=7, db=db)
+
+            if not listings:
+                await update.message.reply_text(
+                    "📉 No new coin listings in the last 7 days. Check back soon!",
+                    parse_mode=ParseMode.HTML
+                )
+                return
+
+            messages = format_coin_listings_by_date(listings, "New Coin Listings (Last 7 Days)")
+            for msg in messages:
+                await update.message.reply_text(
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                )
+                await asyncio.sleep(0.3)
+
+            logger.info("[HANDLER] newlistings_handler completed successfully")
+
+        finally:
+            db.close()
+
+    except Exception as e:
+        logger.error(f"Error in newlistings_handler: {str(e)}", exc_info=True)
+        try:
+            await update.message.reply_text("Sorry, an error occurred. Please try again.")
+        except Exception:
+            logger.error("Failed to send error message")
+
+
+async def listings30_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handle /listings30 command — coins listed around 30 days ago on exchanges."""
+    try:
+        logger.info("[HANDLER] listings30_handler called")
+        db = SessionLocal()
+
+        try:
+            # Get coins listed between 31-29 days ago (around 30 days)
+            listings = get_coins_listed_in_period(start_days_ago=31, end_days_ago=29, db=db)
+
+            if not listings:
+                await update.message.reply_text(
+                    "📜 No coin listings found around 30 days ago.",
+                    parse_mode=ParseMode.HTML
+                )
+                return
+
+            messages = format_coin_listings(listings, "Coin Listings (~30 Days Ago)")
+            for msg in messages:
+                await update.message.reply_text(
+                    msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+                )
+                await asyncio.sleep(0.3)
+
+            logger.info("[HANDLER] listings30_handler completed successfully")
+
+        finally:
+            db.close()
+
+    except Exception as e:
+        logger.error(f"Error in listings30_handler: {str(e)}", exc_info=True)
+        try:
+            await update.message.reply_text("Sorry, an error occurred. Please try again.")
+        except Exception:
+            logger.error("Failed to send error message")
